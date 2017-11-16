@@ -1,5 +1,5 @@
 <?php
-include ('../html/header.hmtl');
-
-include ('../html/footer.hmtl');
+include ('../html/header.html');
+include ('../html/login.html');
+include ('../html/footer.html');
 ?>
