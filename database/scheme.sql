@@ -31,5 +31,5 @@ CREATE TABLE ListItem (
   todo_list STRING REFERENCES TodoList (title),
   project STRING REFERENCES Project (title),
   user STRING REFERENCES User (username),
-  PRIMARY KEY (task, project, todo_list, user)
+  PRIMARY KEY (task, project, todo_list)
 );
