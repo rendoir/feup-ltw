@@ -3,10 +3,13 @@
     private $db;
 
     public function __construct($path) {
-      phpinfo();
-      ?>
-      <p><?php echo 'sqlite:' . $path; ?></p>
-      <?php
+      try {
+        $pdo_path = 'sqlite:' . $path;
+        $this->db = new PDO($pdo_path);
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      } catch (PDOException $e) {
+        die($e->getMessage());
+      }
       $this->db = new PDO('sqlite:' . $path);
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
