@@ -26,7 +26,7 @@
     public function addUser($username, $password) {
       $stmt = $this->db->prepare('INSERT INTO user (username, password)
                                   VALUES (?, ?)');
-      $stmt->execute(array($name, $address));
+      $stmt->execute(array($username, $password));
     }
   }
 ?>
