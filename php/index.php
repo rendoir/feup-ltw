@@ -1,9 +1,10 @@
 <?php
 include ('../html/header.html');
 include ('../php/database.php');
-include ('../html/login.html');
+//include ('../html/login.html');
 
 $db = new DataBase('../database/todo.db');
+$db->addUser('timon', 'hakunamatata');
 //$db->checkLogin('nao', 'existe');
 $db->checkLogin('timon', 'hakunamatata');
 
