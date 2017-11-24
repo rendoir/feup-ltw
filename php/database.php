@@ -1,4 +1,9 @@
 <?php
+
+/*
+  This file is responsible for the database connection, querying and updating.
+*/
+
   class DataBase {
     private $db;
 
@@ -95,4 +100,5 @@
       $stmt->execute(array($item));
     }
   }
+  
 ?>
