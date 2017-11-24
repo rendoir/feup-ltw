@@ -16,20 +16,19 @@ CREATE TABLE Contributes (
 );
 
 CREATE TABLE TodoList (
+  list_id INTEGER PRIMARY KEY AUTOINCREMENT,
   title STRING,
   category STRING,
   color STRING,
-  project STRING REFERENCES Project (title),
-  PRIMARY KEY (project, title)
+  project STRING REFERENCES Project (title)
 );
 
 CREATE TABLE ListItem (
+  item_id INTEGER PRIMARY KEY AUTOINCREMENT,
   task STRING,
   is_completed BOOLEAN DEFAULT(0),
   due_date INTEGER,
   color STRING,
-  todo_list STRING REFERENCES TodoList (title),
-  project STRING REFERENCES Project (title),
-  user STRING REFERENCES User (username),
-  PRIMARY KEY (task, project, todo_list)
+  todo_list INTEGER REFERENCES TodoList (list_id),
+  user STRING REFERENCES User (username)
 );
