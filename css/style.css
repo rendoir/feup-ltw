@@ -1,0 +1,105 @@
+body {
+  width: 60em;
+  margin: 0 auto;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+}
+
+body > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  grid-area: header;
+}
+
+#info {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  padding: 1em 0;
+}
+
+#info a {
+  text-decoration: none;
+  color: black;
+}
+
+#info > a {
+  padding: 0 1em;
+  font-size: 1.5em;
+  align-self: flex-end;
+}
+
+#info img {
+  width: 100px;
+}
+
+#info h1 {
+  font-size: 5em;
+  font-family: 'Oxygen', sans-serif;
+  margin: 0;
+  flex-grow: 1;
+}
+
+#user  {
+  padding: 1em 0 1em 1em;
+  border-left: 1px dotted #333;
+}
+
+#user form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+#user input {
+  padding: 0.1em;
+}
+
+#user div {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+}
+
+#user a {
+  text-decoration: none;
+  color: white;
+  flex-grow: 1;
+  text-align: center;
+}
+
+#space{
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+  background-color: Black;
+  color: white;
+  padding: 1em;
+  margin-top: 1em;
+}
+
+table {
+  background-color: WhiteSmoke;
+  width: 100%;
+  margin-top: 1em;
+}
+
+th, td {
+  padding: 1em;
+  text-align: center;
+}
+
+th:first-child, td:first-child {
+  text-align: left;
+}
+
+footer {
+  margin: 1em 0;
+}
