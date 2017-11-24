@@ -2,8 +2,16 @@
   class DataBase {
     private $db;
 
-    public function __constructor($path) {
-      $this->db = new PDO($path);
+    public function __construct($path) {
+      try {
+        $pdo_path = 'sqlite:' . $path;
+        $this->db = new PDO($pdo_path);
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      } catch (PDOException $e) {
+        die($e->getMessage());
+      }
+      $this->db = new PDO('sqlite:' . $path);
+      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public function checkLogin($username, $password) {
@@ -16,7 +24,9 @@
     }
 
     public function addUser($username, $password) {
-
+      $stmt = $this->db->prepare('INSERT INTO user (username, password)
+                                  VALUES (?, ?)');
+      $stmt->execute(array($username, $password));
     }
   }
 ?>
