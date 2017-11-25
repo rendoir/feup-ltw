@@ -1,3 +1,9 @@
+<?php
+  include_once('php/session.php');
+  include_once('php/database.php');
+?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
