@@ -8,11 +8,13 @@
     private static $db = NULL;
 
     public static function init() {
-      try {
-        self::$db = new PDO('sqlite:../sqlite/todo.db');
-        self::$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-      } catch (PDOException $e) {
-        die($e->getMessage());
+      if(self::$db == NULL) {
+        try {
+          self::$db = new PDO('sqlite:../sqlite/todo.db');
+          self::$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+          die($e->getMessage());
+        }
       }
     }
 
@@ -65,8 +67,10 @@
     public static function addProject($project, $user) {
       $stmt = self::$db->prepare('INSERT INTO Project (title, project_manager)
                                   VALUES (?, ?);');
-      $stmt->execute(array($project, $user));
-      self::addUserToProject($user, $project);
+      $result = $stmt->execute(array($project, $user));
+      if($result)
+        self::addUserToProject($user, $project);
+      return $result;
     }
 
     public static function addUserToProject($user, $project) {

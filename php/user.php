@@ -5,7 +5,6 @@
   It's responsible for displaying projects, lists and list items, as well as creating new ones and editing them.
 */
 
-include_once('../html/header.html');
 include_once('session.php');
 include_once('database.php');
 
@@ -14,12 +13,15 @@ include_once('database.php');
 $user = "timon";
 
 if($user == NULL)
-  header('HTTP/1.1 403 Forbidden');
+  die("Unauthorized access!");
 
 //TODO remove this hardcoded shit when we have buttons!!!
 DataBase::addUser("timon", "hakunamatata");
 DataBase::addProject("LTW", "timon");
 DataBase::addProject("RCOM", "timon");
+
+
+include_once('../html/header.html');
 
 function displayProjects($user) {
   ?>
