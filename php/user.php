@@ -8,17 +8,17 @@
 include_once('session.php');
 include_once('database.php');
 
-//TODO remove this hardcoded shit when we have buttons!!!
+//TODO remove this hardcoded when we have buttons!!!
 //$user = getCurrentUser();
 $user = "timon";
 
 if($user == NULL)
   die("Unauthorized access!");
 
-//TODO remove this hardcoded shit when we have buttons!!!
-DataBase::addUser("timon", "hakunamatata");
+//TODO remove this hardcoded when we have buttons!!!
+/*DataBase::addUser("timon", "hakunamatata");
 DataBase::addProject("LTW", "timon");
-DataBase::addProject("RCOM", "timon");
+DataBase::addProject("RCOM", "timon");*/
 
 
 include_once('../html/header.html');

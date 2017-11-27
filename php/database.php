@@ -10,7 +10,7 @@
     public static function init() {
       if(self::$db == NULL) {
         try {
-          self::$db = new PDO('sqlite:../sqlite/todo.db');
+          self::$db = new PDO('sqlite:' . ROOT . '/sqlite/todo.db');
           self::$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
           die($e->getMessage());
@@ -68,15 +68,15 @@
       $stmt = self::$db->prepare('INSERT INTO Project (title, project_manager)
                                   VALUES (?, ?);');
       $result = $stmt->execute(array($project, $user));
-      if($result)
-        self::addUserToProject($user, $project);
+      if($result != FALSE)
+        $result = self::addUserToProject($user, $project);
       return $result;
     }
 
     public static function addUserToProject($user, $project) {
       $stmt = self::$db->prepare('INSERT INTO Contributes (user, project)
                                   VALUES (?, ?);');
-      $stmt->execute(array($user, $project));
+      return $stmt->execute(array($user, $project));
     }
 
     public static function addToDoList($title, $project, $category, $color) {

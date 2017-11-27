@@ -10,7 +10,7 @@ function addProjectHandler() {
   let add_project = document.getElementById("add_project");
   add_project.addEventListener("click", function(event) {
     //TODO get project title from user
-    let project_title = "TEST_PROJECT";
+    let project = "TEST_PROJECT";
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
@@ -19,14 +19,14 @@ function addProjectHandler() {
         let project_list = document.getElementById("project_list");
         let new_project_node = document.createElement("li");
         new_project_node.classList.add('project');
-        new_project_node.innerHTML = project_title;
+        new_project_node.innerHTML = project;
         project_list.appendChild(new_project_node);
       }
     });
 
     request.open('POST', '../php/actions/action_add_project.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send(encodeForAjax({project: project_title}));
+    request.send(encodeForAjax({project: project}));
     event.preventDefault();
     event.stopPropagation();
   });
