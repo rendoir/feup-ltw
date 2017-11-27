@@ -9,14 +9,15 @@
 
     public static function init() {
       try {
-        self::$db = new PDO('sqlite:sqlite/todo.db');
+        self::$db = new PDO('sqlite:../sqlite/todo.db');
+        self::$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
       } catch (PDOException $e) {
         die($e->getMessage());
       }
     }
 
     public static function checkLogin($username, $password) {
-      $stmt = $this->db->prepare('SELECT *
+      $stmt = self::$db->prepare('SELECT *
                                   FROM User
                                   WHERE username == ? AND password == ?;');
       $stmt->execute(array($username, $password));
@@ -24,21 +25,21 @@
     }
 
     public static function addUser($username, $password) {
-      $stmt = $this->db->prepare('INSERT INTO User (username, password)
+      $stmt = self::$db->prepare('INSERT INTO User (username, password)
                                   VALUES (?, ?);');
       $stmt->execute(array($username, $password));
     }
 
     public static function getUserProjects($username) {
-      $stmt = $this->db->prepare('SELECT title
+      $stmt = self::$db->prepare('SELECT project
                                   FROM Contributes
-                                  WHERE username == ?;');
+                                  WHERE user == ?;');
       $stmt->execute(array($username));
       return $stmt->fetchAll();
     }
 
     public static function getToDoListsOfProject($project) {
-      $stmt = $this->db->prepare('SELECT *
+      $stmt = self::$db->prepare('SELECT *
                                   FROM TodoList
                                   WHERE project == ?;');
       $stmt->execute(array($project));
@@ -46,7 +47,7 @@
     }
 
     public static function getListItemsOfList($todo_list) {
-      $stmt = $this->db->prepare('SELECT *
+      $stmt = self::$db->prepare('SELECT *
                                   FROM ListItem
                                   WHERE todo_list == ?;');
       $stmt->execute(array($todo_list));
@@ -54,46 +55,47 @@
     }
 
     public static function getListItemsAssignedToUser($user) {
-      $stmt = $this->db->prepare('SELECT *
+      $stmt = self::$db->prepare('SELECT *
                                   FROM ListItem
                                   WHERE user == ?;');
       $stmt->execute(array($user));
       return $stmt->fetchAll();
     }
 
-    public static function addProject($project) {
-      $stmt = $this->db->prepare('INSERT INTO Project (title)
-                                  VALUES (?);');
-      $stmt->execute(array($project));
+    public static function addProject($project, $user) {
+      $stmt = self::$db->prepare('INSERT INTO Project (title, project_manager)
+                                  VALUES (?, ?);');
+      $stmt->execute(array($project, $user));
+      self::addUserToProject($user, $project);
     }
 
     public static function addUserToProject($user, $project) {
-      $stmt = $this->db->prepare('INSERT INTO Contributes (user, project)
+      $stmt = self::$db->prepare('INSERT INTO Contributes (user, project)
                                   VALUES (?, ?);');
       $stmt->execute(array($user, $project));
     }
 
     public static function addToDoList($title, $project, $category, $color) {
-      $stmt = $this->db->prepare('INSERT INTO TodoList (title, category, color, project)
+      $stmt = self::$db->prepare('INSERT INTO TodoList (title, category, color, project)
                                   VALUES (?, ?, ?, ?);');
       $stmt->execute(array($title, $category, $color, $project));
     }
 
     public static function addListItem($task, $due_date, $color, $todo_list) {
-      $stmt = $this->db->prepare('INSERT INTO ListItem (task, due_date, color, todo_list)
+      $stmt = self::$db->prepare('INSERT INTO ListItem (task, due_date, color, todo_list)
                                   VALUES (?, ?, ?, ?);');
       $stmt->execute(array($task, $due_date, $color, $todo_list));
     }
 
     public static function assignListItemToUser($item, $user) {
-      $stmt = $this->db->prepare('UPDATE ListItem
+      $stmt = self::$db->prepare('UPDATE ListItem
                                   SET user = ?
                                   WHERE item_id == ?;');
       $stmt->execute(array($user, $item));
     }
 
     public static function completedListItem($item) {
-      $stmt = $this->db->prepare('UPDATE ListItem
+      $stmt = self::$db->prepare('UPDATE ListItem
                                   SET is_completed = 1
                                   WHERE item_id == ?;');
       $stmt->execute(array($item));

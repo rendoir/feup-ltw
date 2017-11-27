@@ -6,7 +6,8 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Project (
-  title STRING PRIMARY KEY
+  title STRING PRIMARY KEY,
+  project_manager STRING REFERENCES User (username)
 );
 
 CREATE TABLE Contributes (
