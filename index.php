@@ -1,10 +1,8 @@
 <?php
-  define("ROOT", $_SERVER["DOCUMENT_ROOT"]);
-
   include_once('php/session.php');
   include_once('php/database.php');
+  Session::initSession();
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -28,14 +26,14 @@
         <input type="button" id="change_to_login" value="Login">
         <input type="button" id="change_to_register" value="Register">
         <section id="login">
-           <form action="action_login.php" method="post">
+           <form action="php/actions/action_login.php" method="post">
              <input type="text" placeholder="username" name="username">
              <input type="password" placeholder="password" name="password">
              <input type="submit" value="Login">
            </form>
          </section>
          <section id="register">
-            <form action="action_register.php" method="post">
+            <form action="php/actions/action_register.php" method="post">
               <input type="text" placeholder="username" name="username">
               <input type="password" placeholder="password" name="password">
               <input type="submit" value="Register">

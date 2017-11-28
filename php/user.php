@@ -8,9 +8,8 @@
 include_once('session.php');
 include_once('database.php');
 
-//TODO remove this hardcoded when we have buttons!!!
-//$user = getCurrentUser();
-$user = "timon";
+Session::initSession();
+$user = Session::getCurrentUser();
 
 if($user == NULL)
   die("Unauthorized access!");
