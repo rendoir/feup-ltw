@@ -17,19 +17,22 @@ header img {
   display: none;
 }
 
-#user input{
+#user input {
   text-decoration: none;
   background-color: transparent;
   border: solid;
   border-color: black;
   padding: 1em;
   width: 7.5em;
+  margin: 0;
 }
 
-#user form {
+#user form input {
   display: flex;
   flex-direction: column;
+  padding: 1em;
   width: 15em;
+  margin: 0;
 }
 
 footer {

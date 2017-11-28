@@ -30,9 +30,8 @@ function addProjectHandler() {
     event.preventDefault();
     event.stopPropagation();
   });
-
-
 }
+
 
 function init() {
   addProjectHandler();

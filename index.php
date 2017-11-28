@@ -13,6 +13,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
+    <script src="javascript/ui_index.js" defer></script>
   </head>
   <body>
 
@@ -20,8 +21,8 @@
       <img src="images/check.svg">
 
       <section id="user">
-        <input type="button" class="login" value="Login">
-        <input type="button" class="register" value="Register">
+        <input type="button" id="change_to_login" value="Login">
+        <input type="button" id="change_to_register" value="Register">
         <section id="login">
            <form action="action_login.php" method="post">
              <input type="text" placeholder="username" name="username">
@@ -43,7 +44,7 @@
 
 
     <footer>
-      &copy 2017; Daniel Marques - Daniel Machado - Sofia Alves
+      &copy 2017; Daniel Machado - Daniel Marques - Sofia Alves
     <footer>
 
   </body>
