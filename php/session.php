@@ -5,14 +5,9 @@
   define("ROOT", $_SERVER["DOCUMENT_ROOT"]);
 
   class Session {
-    private static $init = FALSE;
 
     public static function initSession() {
       session_start();
-      if(!self::$init) {
-        $_SESSION['username'] = NULL;
-        self::$init = TRUE;
-      }
     }
 
     public static function setCurrentUser($username) {
@@ -20,14 +15,19 @@
     }
 
     public static function getCurrentUser() {
+      if(!isset($_SESSION['username']))
+        return NULL;
       return $_SESSION['username'];
     }
 
     public static function destroySession() {
       session_destroy();
-      self::$init = false;
+      $_SESSION['username'] = NULL;
       session_start();
     }
+
   }
+
+  Session::initSession();
 
 ?>

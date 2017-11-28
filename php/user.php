@@ -8,11 +8,14 @@
 include_once('session.php');
 include_once('database.php');
 
-Session::initSession();
 $user = Session::getCurrentUser();
 
-if($user == NULL)
+if($user == NULL) {
+  Session::destroySession();
+  header('Location: ../index.php');
   die("Unauthorized access!");
+}
+
 
 //TODO remove this hardcoded when we have buttons!!!
 /*DataBase::addUser("timon", "hakunamatata");
@@ -24,7 +27,9 @@ include_once('../html/header.html');
 
 function displayProjects($user) {
   ?>
-   <aside id="projects">
+  <a href="actions/action_logout.php">Logout</a>
+
+   <section id="projects">
      <ul id="project_list">
       <?php
         $projects = DataBase::getUserProjects($user);
@@ -39,7 +44,7 @@ function displayProjects($user) {
     </ul>
     <i id="add_project" class="fa fa-plus-circle" aria-hidden="true" style="font-size: 2em"></i>
     <!-- <i id="remove_project" class="fa fa-trash" aria-hidden="true" style="font-size: 2em"></i> -->
-   </aside>
+   </section>
   <?php
 }
 

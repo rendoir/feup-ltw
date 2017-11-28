@@ -11,7 +11,6 @@
   }
 
   if (DataBase::checkLogin($_POST['username'], $_POST['password'])) {
-    Session::initSession();
     Session::setCurrentUser($_POST['username']);
     header('Location: ../user.php');
     exit();

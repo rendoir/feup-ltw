@@ -1,7 +1,11 @@
 <?php
   include_once('php/session.php');
   include_once('php/database.php');
-  Session::initSession();
+
+  if(Session::getCurrentUser() !== null) {
+    header('Location: php/user.php');
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
