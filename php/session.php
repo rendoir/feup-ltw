@@ -10,7 +10,6 @@
       if(!self::$init) {
         session_start();
         $_SESSION['username'] = NULL;
-        define("ROOT", $_SERVER["DOCUMENT_ROOT"]);
         self::$init = TRUE;
       }
     }
@@ -23,7 +22,10 @@
       return $_SESSION['username'];
     }
 
-  }
+    public static function destroySession() {
+      session_destroy();
+      self::$init = false;
+    }
 
-  Session::initSession();
+  }
 ?>
