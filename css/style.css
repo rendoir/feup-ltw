@@ -6,9 +6,13 @@ body {
 
 header {
   display: flex;
+  flex-direction: row;
 }
 
-header img {
+#logo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   width: 20em;
   height: 20em;
 }

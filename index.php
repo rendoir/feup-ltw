@@ -18,7 +18,11 @@
   <body>
 
     <header>
-      <img src="images/check.svg">
+      <section id="logo">
+        <img src="images/check.svg">
+        <label id="description"> Organize yourself </label>
+      </section>
+
 
       <section id="user">
         <input type="button" id="change_to_login" value="Login">
@@ -39,7 +43,6 @@
           </section>
         </section>
 
-        <label id="description"> Organize yourself </label>
     </header>
 
 
