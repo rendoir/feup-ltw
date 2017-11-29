@@ -9,6 +9,10 @@ header {
   flex-direction: row;
 }
 
+#add_project {
+  display: none;
+}
+
 #logo {
   display: flex;
   flex-direction: column;

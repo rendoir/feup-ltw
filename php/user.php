@@ -42,8 +42,11 @@ function displayProjects($user) {
         }
       ?>
     </ul>
-    <i id="add_project" class="fa fa-plus-circle" aria-hidden="true" style="font-size: 2em"></i>
-    <!-- <i id="remove_project" class="fa fa-trash" aria-hidden="true" style="font-size: 2em"></i> -->
+    <i id="plus" class="fa fa-plus-circle" aria-hidden="true" style="font-size: 2em"></i>
+    <section id="add_project">
+      <input type="text" id="input_project_title" placeholder="Project Title">
+      <input type="button" id="create_project" value="Create Project">
+    </section>
    </section>
   <?php
 }
