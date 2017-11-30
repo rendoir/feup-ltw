@@ -7,4 +7,4 @@
 
 ### Run:
 1. Host a PHP server with the command **php -S localhost:8000** in your project path.
-2. In your browser, access it through **localhost:8000/php/index.php**
+2. In your browser, access it through **localhost:8000/index.php**

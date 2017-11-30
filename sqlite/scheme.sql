@@ -21,7 +21,8 @@ CREATE TABLE TodoList (
   title STRING,
   category STRING,
   color STRING,
-  project STRING REFERENCES Project (title)
+  project STRING REFERENCES Project (title),
+  UNIQUE(title, project)
 );
 
 CREATE TABLE ListItem (
@@ -31,5 +32,6 @@ CREATE TABLE ListItem (
   due_date INTEGER,
   color STRING,
   todo_list INTEGER REFERENCES TodoList (list_id),
-  user STRING REFERENCES User (username)
+  user STRING REFERENCES User (username),
+  UNIQUE(task, todo_list)
 );
