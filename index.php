@@ -24,7 +24,7 @@
       <section id="logo">
         <img src="images/check.svg">
         <h1> <a href ="index.php">List It</a></h1>
-        <!--<label id="description"> Organize yourself </label>-->
+      <!--  <label id="description"> Organize yourself </label>-->
       </section>
 
 
@@ -49,10 +49,10 @@
 
     </header>
 
-<!--
+
     <footer>
       &copy 2017; Daniel Machado - Daniel Marques - Sofia Alves
-    <footer>-->
+    <footer>
 
   </body>
 </html>

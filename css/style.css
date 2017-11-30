@@ -22,11 +22,6 @@ body > header {
   color: black;
 }
 
-#logo > a {
-  padding: 0 1em;
-  font-size: 1.5em;
-  align-self: flex-end;
-}
 
 #logo h1 {
   font-size: 5em;
@@ -44,7 +39,7 @@ body > header {
 }
 
 #user  {
-  padding: 1em 0 0 0;
+  padding: 1em 1em 1em 1em;
   background-color: Black;
   justify-content: space-between;
   text-align:center;
@@ -59,82 +54,46 @@ body > header {
 
 #user input {
   padding: 0.1em;
+  margin-bottom: 1em;
 }
 
-#login{
-  display: flex;
-  align-items: center;
-  margin-top: 1px;
-}
-
-#user section{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1px;
-  background-color: Black;
-  padding: 1em;
-  color: white;
-}
-
-#user a {
-  text-decoration: none;
-  color: white;
-  flex-grow: 1;
-  text-align: center;
-}
-
-
-
-
-#change_to_login{
-  text-decoration: none;
-  background-color: transparent;
-  border: solid;
-  color:white;
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  font-size: 100%;
-  border-color: black;
-  padding: 1em;
-  --width: 5em;
-}
-
-#change_to_register{
-  text-decoration: none;
-  background-color: transparent;
-  border: solid;
-  color:white;
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  font-size: 100%;
-  border-color: black;
-  --padding: 1em;
-  --width: 5em;
-}
 
 input:focus{
    outline: none;
 }
 
-
-input{
-
-  margin-bottom: 1em;
+#user input[type="button"]{
+  text-decoration: none;
+  background-color: transparent;
+  border: solid;
+  color:white;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 100%;
+  border-color: black;
 }
 
+
 #user input[type="submit"]{
-  background-color: DarkGrey;
+  background-color: GhostWhite  ;
   border: solid;
-  border-color: DarkGrey;
+  border-color: GhostWhite  ;
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-size: 100%;
   font-weight: bold;
   width: 5em;
   align-items: flex-end;
-
 }
+
 
 #register {
   display: none;
+}
+
+
+footer {
+  background-color: grey;
+  color: white;
+  padding: 1em;
 }
 
 
@@ -150,29 +109,3 @@ input{
 #plus_todo {
   display: none;
 }
-
-
-/*
-#user input {
-  text-decoration: none;
-  background-color: transparent;
-  border: solid;
-  border-color: black;
-  padding: 1em;
-  width: 7.5em;
-  margin: 0;
-}
-
-#user form input {
-  display: flex;
-  flex-direction: column;
-  padding: 1em;
-  width: 15em;
-  margin: 0;
-}
-
-footer {
-  background-color: black;
-  color: white;
-  padding: 1em;
-}*/
