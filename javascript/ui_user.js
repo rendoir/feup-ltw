@@ -57,13 +57,21 @@ function clickProjectsHandler() {
   }
 }
 
+function clearTodoLists() {
+  let todo_lists_list = document.getElementById("todo_lists_list");
+  if(todo_lists_list !== null)
+    todo_lists_list.parentElement.removeChild(todo_lists_list);
+}
+
 function clickProjectHandler(project_html_node) {
     console.log("Added event handler to ", project_html_node.innerHTML);
     project_html_node.addEventListener("click", function(event) {
+    clearTodoLists();
     let project_title = project_html_node.innerHTML;
     let request = new XMLHttpRequest();
 
     request.addEventListener('load', function(event) {
+      console.log(this.responseText);
       let response = JSON.parse(this.responseText);
       console.log(response);
       let todo_node = document.createElement("ul");
@@ -72,7 +80,7 @@ function clickProjectHandler(project_html_node) {
         for(let i = 0; i < response.length; i++) {
           let todo = document.createElement("li");
           todo.classList.add('todolist');
-          todo.innerHTML = response[i];
+          todo.innerHTML = response[i].title;
           todo_node.appendChild(todo);
         }
       }
