@@ -22,7 +22,7 @@ function displayProjects($user) {
   ?>
   <a href="actions/action_logout.php">Logout</a>
 
-   <section id="projects">
+   <section id="project_section">
      <ul id="project_list">
       <?php
         $projects = DataBase::getUserProjects($user);
@@ -35,11 +35,21 @@ function displayProjects($user) {
         }
       ?>
     </ul>
-    <i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i>
-    <section id="add_project">
-      <input type="text" id="input_project_title" placeholder="Project Title">
+    <i id="plus_project" class="fa fa-plus-circle" aria-hidden="true"></i>
+    <form id="create_project_form">
+      <input type="text" id="create_project_title" placeholder="Project Title">
       <input type="button" id="create_project" value="Create Project">
-    </section>
+    </form>
+   </section>
+
+   <section id="todo_section">
+     <ul id="todo_list">
+     </ul>
+     <i id="plus_todo" class="fa fa-plus-circle" aria-hidden="true"></i>
+     <form id="create_todo_form">
+       <input type="text" id="create_todo_title" placeholder="Todo Title">
+       <input type="button" id="create_todo" value="Create Todo List">
+     </form>
    </section>
   <?php
 }
