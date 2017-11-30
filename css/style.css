@@ -88,12 +88,11 @@ input:focus{
   align-items: flex-end;
 }
 
-<<<<<<< HEAD
+
 #user input[type="submit"]:hover{
   font-weight:lighter;
 }
-=======
->>>>>>> 266f9285b64618eee3aef1bf31f2f942a234bba0
+
 
 #register {
   display: none;
@@ -118,4 +117,12 @@ footer {
 
 #plus_todo {
   display: none;
+}
+
+.project:before {
+  content: attr(data-project-title);
+}
+
+.todo:before {
+  content: attr(data-todo-title);
 }

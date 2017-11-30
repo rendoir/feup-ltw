@@ -22,7 +22,9 @@ function createProjectHandler() {
         let project_ul = document.getElementById("project_list");
         let project_li = document.createElement("li");
         project_li.classList.add('project');
-        project_li.innerHTML = project_title;
+        let data_project_title = document.createAttribute("data-project-title");
+        data_project_title.value = project_title;
+        project_li.setAttributeNode(data_project_title);
         project_ul.appendChild(project_li);
         clickProjectHandler(project_li);
       }
@@ -47,7 +49,7 @@ function createListHandler() {
     let selected_project = document.getElementById("selected_project");
     if(selected_project === null)
       return;
-    let project_title = selected_project.innerHTML;
+    let project_title = selected_project.getAttribute("data-project-title");
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
@@ -59,7 +61,9 @@ function createListHandler() {
         let todo_ul = document.getElementById("todo_list");
         let todo_li = document.createElement("li");
         todo_li.classList.add('todo');
-        todo_li.innerHTML = todo_title;
+        let data_todo_title = document.createAttribute("data-todo-title");
+        data_todo_title.value = todo_title;
+        todo_li.setAttributeNode(data_todo_title);
         todo_ul.appendChild(todo_li);
       }
       todo_input.value = '';
@@ -122,7 +126,7 @@ function clickProjectHandler(project_li) {
       //TODO Change from "flex" to whatever you're using in css
       plus_todo.style.display = "flex";
 
-      let project_title = project_li.innerHTML;
+      let project_title = project_li.getAttribute("data-project-title");
       let request = new XMLHttpRequest();
 
     request.addEventListener('load', function(event) {
@@ -135,7 +139,9 @@ function clickProjectHandler(project_li) {
         for(let i = 0; i < todo_array.length; i++) {
           let todo_li = document.createElement("li");
           todo_li.classList.add('todo');
-          todo_li.innerHTML = todo_array[i].title;
+          let data_todo_title = document.createAttribute("data-todo-title");
+          data_todo_title.value = todo_array[i].title;
+          todo_li.setAttributeNode(data_todo_title);
           todo_ul.appendChild(todo_li);
         }
       }

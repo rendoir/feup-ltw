@@ -29,7 +29,7 @@ function displayProjects($user) {
         if($projects != FALSE) {
           foreach($projects as $project){
             ?>
-             <li class="project"><?=$project['project']?></li>
+             <li class="project" data-project-title="<?=$project['project']?>"></li>
             <?php
           }
         }
