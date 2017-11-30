@@ -22,8 +22,8 @@
 
     public static function destroySession() {
       session_destroy();
-      $_SESSION['username'] = NULL;
       session_start();
+      $_SESSION['username'] = NULL;
     }
 
   }

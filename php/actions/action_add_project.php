@@ -3,9 +3,9 @@
   include_once('../database.php');
 
   $project = $_POST["project"];
-  //TODO
-  $user = "timon";
 
-  echo json_encode(DataBase::addProject($project, $user));
+  if($project !== null)
+    echo json_encode(DataBase::addProject($project, $user));
+  else echo json_encode(null);
 
 ?>
