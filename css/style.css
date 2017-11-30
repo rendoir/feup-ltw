@@ -136,6 +136,22 @@ input{
 #register {
   display: none;
 }
+
+
+/* user.php */
+#create_project_form {
+  display: none;
+}
+
+#create_todo_form {
+  display: none;
+}
+
+#plus_todo {
+  display: none;
+}
+
+
 /*
 #user input {
   text-decoration: none;
