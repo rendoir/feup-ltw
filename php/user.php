@@ -16,13 +16,6 @@ if($user == NULL) {
   die("Unauthorized access!");
 }
 
-
-//TODO remove this hardcoded when we have buttons!!!
-/*DataBase::addUser("timon", "hakunamatata");
-DataBase::addProject("LTW", "timon");
-DataBase::addProject("RCOM", "timon");*/
-
-
 include_once('../html/header.html');
 
 function displayProjects($user) {
@@ -42,7 +35,7 @@ function displayProjects($user) {
         }
       ?>
     </ul>
-    <i id="plus" class="fa fa-plus-circle" aria-hidden="true" style="font-size: 2em"></i>
+    <i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i>
     <section id="add_project">
       <input type="text" id="input_project_title" placeholder="Project Title">
       <input type="button" id="create_project" value="Create Project">

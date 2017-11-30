@@ -24,6 +24,7 @@ function createProjectHandler() {
         new_project_node.classList.add('project');
         new_project_node.innerHTML = project_title;
         project_list.appendChild(new_project_node);
+        clickProjectHandler(new_project_node);
       }
       project_input.value = '';
     });
@@ -48,9 +49,55 @@ function plusHandler() {
   });
 }
 
+function clickProjectsHandler() {
+  let project_list = document.getElementById("project_list");
+
+  for(let i = 0; i < project_list.children.length; i++) {
+    clickProjectHandler(project_list.children[i]);
+  }
+}
+
+function clearTodoLists() {
+  let todo_lists_list = document.getElementById("todo_lists_list");
+  if(todo_lists_list !== null)
+    todo_lists_list.parentElement.removeChild(todo_lists_list);
+}
+
+function clickProjectHandler(project_html_node) {
+    console.log("Added event handler to ", project_html_node.innerHTML);
+    project_html_node.addEventListener("click", function(event) {
+    clearTodoLists();
+    let project_title = project_html_node.innerHTML;
+    let request = new XMLHttpRequest();
+
+    request.addEventListener('load', function(event) {
+      console.log(this.responseText);
+      let response = JSON.parse(this.responseText);
+      console.log(response);
+      let todo_node = document.createElement("ul");
+      todo_node.id = "todo_lists_list";
+      if(response != null) {
+        for(let i = 0; i < response.length; i++) {
+          let todo = document.createElement("li");
+          todo.classList.add('todolist');
+          todo.innerHTML = response[i].title;
+          todo_node.appendChild(todo);
+        }
+      }
+      project_html_node.appendChild(todo_node);
+    });
+
+    request.open('POST', '../php/actions/action_get_todo_lists.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({project: project_title}));
+
+  });
+}
+
 function init() {
   plusHandler();
   createProjectHandler();
+  clickProjectsHandler();
 }
 
 init();
