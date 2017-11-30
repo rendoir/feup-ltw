@@ -38,17 +38,16 @@ function displayProjects($user) {
     <i id="plus_project" class="fa fa-plus-circle" aria-hidden="true"></i>
     <form id="create_project_form">
       <input type="text" id="create_project_title" placeholder="Project Title">
-      <input type="button" id="create_project" value="Create Project">
+      <input type="submit" id="create_project" value="Create Project">
     </form>
    </section>
 
    <section id="todo_section">
-     <ul id="todo_list">
-     </ul>
+     <ul id="todo_list"></ul>
      <i id="plus_todo" class="fa fa-plus-circle" aria-hidden="true"></i>
      <form id="create_todo_form">
        <input type="text" id="create_todo_title" placeholder="Todo Title">
-       <input type="button" id="create_todo" value="Create Todo List">
+       <input type="submit" id="create_todo" value="Create Todo List">
      </form>
    </section>
   <?php

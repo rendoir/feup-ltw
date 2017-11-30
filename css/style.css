@@ -88,16 +88,34 @@ input:focus{
   align-items: flex-end;
 }
 
+<<<<<<< HEAD
 #user input[type="submit"]:hover{
   font-weight:lighter;
 }
+=======
+>>>>>>> 266f9285b64618eee3aef1bf31f2f942a234bba0
 
 #register {
   display: none;
 }
 
+
 footer {
   background-color: grey;
   color: white;
   padding: 1em;
+}
+
+
+/* user.php */
+#create_project_form {
+  display: none;
+}
+
+#create_todo_form {
+  display: none;
+}
+
+#plus_todo {
+  display: none;
 }

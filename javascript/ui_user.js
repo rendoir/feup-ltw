@@ -44,6 +44,11 @@ function createListHandler() {
     let todo_input = document.getElementById("create_todo_title");
     let todo_title = todo_input.value;
 
+    let selected_project = document.getElementById("selected_project");
+    if(selected_project === null)
+      return;
+    let project_title = selected_project.innerHTML;
+
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
@@ -59,8 +64,6 @@ function createListHandler() {
       }
       todo_input.value = '';
     });
-
-    let project_title = document.getElementById("selected_project").innerHTML;
 
     request.open('POST', '../php/actions/action_add_todo_list.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -84,8 +87,8 @@ function plusProjectHandler() {
 function plusListHandler() {
   let plus_todo = document.getElementById("plus_todo");
   plus_todo.addEventListener("click", function(event) {
-    //TODO Change from "flex" to whatever you're using in css
     let create_todo_form = document.getElementById("create_todo_form");
+    //TODO Change from "flex" to whatever you're using in css
     create_todo_form.style.display = "flex";
     event.stopImmediatePropagation();
   });
@@ -107,7 +110,7 @@ function updateSelected(new_selected) {
 
 function clearCurrentTodo() {
   let todo_ul = document.getElementById("todo_list");
-  while (todo_ul.firstChild) {
+  while (todo_ul.children.length != 0) {
       todo_ul.removeChild(todo_ul.firstChild);
   }
 }
@@ -115,6 +118,9 @@ function clearCurrentTodo() {
 function clickProjectHandler(project_li) {
     project_li.addEventListener("click", function(event) {
       updateSelected(project_li);
+      let plus_todo = document.getElementById("plus_todo");
+      //TODO Change from "flex" to whatever you're using in css
+      plus_todo.style.display = "flex";
 
       let project_title = project_li.innerHTML;
       let request = new XMLHttpRequest();
