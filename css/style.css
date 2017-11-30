@@ -22,7 +22,7 @@ body > header {
   color: black;
 }
 
-#info > a {
+#logo > a {
   padding: 0 1em;
   font-size: 1.5em;
   align-self: flex-end;
@@ -44,7 +44,7 @@ body > header {
 }
 
 #user  {
-  padding: 1em 0 1em 1em;
+  padding: 1em 0 0 0;
   background-color: Black;
   justify-content: space-between;
 }
@@ -82,6 +82,42 @@ body > header {
   flex-grow: 1;
   text-align: center;
 }
+
+
+
+
+#change_to_login{
+  text-decoration: none;
+  background-color: transparent;
+  border: solid;
+  color:white;
+  font-family: 'Oxygen', sans-serif;
+  font-weight: bold;
+  border-color: black;
+  padding: 1em;
+  width: 7.5em;
+}
+
+#change_to_register{
+  text-decoration: none;
+  background-color: transparent;
+  border: solid;
+  color:white;
+  font-family: 'Oxygen', sans-serif;
+  font-weight: bold;
+  border-color: black;
+  padding: 1em;
+  width: 7.5em;
+}
+
+#change_to_login:focus{
+   outline: none;
+}
+
+#change_to_register:focus{
+  outline: none;
+}
+
 /*
 form {
   display: flex;
