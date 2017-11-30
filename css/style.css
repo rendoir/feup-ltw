@@ -47,6 +47,7 @@ body > header {
   padding: 1em 0 0 0;
   background-color: Black;
   justify-content: space-between;
+  text-align:center;
 }
 
 #user form {
@@ -63,14 +64,14 @@ body > header {
 #login{
   display: flex;
   align-items: center;
-  margin-top: 3px;
+  margin-top: 1px;
 }
 
 #user section{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 3px;
+  margin-top: 1px;
   background-color: Black;
   padding: 1em;
   color: white;
@@ -91,11 +92,11 @@ body > header {
   background-color: transparent;
   border: solid;
   color:white;
-  font-family: 'Oxygen', sans-serif;
-  font-weight: bold;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 100%;
   border-color: black;
   padding: 1em;
-  width: 7.5em;
+  --width: 5em;
 }
 
 #change_to_register{
@@ -103,39 +104,34 @@ body > header {
   background-color: transparent;
   border: solid;
   color:white;
-  font-family: 'Oxygen', sans-serif;
-  font-weight: bold;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 100%;
   border-color: black;
-  padding: 1em;
-  width: 7.5em;
+  --padding: 1em;
+  --width: 5em;
 }
 
-#change_to_login:focus{
+input:focus{
    outline: none;
 }
 
-#change_to_register:focus{
-  outline: none;
+
+input{
+
+  margin-bottom: 1em;
 }
 
-/*
-form {
-  display: flex;
-  justify-content: space-between;
-  background-color: Black;
-  color: white;
-  padding: 1em;
-  margin-top: 0em;
-}*/
+#user input[type="submit"]{
+  background-color: DarkGrey;
+  border: solid;
+  border-color: DarkGrey;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 100%;
+  font-weight: bold;
+  width: 5em;
+  align-items: flex-end;
 
-/*
-#logo {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 20em;
-  height: 20em;
-}*/
+}
 
 #register {
   display: none;
