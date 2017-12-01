@@ -119,6 +119,10 @@ footer {
   display: none;
 }
 
+#current_user:before {
+  content: attr(data-username);
+}
+
 .project:before {
   content: attr(data-project-title);
 }

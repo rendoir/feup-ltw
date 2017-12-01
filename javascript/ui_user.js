@@ -6,29 +6,88 @@ function encodeForAjax(data) {
   }).join('&');
 }
 
+/*
+  Creates a <li> node that defines a todo list
+  @param todo - Todo object
+  @return <li> todo node
+*/
+function createTodo(todo) {
+  let todo_li = document.createElement("li");
+  todo_li.classList.add('todo');
+
+  let data_todo_title = document.createAttribute("data-todo-title");
+  data_todo_title.value = todo.title;
+  todo_li.setAttributeNode(data_todo_title);
+
+  let data_todo_category = document.createAttribute("data-todo-category");
+  data_todo_category.value = todo.category;
+  todo_li.setAttributeNode(data_todo_category);
+
+  let data_todo_color = document.createAttribute("data-todo-color");
+  data_todo_color.value = todo.color;
+  todo_li.setAttributeNode(data_todo_color);
+
+  return todo_li;
+}
+
+/*
+  Creates a <li> node that defines a project
+  @param title - Title of the project
+  @return <li> project node
+*/
+function createProject(title) {
+  let project_li = document.createElement("li");
+  project_li.classList.add('project');
+
+  let data_project_title = document.createAttribute("data-project-title");
+  data_project_title.value = title;
+  project_li.setAttributeNode(data_project_title);
+
+  let data_project_manager = document.createAttribute("data-project-manager");
+  data_project_manager.value = document.getElementById("current_user").getAttribute("data-username");
+  project_li.setAttributeNode(data_project_manager);
+
+  return project_li;
+}
+
+function getCreateProjectButton() {
+  return document.getElementById("create_project");
+}
+
+function getProjectInput() {
+  let project_title = document.getElementById("create_project_title").value;
+  let project = { title: project_title };
+  return project;
+}
+
+function resetProjectInput() {
+  document.getElementById("create_project_title").value = '';
+}
+
+function hideCreateProjectForm() {
+  document.getElementById("create_project_form").style.display = "none";
+}
+
+function getProjectList() {
+  return document.getElementById("project_list");
+}
+
 function createProjectHandler() {
-  let create_project = document.getElementById("create_project");
+  let create_project = getCreateProjectButton();
   create_project.addEventListener("click", function(event) {
-    let project_title_input = document.getElementById("create_project_title");
-    let project_title = project_title_input.value;
+    let project_title = getProjectInput().title;
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
       if(response !== false) {
-        let create_project_form = document.getElementById("create_project_form");
-        create_project_form.style.display = "none";
-
-        let project_ul = document.getElementById("project_list");
-        let project_li = document.createElement("li");
-        project_li.classList.add('project');
-        let data_project_title = document.createAttribute("data-project-title");
-        data_project_title.value = project_title;
-        project_li.setAttributeNode(data_project_title);
+        hideCreateProjectForm();
+        let project_ul = getProjectList();
+        let project_li = createProject(project_title);
         project_ul.appendChild(project_li);
         clickProjectHandler(project_li);
       }
-      project_title_input.value = '';
+      resetProjectInput();
     });
 
     request.open('POST', '../php/actions/action_add_project.php', true);
@@ -59,11 +118,8 @@ function createListHandler() {
         create_todo_form.style.display = "none";
 
         let todo_ul = document.getElementById("todo_list");
-        let todo_li = document.createElement("li");
-        todo_li.classList.add('todo');
-        let data_todo_title = document.createAttribute("data-todo-title");
-        data_todo_title.value = todo_title;
-        todo_li.setAttributeNode(data_todo_title);
+        //TODO Change this when we can input category and color
+        let todo_li = createTodo({title: todo_title, category: "category", color: "color"});
         todo_ul.appendChild(todo_li);
       }
       todo_input.value = '';
@@ -137,11 +193,7 @@ function clickProjectHandler(project_li) {
 
       if(todo_array !== null) {
         for(let i = 0; i < todo_array.length; i++) {
-          let todo_li = document.createElement("li");
-          todo_li.classList.add('todo');
-          let data_todo_title = document.createAttribute("data-todo-title");
-          data_todo_title.value = todo_array[i].title;
-          todo_li.setAttributeNode(data_todo_title);
+          let todo_li = createTodo(todo_array[i]);
           todo_ul.appendChild(todo_li);
         }
       }

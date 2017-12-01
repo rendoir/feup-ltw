@@ -33,16 +33,16 @@
     }
 
     public static function getUserProjects($username) {
-      $stmt = self::$db->prepare('SELECT project
-                                  FROM Contributes
-                                  WHERE user == ?;');
+      $stmt = self::$db->prepare('SELECT project, project_manager
+                                  FROM Contributes, Project
+                                  WHERE project == title AND user == ?;');
       if($stmt->execute(array($username)))
         return $stmt->fetchAll();
       return null;
     }
 
     public static function getToDoListsOfProject($project) {
-      $stmt = self::$db->prepare('SELECT *
+      $stmt = self::$db->prepare('SELECT title, category, color
                                   FROM TodoList
                                   WHERE project == ?;');
       if($stmt->execute(array($project)))
