@@ -51,7 +51,7 @@
 
 
     <footer>
-      &copy 2017; Daniel Machado - Daniel Marques - Sofia Alves
+      &copy 2017;  Daniel Machado  -  Daniel Marques  -  Sofia Alves
     <footer>
 
   </body>
