@@ -6,7 +6,7 @@
   $password = $_POST['password'];
 
   function validUsername($username) {
-    return preg_match ('/^[a-zA-Z][a-zA-Z0-9_]{7,31}$/', $username);
+    return preg_match ('/^[a-zA-Z][a-zA-Z0-9_\-]{6,30}[a-zA-Z0-9]$/', $username);
   }
 
   function validPassword($password) {

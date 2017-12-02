@@ -1,9 +1,17 @@
 'use strict';
 
+const MAX_TITLE_LENGTH = 32;
+const MAX_TASK_LENGTH = 128;
+
 function encodeForAjax(data) {
   return Object.keys(data).map(function(k){
     return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
   }).join('&');
+}
+
+function validText(text, max_length = MAX_TITLE_LENGTH) {
+  let regular_expression = new RegExp("^[a-zA-Z][a-zA-Z0-9_\\-\\ ]{1," + max_length + "}[a-zA-Z0-9]$");
+  return regular_expression.test(text);
 }
 
 /*
@@ -75,7 +83,14 @@ function getProjectList() {
 function createProjectHandler() {
   let create_project = getCreateProjectButton();
   create_project.addEventListener("click", function(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
     let project_title = getProjectInput().title;
+    if(!validText(project_title)) {
+      resetProjectInput();
+      return;
+    }
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
@@ -93,9 +108,6 @@ function createProjectHandler() {
     request.open('POST', '../php/actions/action_add_project.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(encodeForAjax({project: project_title}));
-
-    event.preventDefault();
-    event.stopImmediatePropagation();
   });
 }
 
@@ -134,7 +146,14 @@ function getTodoList() {
 function createListHandler() {
   let create_todo = getCreateTodoButton();
   create_todo.addEventListener("click", function(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
     let todo_input = getTodoInput();
+    if(!validText(todo_input.title)) {
+      resetTodoInput();
+      return;
+    }
 
     let selected_project = getSelectedProject();
     if(selected_project === null)
@@ -156,9 +175,6 @@ function createListHandler() {
     request.open('POST', '../php/actions/action_add_todo_list.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(encodeForAjax({project: project_title, todo_title: todo_input.title, todo_category: todo_input.category, todo_color: todo_input.color}));
-
-    event.preventDefault();
-    event.stopImmediatePropagation();
   });
 }
 
@@ -253,7 +269,6 @@ function init() {
   plusProjectHandler();
   createProjectHandler();
   clickProjectsHandler();
-
   plusListHandler();
   createListHandler();
 }
