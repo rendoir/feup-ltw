@@ -41,7 +41,7 @@ function displayProjects($user) {
     </ul>
     <i id="plus_project" class="fa fa-plus-circle" aria-hidden="true"></i>
     <form id="create_project_form" class="user_form">
-      <input type="text" id="create_project_title" placeholder="Project Title" autofocus>
+      <input type="text" id="create_project_title" placeholder="Project Title" required autofocus>
       <input type="submit" id="create_project" value="Create Project">
     </form>
    </section>
@@ -50,7 +50,18 @@ function displayProjects($user) {
      <ul id="todo_list"></ul>
      <i id="plus_todo" class="fa fa-plus-circle" aria-hidden="true"></i>
      <form id="create_todo_form" class="user_form">
-       <input type="text" id="create_todo_title" placeholder="Todo Title" autofocus>
+       <input type="text" id="create_todo_title" placeholder="Todo Title" required autofocus>
+       <select id="create_todo_category" name="Category" form="create_todo_form" required>Category
+         <option value="Event">Event</option>
+         <option value="Mission">Mission</option>
+         <option value="Presentation">Presentation</option>
+         <option value="Product Assembly">Product Assembly</option>
+         <option value="Project">Project</option>
+         <option value="Recipe">Recipe</option>
+         <option value="Shopping">Shopping</option>
+         <option value="Travelling">Travelling</option>
+       </select>
+       <input type="color" id="create_todo_color" autofocus>
        <input type="submit" id="create_todo" value="Create Todo List">
      </form>
    </section>

@@ -105,9 +105,8 @@ function getCreateTodoButton() {
 
 function getTodoInput() {
   let todo_title = document.getElementById("create_todo_title").value;
-  //TODO Change this when we can input category and color
-  let todo_category = "Category";
-  let todo_color = "Color";
+  let todo_category = document.getElementById("create_todo_category").value;
+  let todo_color = document.getElementById("create_todo_color").value;
   let todo = { title: todo_title, category: todo_category, color: todo_color };
   return todo;
 }
