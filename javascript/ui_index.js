@@ -1,24 +1,44 @@
 'use strict';
 
+function getLoginButton() {
+  return document.getElementById("change_to_login");
+}
+
+function getRegisterButton() {
+  return document.getElementById("change_to_register");
+}
+
+function hideLogin() {
+  document.getElementById("login").style.display = "none";
+}
+
+function hideRegister() {
+  document.getElementById("register").style.display = "none";
+}
+
+function displayLogin() {
+  //TODO Change from "flex" to whatever you're using in css
+  document.getElementById("login").style.display = "flex";
+}
+
+function displayRegister() {
+  //TODO Change from "flex" to whatever you're using in css
+  document.getElementById("register").style.display = "flex";
+}
+
 function selectLoginHandler() {
-  let login_button = document.getElementById("change_to_login");
+  let login_button = getLoginButton();
   login_button.addEventListener('click', function(event) {
-    let login_section = document.getElementById("login");
-    let register_section = document.getElementById("register");
-    //TODO Change from "flex" to whatever you're using in css
-    login_section.style.display = "flex";
-    register_section.style.display = "none";
+    hideRegister();
+    displayLogin();
   });
 }
 
 function selectRegisterHandler() {
-  let register_button = document.getElementById("change_to_register");
+  let register_button = getRegisterButton();
   register_button.addEventListener('click', function(event) {
-    let login_section = document.getElementById("login");
-    let register_section = document.getElementById("register");
-    //TODO Change from "flex" to whatever you're using in css
-    register_section.style.display = "flex";
-    login_section.style.display = "none";
+    hideLogin();
+    displayRegister();
   });
 }
 

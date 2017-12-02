@@ -99,104 +99,149 @@ function createProjectHandler() {
   });
 }
 
-function createListHandler() {
-  let create_todo = document.getElementById("create_todo");
-  create_todo.addEventListener("click", function(event) {
-    let todo_input = document.getElementById("create_todo_title");
-    let todo_title = todo_input.value;
+function getCreateTodoButton() {
+  return document.getElementById("create_todo");
+}
 
-    let selected_project = document.getElementById("selected_project");
+function getTodoInput() {
+  let todo_title = document.getElementById("create_todo_title").value;
+  //TODO Change this when we can input category and color
+  let todo_category = "Category";
+  let todo_color = "Color";
+  let todo = { title: todo_title, category: todo_category, color: todo_color };
+  return todo;
+}
+
+function resetTodoInput() {
+  document.getElementById("create_todo_title").value = '';
+}
+
+function getSelectedProject() {
+  return document.getElementById("selected_project");
+}
+
+function getProjectTitle(project) {
+  return project.getAttribute("data-project-title");
+}
+
+function hideCreateTodoForm() {
+  document.getElementById("create_todo_form").style.display = "none";
+}
+
+function getTodoList() {
+  return document.getElementById("todo_list");
+}
+
+function createListHandler() {
+  let create_todo = getCreateTodoButton();
+  create_todo.addEventListener("click", function(event) {
+    let todo_input = getTodoInput();
+
+    let selected_project = getSelectedProject();
     if(selected_project === null)
       return;
-    let project_title = selected_project.getAttribute("data-project-title");
+    let project_title = getProjectTitle(selected_project);
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
       if(response !== false) {
-        let create_todo_form = document.getElementById("create_todo_form");
-        create_todo_form.style.display = "none";
-
-        let todo_ul = document.getElementById("todo_list");
-        //TODO Change this when we can input category and color
-        let todo_li = createTodo({title: todo_title, category: "category", color: "color"});
+        hideCreateTodoForm();
+        let todo_ul = getTodoList();
+        let todo_li = createTodo(todo_input);
         todo_ul.appendChild(todo_li);
       }
-      todo_input.value = '';
+      resetTodoInput();
     });
 
     request.open('POST', '../php/actions/action_add_todo_list.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send(encodeForAjax({project: project_title, todo_list: todo_title}));
+    request.send(encodeForAjax({project: project_title, todo_title: todo_input.title, todo_category: todo_input.category, todo_color: todo_input.color}));
 
     event.preventDefault();
     event.stopImmediatePropagation();
   });
 }
 
+function displayCreateProjectForm() {
+  //TODO Change from "flex" to whatever you're using in css
+  document.getElementById("create_project_form").style.display = "flex";
+}
+
+function getProjectPlus() {
+  return document.getElementById("plus_project");
+}
+
 function plusProjectHandler() {
-  let plus_project = document.getElementById("plus_project");
-  plus_project.addEventListener("click", function(event) {
-    let create_project_form = document.getElementById("create_project_form");
-    //TODO Change from "flex" to whatever you're using in css
-    create_project_form.style.display = "flex";
+  let plus = getProjectPlus();
+  plus.addEventListener("click", function(event) {
+    displayCreateProjectForm();
     event.stopImmediatePropagation();
   });
 }
 
+function displayCreateTodoForm() {
+  //TODO Change from "flex" to whatever you're using in css
+  document.getElementById("create_todo_form").style.display = "flex";
+}
+
+function getTodoPlus() {
+  return document.getElementById("plus_todo");
+}
+
 function plusListHandler() {
-  let plus_todo = document.getElementById("plus_todo");
-  plus_todo.addEventListener("click", function(event) {
-    let create_todo_form = document.getElementById("create_todo_form");
-    //TODO Change from "flex" to whatever you're using in css
-    create_todo_form.style.display = "flex";
+  let plus = getTodoPlus();
+  plus.addEventListener("click", function(event) {
+    displayCreateTodoForm();
     event.stopImmediatePropagation();
   });
 }
 
 function clickProjectsHandler() {
-  let project_list = document.getElementById("project_list");
-  for(let i = 0; i < project_list.children.length; i++) {
+  let project_list = getProjectList();
+  for(let i = 0; i < project_list.children.length; i++)
     clickProjectHandler(project_list.children[i]);
-  }
 }
 
 function updateSelected(new_selected) {
-  let last_selected = document.getElementById("selected_project");
+  let last_selected = getSelectedProject();
   if(last_selected !== null)
     last_selected.id = "";
   new_selected.id = "selected_project";
 }
 
 function clearCurrentTodo() {
-  let todo_ul = document.getElementById("todo_list");
-  while (todo_ul.children.length != 0) {
-      todo_ul.removeChild(todo_ul.firstChild);
+  let todo_ul = getTodoList();
+  while (todo_ul.children.length != 0)
+    todo_ul.removeChild(todo_ul.firstChild);
+}
+
+function displayTodoPlus() {
+  //TODO Change from "flex" to whatever you're using in css
+  getTodoPlus().style.display = "flex";
+}
+
+function setCurrentTodo(todo_array) {
+  let todo_ul = getTodoList();
+  if(todo_array !== null) {
+    for(let i = 0; i < todo_array.length; i++) {
+      let todo_li = createTodo(todo_array[i]);
+      todo_ul.appendChild(todo_li);
+    }
   }
 }
 
 function clickProjectHandler(project_li) {
-    project_li.addEventListener("click", function(event) {
-      updateSelected(project_li);
-      let plus_todo = document.getElementById("plus_todo");
-      //TODO Change from "flex" to whatever you're using in css
-      plus_todo.style.display = "flex";
+  project_li.addEventListener("click", function(event) {
+    updateSelected(project_li);
+    displayTodoPlus();
+    let project_title = getProjectTitle(project_li);
 
-      let project_title = project_li.getAttribute("data-project-title");
-      let request = new XMLHttpRequest();
-
+    let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let todo_array = JSON.parse(this.responseText);
-      let todo_ul = document.getElementById("todo_list");
-
       clearCurrentTodo();
-
-      if(todo_array !== null) {
-        for(let i = 0; i < todo_array.length; i++) {
-          let todo_li = createTodo(todo_array[i]);
-          todo_ul.appendChild(todo_li);
-        }
-      }
+      setCurrentTodo(todo_array);
     });
 
     request.open('POST', '../php/actions/action_get_todo_lists.php', true);
