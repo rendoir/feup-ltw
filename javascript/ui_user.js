@@ -164,8 +164,7 @@ function createListHandler() {
 }
 
 function displayCreateProjectForm() {
-  //TODO Change from "flex" to whatever you're using in css
-  document.getElementById("create_project_form").style.display = "flex";
+  document.getElementById("create_project_form").style.display = "block";
 }
 
 function getProjectPlus() {
@@ -181,8 +180,7 @@ function plusProjectHandler() {
 }
 
 function displayCreateTodoForm() {
-  //TODO Change from "flex" to whatever you're using in css
-  document.getElementById("create_todo_form").style.display = "flex";
+  document.getElementById("create_todo_form").style.display = "block";
 }
 
 function getTodoPlus() {

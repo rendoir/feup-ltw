@@ -130,3 +130,20 @@ footer {
 .todo:before {
   content: attr(data-todo-title);
 }
+
+.user_form {
+  position: fixed;
+  z-index: 1;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: rgb(128,128,128);
+  opacity: 0.5;
+}
+
+.user_form input {
+  z-index: 2;
+  background-color: white;
+  opacity: 1;
+}
