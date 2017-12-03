@@ -50,11 +50,13 @@
       return null;
     }
 
-    public static function getListItemsOfList($todo_list) {
-      $stmt = self::$db->prepare('SELECT *
+    public static function getListItemsOfList($project, $todo) {
+      $stmt = self::$db->prepare('SELECT task, is_completed, due_date, user
                                   FROM ListItem
-                                  WHERE todo_list == ?;');
-      if($stmt->execute(array($todo_list)))
+                                  WHERE todo_list == (SELECT list_id
+                                                      FROM TodoList
+                                                      WHERE project == ? AND title == ?);');
+      if($stmt->execute(array($project, $todo)))
         return $stmt->fetchAll();
       return null;
     }

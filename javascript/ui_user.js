@@ -58,6 +58,29 @@ function createProject(title) {
   return project_li;
 }
 
+function createTask(task) {
+  let task_li = document.createElement("li");
+  task_li.classList.add('task');
+
+  let data_task = document.createAttribute("data-task");
+  data_task.value = task.task;
+  task_li.setAttributeNode(data_task);
+
+  let data_task_date = document.createAttribute("data-task-date");
+  data_task_date.value = task.due_date;
+  task_li.setAttributeNode(data_task_date);
+
+  let data_task_completed = document.createAttribute("data-task-completed");
+  data_task_completed.value = task.is_completed;
+  task_li.setAttributeNode(data_task_completed);
+
+  let data_task_user = document.createAttribute("data-task-user");
+  data_task_user.value = task.user;
+  task_li.setAttributeNode(data_task_user);
+
+  return task_li;
+}
+
 function getCreateProjectButton() {
   return document.getElementById("create_project");
 }
@@ -168,6 +191,7 @@ function createListHandler() {
         let todo_ul = getTodoList();
         let todo_li = createTodo(todo_input);
         todo_ul.appendChild(todo_li);
+        clickTodoHandler(todo_li);
       }
       resetTodoInput();
     });
@@ -216,7 +240,7 @@ function clickProjectsHandler() {
     clickProjectHandler(project_list.children[i]);
 }
 
-function updateSelected(new_selected) {
+function updateSelectedProject(new_selected) {
   let last_selected = getSelectedProject();
   if(last_selected !== null)
     last_selected.id = "";
@@ -240,13 +264,14 @@ function setCurrentTodo(todo_array) {
     for(let i = 0; i < todo_array.length; i++) {
       let todo_li = createTodo(todo_array[i]);
       todo_ul.appendChild(todo_li);
+      clickTodoHandler(todo_li);
     }
   }
 }
 
 function clickProjectHandler(project_li) {
   project_li.addEventListener("click", function(event) {
-    updateSelected(project_li);
+    updateSelectedProject(project_li);
     displayTodoPlus();
     let project_title = getProjectTitle(project_li);
 
@@ -265,12 +290,92 @@ function clickProjectHandler(project_li) {
   });
 }
 
+function getSelectedTodo() {
+  return document.getElementById("selected_todo");
+}
+
+function updateSelectedTodo(new_selected) {
+  let last_selected = getSelectedTodo();
+  if(last_selected !== null)
+    last_selected.id = "";
+  new_selected.id = "selected_todo";
+}
+
+function hideTodoSection() {
+  document.getElementById("todo_section").style.display = "none";
+}
+
+function getTasksList() {
+  return document.getElementById("task_list");
+}
+
+function setTaskList(tasks_array) {
+  let task_ul = getTasksList();
+  if(tasks_array !== null) {
+    for(let i = 0; i < tasks_array.length; i++) {
+      let task_li = createTask(tasks_array[i]);
+      task_ul.appendChild(task_li);
+    }
+  }
+}
+
+function plusTaskHandler() {
+  let plus = getTaskPlus();
+  plus.addEventListener("click", function(event) {
+    displayCreateTaskForm();
+    event.stopImmediatePropagation();
+  });
+}
+
+function getTaskPlus() {
+  return document.getElementById("plus_task");
+}
+
+function displayCreateTaskForm() {
+  document.getElementById("create_task_form").style.display = "block";
+}
+
+function displayPlusTask() {
+  //TODO Change from "flex" to whatever you're using in css
+  getTaskPlus().style.display = "flex";
+}
+
+function clickTodoHandler(todo_li) {
+  todo_li.addEventListener("click", function(event) {
+    updateSelectedTodo(todo_li);
+    let project_title = getSelectedProject();
+    let todo_title = getSelectedTodo();
+
+    let request = new XMLHttpRequest();
+    request.addEventListener('load', function(event) {
+      let tasks_array = JSON.parse(this.responseText);
+      hideTodoSection();
+      setTaskList(tasks_array);
+      displayPlusTask();
+    });
+
+    request.open('POST', '../php/actions/action_get_tasks.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({project: project_title, todo: todo_title}));
+
+    event.stopImmediatePropagation();
+  });
+}
+
+function createTaskHandler() {
+//TODO
+}
+
 function init() {
   plusProjectHandler();
   createProjectHandler();
   clickProjectsHandler();
+
   plusListHandler();
   createListHandler();
+
+  plusTaskHandler();
+  createTaskHandler();
 }
 
 init();
