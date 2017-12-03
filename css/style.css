@@ -127,6 +127,10 @@ footer {
   content: attr(data-todo-title);
 }
 
+.task:before {
+  content: attr(data-task);
+}
+
 .user_form {
   position: fixed;
   z-index: 1;

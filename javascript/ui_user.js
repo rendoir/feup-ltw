@@ -71,7 +71,7 @@ function createTask(task) {
   task_li.setAttributeNode(data_task_date);
 
   let data_task_completed = document.createAttribute("data-task-completed");
-  data_task_completed.value = task.is_completed;
+  data_task_completed.value = ((task.is_completed === 0) ? "false" : "true");
   task_li.setAttributeNode(data_task_completed);
 
   let data_task_user = document.createAttribute("data-task-user");
@@ -79,6 +79,10 @@ function createTask(task) {
   task_li.setAttributeNode(data_task_user);
 
   return task_li;
+}
+
+function getTodoTitle(todo) {
+  return todo.getAttribute("data-todo-title");
 }
 
 function getCreateProjectButton() {
@@ -148,6 +152,12 @@ function getTodoInput() {
 
 function resetTodoInput() {
   document.getElementById("create_todo_title").value = '';
+}
+
+function resetTaskInput() {
+  document.getElementById("create_task_text").value = '';
+  document.getElementById("create_task_date").value = '';
+  document.getElementById("create_task_time").value = '';
 }
 
 function getSelectedProject() {
@@ -343,8 +353,8 @@ function displayPlusTask() {
 function clickTodoHandler(todo_li) {
   todo_li.addEventListener("click", function(event) {
     updateSelectedTodo(todo_li);
-    let project_title = getSelectedProject();
-    let todo_title = getSelectedTodo();
+    let project_title = getProjectTitle(getSelectedProject());
+    let todo_title = getTodoTitle(getSelectedTodo());
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
@@ -362,8 +372,58 @@ function clickTodoHandler(todo_li) {
   });
 }
 
+function getCreateTaskButton() {
+  return document.getElementById("create_task");
+}
+
+function getTaskInput() {
+  let task_text = document.getElementById("create_task_text").value;
+  let task_date = document.getElementById("create_task_date").value;
+  let task_time = document.getElementById("create_task_time").value;
+  let task_datetime = task_date + task_time;
+  let task = { task: task_text, due_date: task_datetime, is_completed: 0, user: "" };
+  return task;
+}
+
+function hideCreateTaskForm() {
+  return document.getElementById("create_task_form").style.display = "none";
+}
+
+function getTaskList() {
+  return document.getElementById("task_list");
+}
+
 function createTaskHandler() {
-//TODO
+  let create_task = getCreateTaskButton();
+  create_task.addEventListener("click", function(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    let project_title = getProjectTitle(getSelectedProject());
+    let todo_title = getTodoTitle(getSelectedTodo());
+    let task_input = getTaskInput();
+
+    if(!validText(task_input.task_text, MAX_TASK_LENGTH)) {
+      resetTaskInput();
+      return;
+    }
+
+    let request = new XMLHttpRequest();
+    request.addEventListener('load', function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response !== false) {
+        hideCreateTaskForm();
+        let task_ul = getTaskList();
+        let task_li = createTask(task_input);
+        task_ul.appendChild(task_li);
+      }
+      resetTaskInput();
+    });
+
+    request.open('POST', '../php/actions/action_add_list_item.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({project: project_title, todo: todo_title, task: task_input.task, datetime: task_input.due_date}));
+  });
 }
 
 function init() {
