@@ -20,7 +20,7 @@
   if($username === null || $password === null) {
     header('HTTP/1.0 403 Forbidden');
     exit();
-  } else if(!validUsername($username)) {
+/*  } else if(!validUsername($username)) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     die("Invalid username!");
   } else if(!validPassword($password)) {
@@ -28,7 +28,7 @@
     die("Invalid password!");
   } if (DataBase::checkLogin($username, $password)) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
-    die("Username already in use!");
+    die("Username already in use!");*/
   } else if(DataBase::addUser($username, $password)) {
     Session::setCurrentUser($username);
     header('Location: ../user.php');
