@@ -8,7 +8,7 @@
   $project = $_POST["project"];
 
   if($task !== null && $todo !== null && $completed !== null && $project !== null)
-    echo json_encode(DataBase::setCompletedListItem($task, $todo, $project, $completed));
+    echo json_encode(DataBase::setCompletedListItem($task, $todo, $project, intval($completed)));
   else echo json_encode(false);
 
 ?>

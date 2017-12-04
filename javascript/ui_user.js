@@ -465,13 +465,13 @@ function createTaskHandler() {
 }
 
 function clickTaskCheckbox(task_li) {
-  task_li.lastElementChild.addEventListener("click", function(event) {
+  task_li.lastElementChild.addEventListener("change", function(event) {
     event.stopImmediatePropagation();
 
     let project_title = getProjectTitle(getSelectedProject());
     let todo_title = getTodoTitle(getSelectedTodo());
     let task = getTask(task_li);
-    let task_completed = (task_li.lastElementChild.checked ? 0 : 1);
+    let task_completed = (task_li.lastElementChild.checked ? 1 : 0);
 
     let request = new XMLHttpRequest();
     request.open('POST', '../php/actions/action_set_completed_task.php', true);
