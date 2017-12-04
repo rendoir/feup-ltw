@@ -10,4 +10,4 @@ html/php:
 index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional
 
 css:
-pegar nos atributos data-* e fazer cenas com isso
+pegar nos atributos data-* e nos spans e fazer cenas com isso

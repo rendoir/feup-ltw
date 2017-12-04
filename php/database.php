@@ -120,11 +120,12 @@
       return $stmt->execute(array($user, $item));
     }
 
-    public static function completedListItem($item) {
+    public static function setCompletedListItem($task, $todo, $project, $completed) {
+      $todo_id = DataBase::getTodoID($project, $todo);
       $stmt = self::$db->prepare('UPDATE ListItem
-                                  SET is_completed = 1
-                                  WHERE item_id == ?;');
-      return $stmt->execute(array($item));
+                                  SET is_completed = ?
+                                  WHERE todo_list == ? AND task == ?;');
+      return $stmt->execute(array($completed, $todo_id, $task));
     }
   }
 
