@@ -80,15 +80,21 @@ function createTask(task) {
   user_span.innerHTML = task.user;
   task_li.appendChild(user_span);
 
-  let data_task_completed = document.createAttribute("data-task-completed");
-  data_task_completed.value = ((task.is_completed === 0) ? "false" : "true");
-  task_li.setAttributeNode(data_task_completed);
+  let completed_checkbox = document.createElement("input");
+  completed_checkbox.classList.add('task_user');
+  completed_checkbox.type = "checkbox";
+  completed_checkbox.checked = ((task.is_completed === "0") ? false : true);
+  task_li.appendChild(completed_checkbox);
 
   return task_li;
 }
 
 function getTodoTitle(todo) {
   return todo.firstElementChild.innerHTML;
+}
+
+function getTask(task) {
+  return task.firstElementChild.innerHTML;
 }
 
 function getCreateProjectButton() {
@@ -350,6 +356,7 @@ function setTaskList(tasks_array) {
     for(let i = 0; i < tasks_array.length; i++) {
       let task_li = createTask(tasks_array[i]);
       task_ul.appendChild(task_li);
+      clickTaskCheckbox(task_li);
     }
   }
 }
@@ -454,6 +461,22 @@ function createTaskHandler() {
     request.open('POST', '../php/actions/action_add_list_item.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(encodeForAjax({project: project_title, todo: todo_title, task: task_input.task, datetime: task_input.due_date}));
+  });
+}
+
+function clickTaskCheckbox(task_li) {
+  task_li.lastElementChild.addEventListener("change", function(event) {
+    event.stopImmediatePropagation();
+
+    let project_title = getProjectTitle(getSelectedProject());
+    let todo_title = getTodoTitle(getSelectedTodo());
+    let task = getTask(task_li);
+    let task_completed = (task_li.lastElementChild.checked ? 1 : 0);
+
+    let request = new XMLHttpRequest();
+    request.open('POST', '../php/actions/action_set_completed_task.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({project: project_title, todo: todo_title, task: task, completed: task_completed}));
   });
 }
 
