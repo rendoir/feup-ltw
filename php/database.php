@@ -22,8 +22,11 @@
       $stmt = self::$db->prepare('SELECT *
                                   FROM User
                                   WHERE username == ? AND password == ?;');
-      $stmt->execute(array($username, $password));
-      return $stmt->fetch() != false;
+      if(!$stmt)
+        return false;
+      if($stmt->execute(array($username, $password)))
+        return $stmt->fetch() != false;
+      return false;
     }
 
     public static function addUser($username, $password) {
