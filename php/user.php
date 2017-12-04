@@ -65,6 +65,17 @@ function displayProjects($user) {
        <input type="submit" id="create_todo" value="Create Todo List">
      </form>
    </section>
+
+   <section id="task_section">
+     <ul id="task_list"></ul>
+     <i id="plus_task" class="fa fa-plus-circle" aria-hidden="true"></i>
+     <form id="create_task_form" class="user_form">
+       <input type="text" id="create_task_text" placeholder="Task" required autofocus>
+       <input type="date" id="create_task_date" required>
+       <input type="time" id="create_task_time" required>
+       <input type="submit" id="create_task" value="Create Task">
+     </form>
+   </section>
   <?php
 }
 

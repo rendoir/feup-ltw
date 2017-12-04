@@ -50,12 +50,24 @@
       return null;
     }
 
-    public static function getListItemsOfList($todo_list) {
-      $stmt = self::$db->prepare('SELECT *
+    public static function getListItemsOfList($project, $todo) {
+      $todo_id = DataBase::getTodoID($project, $todo);
+      if($todo_id === null)
+        return null;
+      $stmt = self::$db->prepare('SELECT task, is_completed, due_date, user
                                   FROM ListItem
                                   WHERE todo_list == ?;');
-      if($stmt->execute(array($todo_list)))
+      if($stmt->execute(array($todo_id)))
         return $stmt->fetchAll();
+      return null;
+    }
+
+    public static function getTodoID($project, $todo) {
+      $stmt = self::$db->prepare('SELECT list_id
+                                  FROM TodoList
+                                  WHERE project == ? AND title == ?;');
+      if($stmt->execute(array($project, $todo)))
+        return $stmt->fetch()["list_id"];
       return null;
     }
 
@@ -89,10 +101,13 @@
       return $stmt->execute(array($title, $category, $color, $project));
     }
 
-    public static function addListItem($task, $due_date, $color, $todo_list) {
-      $stmt = self::$db->prepare('INSERT INTO ListItem (task, due_date, color, todo_list)
-                                  VALUES (?, ?, ?, ?);');
-      return $stmt->execute(array($task, $due_date, $color, $todo_list));
+    public static function addListItem($task, $due_date, $todo, $project) {
+      $todo_id = DataBase::getTodoID($project, $todo);
+      if($todo_id === null)
+        return false;
+      $stmt = self::$db->prepare('INSERT INTO ListItem (task, due_date, todo_list)
+                                  VALUES (?, ?, ?);');
+      return $stmt->execute(array($task, $due_date, $todo_id));
     }
 
     public static function assignListItemToUser($item, $user) {
