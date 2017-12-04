@@ -107,6 +107,12 @@ footer {
 
 
 /* user.php */
+
+#current_user {
+  background-color: Black;
+  color:white;
+}
+
 .user_form {
   display: none;
 }
