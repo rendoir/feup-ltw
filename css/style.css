@@ -108,9 +108,35 @@ footer {
 
 /* user.php */
 
-#current_user {
-  background-color: Black;
+.user_header a {
+  text-decoration: none;
   color:white;
+}
+
+
+.user_header a:hover{
+  font-weight: bold;
+}
+
+.user_header{
+  background-color: black;
+  padding: 1em 1em 1em 1em;
+}
+
+.project_title:hover{
+  font-weight: bold;
+}
+
+
+#project_label{
+  font-weight: bold;
+  padding-left: 1em;
+
+}
+
+#project_section{
+
+  padding: 1em 1em 1em 1em;
 }
 
 #plus_todo, #plus_task {
@@ -125,23 +151,75 @@ footer {
   display: none;
 }
 
+#create_project_form{
+  display: none;
+}
+
 #current_user:before {
   content: attr(data-username);
 }
 
+/*
 .user_form {
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  height: 100%;
-  background-color: rgb(128,128,128);
-  opacity: 0.5;
+  right: 100px;
+  -left: 1px;
+  top: 200px;
+  --bottom: 200px;
+  height:25%;
+  background-color: black;
+  opacity: 1;
+  display: flex;
+  text-align:center;
+  flex-direction: column;
+  justify-content: space-between;
+}*/
+
+
+#create_project_form{
+  position: absolute;
+  z-index: 1;
+  right: 300px;
+  left: 300px;
+  top: 200px;
+  bottom: 300px;
+  /*  Mudar para posição relativa e layout
+  */
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: grey;
+  padding: 1em 20em 1em 20em;
+  text-align: center;
+}
+
+#create_project_form label{
+  margin-bottom: 1em;
+}
+
+#create_project_form input{
+  margin-bottom: 1em;
 }
 
 .user_form input {
+  font-family: 'Barlow Semi Condensed', sans-serif;
   z-index: 2;
   background-color: white;
   opacity: 1;
+}
+
+#new_project_label{
+  color:black;
+  font-weight: bold;
+}
+
+#create_project_form input[type="submit"]{
+  background-color: GhostWhite  ;
+  border: solid;
+  border-color: GhostWhite  ;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 100%;
+  font-weight: bold;
+  width: 10em;
+  align-items: flex-end;
 }

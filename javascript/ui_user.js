@@ -225,7 +225,7 @@ function createListHandler() {
 }
 
 function displayCreateProjectForm() {
-  document.getElementById("create_project_form").style.display = "block";
+  document.getElementById("create_project_form").style.display = "flex";
 }
 
 function getProjectPlus() {
@@ -491,6 +491,7 @@ function init() {
 
   plusTaskHandler();
   createTaskHandler();
+
 }
 
 init();
