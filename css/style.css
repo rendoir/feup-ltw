@@ -113,11 +113,15 @@ footer {
   color:white;
 }
 
-.user_form {
+#plus_todo, #plus_task {
   display: none;
 }
 
-#plus_todo, #plus_task {
+#todo_list, #task_list {
+  display: none;
+}
+
+.user_form {
   display: none;
 }
 

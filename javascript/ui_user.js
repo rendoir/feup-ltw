@@ -269,9 +269,19 @@ function clearCurrentTodo() {
     todo_ul.removeChild(todo_ul.firstElementChild);
 }
 
+function clearCurrentTasks() {
+  let task_ul = getTaskList();
+  while (task_ul.children.length != 0)
+    task_ul.removeChild(task_ul.firstElementChild);
+}
+
 function displayTodoPlus() {
   //TODO Change from "flex" to whatever you're using in css
   getTodoPlus().style.display = "flex";
+}
+
+function displayTodoList() {
+  getTodoList().style.display = "block";
 }
 
 function setCurrentTodo(todo_array) {
@@ -288,14 +298,17 @@ function setCurrentTodo(todo_array) {
 function clickProjectHandler(project_li) {
   project_li.firstElementChild.addEventListener("click", function(event) {
     updateSelectedProject(project_li);
-    displayTodoPlus();
     let project_title = getProjectTitle(project_li);
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let todo_array = JSON.parse(this.responseText);
       clearCurrentTodo();
+      hideTaskSection();
+      hideTodoSection();
       setCurrentTodo(todo_array);
+      displayTodoList();
+      displayTodoPlus();
     });
 
     request.open('POST', '../php/actions/action_get_todo_lists.php', true);
@@ -318,7 +331,13 @@ function updateSelectedTodo(new_selected) {
 }
 
 function hideTodoSection() {
-  document.getElementById("todo_section").style.display = "none";
+  getTodoList().style.display = "none";
+  getTodoPlus().style.display = "none";
+}
+
+function hideTaskSection() {
+  getTaskList().style.display = "none";
+  getTaskPlus().style.display = "none";
 }
 
 function getTasksList() {
@@ -356,6 +375,10 @@ function displayPlusTask() {
   getTaskPlus().style.display = "flex";
 }
 
+function displayTaskList() {
+  getTaskList().style.display = "block";
+}
+
 function clickTodoHandler(todo_li) {
   todo_li.firstElementChild.addEventListener("click", function(event) {
     updateSelectedTodo(todo_li);
@@ -366,7 +389,9 @@ function clickTodoHandler(todo_li) {
     request.addEventListener('load', function(event) {
       let tasks_array = JSON.parse(this.responseText);
       hideTodoSection();
+      clearCurrentTasks();
       setTaskList(tasks_array);
+      displayTaskList();
       displayPlusTask();
     });
 
