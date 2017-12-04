@@ -119,18 +119,6 @@ footer {
   content: attr(data-username);
 }
 
-.project:before {
-  content: attr(data-project-title);
-}
-
-.todo:before {
-  content: attr(data-todo-title);
-}
-
-.task:before {
-  content: attr(data-task);
-}
-
 .user_form {
   position: fixed;
   z-index: 1;

@@ -4,11 +4,10 @@ profile page
 
 php + javascript:
 poder eliminar projects/todo lists/list items
-poder adicionar list items
 poder marcar list items como completos
-
-javascript:
-poder clicar numa todo list para ver os seus list items (a minha ideia aqui era esconder a section de todo lists e mostrar os list items da todo list selecionada)
 
 html/php:
 index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional
+
+css:
+pegar nos atributos data-* e fazer cenas com isso

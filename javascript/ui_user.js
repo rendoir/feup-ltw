@@ -23,13 +23,15 @@ function createTodo(todo) {
   let todo_li = document.createElement("li");
   todo_li.classList.add('todo');
 
-  let data_todo_title = document.createAttribute("data-todo-title");
-  data_todo_title.value = todo.title;
-  todo_li.setAttributeNode(data_todo_title);
+  let todo_title_span = document.createElement("span");
+  todo_title_span.classList.add('todo_title');
+  todo_title_span.innerHTML = todo.title;
+  todo_li.appendChild(todo_title_span);
 
-  let data_todo_category = document.createAttribute("data-todo-category");
-  data_todo_category.value = todo.category;
-  todo_li.setAttributeNode(data_todo_category);
+  let todo_category_span = document.createElement("span");
+  todo_category_span.classList.add('todo_category');
+  todo_category_span.innerHTML = todo.category;
+  todo_li.appendChild(todo_category_span);
 
   let data_todo_color = document.createAttribute("data-todo-color");
   data_todo_color.value = todo.color;
@@ -47,9 +49,10 @@ function createProject(title) {
   let project_li = document.createElement("li");
   project_li.classList.add('project');
 
-  let data_project_title = document.createAttribute("data-project-title");
-  data_project_title.value = title;
-  project_li.setAttributeNode(data_project_title);
+  let project_title_span = document.createElement("span");
+  project_title_span.classList.add('project_title');
+  project_title_span.innerHTML = title;
+  project_li.appendChild(project_title_span);
 
   let data_project_manager = document.createAttribute("data-project-manager");
   data_project_manager.value = document.getElementById("current_user").getAttribute("data-username");
@@ -62,27 +65,30 @@ function createTask(task) {
   let task_li = document.createElement("li");
   task_li.classList.add('task');
 
-  let data_task = document.createAttribute("data-task");
-  data_task.value = task.task;
-  task_li.setAttributeNode(data_task);
+  let task_span = document.createElement("span");
+  task_span.classList.add('task_task');
+  task_span.innerHTML = task.task;
+  task_li.appendChild(task_span);
 
-  let data_task_date = document.createAttribute("data-task-date");
-  data_task_date.value = task.due_date;
-  task_li.setAttributeNode(data_task_date);
+  let date_span = document.createElement("span");
+  date_span.classList.add('task_date');
+  date_span.innerHTML = task.due_date;
+  task_li.appendChild(date_span);
+
+  let user_span = document.createElement("span");
+  user_span.classList.add('task_user');
+  user_span.innerHTML = task.user;
+  task_li.appendChild(user_span);
 
   let data_task_completed = document.createAttribute("data-task-completed");
   data_task_completed.value = ((task.is_completed === 0) ? "false" : "true");
   task_li.setAttributeNode(data_task_completed);
 
-  let data_task_user = document.createAttribute("data-task-user");
-  data_task_user.value = task.user;
-  task_li.setAttributeNode(data_task_user);
-
   return task_li;
 }
 
 function getTodoTitle(todo) {
-  return todo.getAttribute("data-todo-title");
+  return todo.firstElementChild.innerHTML;
 }
 
 function getCreateProjectButton() {
@@ -165,7 +171,7 @@ function getSelectedProject() {
 }
 
 function getProjectTitle(project) {
-  return project.getAttribute("data-project-title");
+  return project.firstElementChild.innerHTML;
 }
 
 function hideCreateTodoForm() {
@@ -260,7 +266,7 @@ function updateSelectedProject(new_selected) {
 function clearCurrentTodo() {
   let todo_ul = getTodoList();
   while (todo_ul.children.length != 0)
-    todo_ul.removeChild(todo_ul.firstChild);
+    todo_ul.removeChild(todo_ul.firstElementChild);
 }
 
 function displayTodoPlus() {
@@ -280,7 +286,7 @@ function setCurrentTodo(todo_array) {
 }
 
 function clickProjectHandler(project_li) {
-  project_li.addEventListener("click", function(event) {
+  project_li.firstElementChild.addEventListener("click", function(event) {
     updateSelectedProject(project_li);
     displayTodoPlus();
     let project_title = getProjectTitle(project_li);
@@ -351,7 +357,7 @@ function displayPlusTask() {
 }
 
 function clickTodoHandler(todo_li) {
-  todo_li.addEventListener("click", function(event) {
+  todo_li.firstElementChild.addEventListener("click", function(event) {
     updateSelectedTodo(todo_li);
     let project_title = getProjectTitle(getSelectedProject());
     let todo_title = getTodoTitle(getSelectedTodo());

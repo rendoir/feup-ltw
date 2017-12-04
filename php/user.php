@@ -21,7 +21,7 @@ include_once('../html/header.html');
 function displayProjects($user) {
   ?>
 
-  <header>
+  <header class="user_header">
     <a href="profile.php" id="current_user" data-username="<?=$user?>"></a>
     <a href="actions/action_logout.php">Logout</a>
   </header>
@@ -33,7 +33,9 @@ function displayProjects($user) {
         if($projects != FALSE) {
           foreach($projects as $project){
             ?>
-             <li class="project" data-project-title="<?=$project['project']?>" data-project-manager="<?=$project['project_manager']?>"></li>
+             <li class="project" data-project-manager="<?=$project['project_manager']?>">
+               <span class="project_title"><?=$project['project']?></span>
+             </li>
             <?php
           }
         }
