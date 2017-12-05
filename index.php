@@ -14,6 +14,7 @@
     <title>ListIt</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/layout.css">
     <link href="https://fonts.googleapis.com/css?family=Oxygen:700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
     <script src="javascript/ui_index.js" defer></script>
@@ -26,6 +27,7 @@
         <h1> <a href ="index.php">List It</a></h1>
       <!--  <label id="description"> Organize yourself </label>-->
       </section>
+      </header>
 
 
       <section id="user">
@@ -47,7 +49,9 @@
           </section>
         </section>
 
-    </header>
+      <section id="description">
+        <p>description</p>
+      </section>
 
 
     <footer>

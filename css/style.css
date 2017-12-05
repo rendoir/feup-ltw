@@ -1,13 +1,12 @@
 body {
-  width: 60em;
-  margin: 0 auto;
+
   font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
 body > header {
-  display: flex;
-  justify-content: space-between;
   align-items: stretch;
+  border-style: solid;
+  border-width: 0 0 5px 0;
 }
 
 #logo {
@@ -24,14 +23,14 @@ body > header {
 
 
 #logo h1 {
-  font-size: 5em;
+  font-size: 3em;
   font-family: 'Oxygen', sans-serif;
   margin: 0;
   flex-grow: 1;
 }
 
 #logo img {
-  width: 100px;
+  width: 60px;
 }
 
 #add_project {
@@ -39,7 +38,7 @@ body > header {
 }
 
 #user  {
-  padding: 1em 1em 1em 1em;
+  padding: 1em 2em 1em 2em;
   background-color: Black;
   justify-content: space-between;
   text-align:center;
@@ -53,8 +52,8 @@ body > header {
 }
 
 #user input {
-  padding: 0.1em;
-  margin-bottom: 1em;
+  padding: 0.5em;
+  margin-bottom: 1.5em;
 }
 
 
@@ -67,8 +66,9 @@ input:focus{
   background-color: transparent;
   border: solid;
   color:white;
+  margin-bottom: 0.5em;
   font-family: 'Barlow Semi Condensed', sans-serif;
-  font-size: 100%;
+  font-size: 18px;
   border-color: black;
 }
 
@@ -79,6 +79,7 @@ input:focus{
 
 #user input[type="submit"]{
   background-color: GhostWhite  ;
+  align-self: center;
   border: solid;
   border-color: GhostWhite  ;
   font-family: 'Barlow Semi Condensed', sans-serif;
