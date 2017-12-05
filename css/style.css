@@ -176,18 +176,24 @@ footer {
 
 
 #create_project_form{
-  position: absolute;
+  position: fixed;
   z-index: 1;
-  right: 300px;
-  left: 300px;
-  top: 200px;
-  bottom: 300px;
+  right: 0;
+  left: 0px;
+  top: 0;
+  bottom: 0px;
   /*  Mudar para posição relativa e layout*/
   flex-direction: column;
   justify-content: space-between;
-  background-color: grey;
-  padding: 1em 20em 1em 20em;
+  background-color: white;
+  opacity: 0.3;
+  padding: 20em 30em 20em 30em;
   text-align: center;
+}
+
+#add_box{
+
+  background-color: black;
 }
 
 #create_project_form label{

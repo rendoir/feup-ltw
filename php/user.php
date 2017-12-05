@@ -44,11 +44,21 @@ function displayProjects($user) {
     </ul>
     <i id="plus_project" class="fa fa-plus-circle" aria-hidden="true"></i>
     <label id="plus_project_label"> Add Project </label>
-    <form id="create_project_form" class="user_form">
+   <form id="create_project_form" class="user_form">
       <label id="new_project_label"> New Project </label>
       <input type="text" id="create_project_title" placeholder="Project Title" required autofocus>
       <input type="submit" id="create_project" value="Create Project">
     </form>
+
+  <!--  <form id="create_project_form" class="user_form">
+      <form id="add_box" class="box_form">
+        <label id="new_project_label"> New Project </label>
+        <input type="text" id="create_project_title" placeholder="Project Title" required autofocus>
+        <input type="submit" id="create_project" value="Create Project">
+      </form>
+    </form> -->
+
+
    </section>
 
    <section id="todo_section">
