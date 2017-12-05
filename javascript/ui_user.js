@@ -241,11 +241,15 @@ function plusProjectHandler() {
 }
 
 function displayCreateTodoForm() {
-  document.getElementById("create_todo_form").style.display = "block";
+  document.getElementById("create_todo_form").style.display = "flex";
 }
 
 function getTodoPlus() {
   return document.getElementById("plus_todo");
+}
+
+function getTodoPlusLabel() {
+  return document.getElementById("plus_todoList_label");
 }
 
 function plusListHandler() {
@@ -255,6 +259,7 @@ function plusListHandler() {
     event.stopImmediatePropagation();
   });
 }
+
 
 function clickProjectsHandler() {
   let project_list = getProjectList();
@@ -284,10 +289,15 @@ function clearCurrentTasks() {
 function displayTodoPlus() {
   //TODO Change from "flex" to whatever you're using in css
   getTodoPlus().style.display = "flex";
+  getTodoPlusLabel().style.display = "flex";
 }
 
 function displayTodoList() {
-  getTodoList().style.display = "block";
+  getTodoList().style.display = "flex";
+}
+
+function displayProjectTitle(project) {
+  getProjectTitle(project).style.display = "flex";
 }
 
 function setCurrentTodo(todo_array) {
@@ -305,6 +315,7 @@ function clickProjectHandler(project_li) {
   project_li.firstElementChild.addEventListener("click", function(event) {
     updateSelectedProject(project_li);
     let project_title = getProjectTitle(project_li);
+    //displayProjectTitle(project_title);
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
@@ -374,7 +385,7 @@ function getTaskPlus() {
 }
 
 function displayCreateTaskForm() {
-  document.getElementById("create_task_form").style.display = "block";
+  document.getElementById("create_task_form").style.display = "flex";
 }
 
 function displayPlusTask() {
@@ -383,7 +394,7 @@ function displayPlusTask() {
 }
 
 function displayTaskList() {
-  getTaskList().style.display = "block";
+  getTaskList().style.display = "flex";
 }
 
 function clickTodoHandler(todo_li) {

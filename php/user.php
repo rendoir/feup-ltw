@@ -52,9 +52,15 @@ function displayProjects($user) {
    </section>
 
    <section id="todo_section">
+     <label id="project_todo">ToDo List - </label>
      <ul id="todo_list"></ul>
-     <i id="plus_todo" class="fa fa-plus-circle" aria-hidden="true"></i>
+     <div id="add_todo">
+       <i id="plus_todo" class="fa fa-plus-circle" aria-hidden="true"></i>
+       <label id="plus_todoList_label"> Add Todo List </label>
+     </div>
+
      <form id="create_todo_form" class="user_form">
+       <label id="new_project_label"> New Todo List </label>
        <input type="text" id="create_todo_title" placeholder="Todo Title" required autofocus>
        <select id="create_todo_category" name="Category" form="create_todo_form" required>Category
          <option value="Event">Event</option>
@@ -66,14 +72,20 @@ function displayProjects($user) {
          <option value="Shopping">Shopping</option>
          <option value="Travelling">Travelling</option>
        </select>
-       <input type="color" id="create_todo_color" autofocus>
+       <div id=color_div>
+         <label id="color_label"> Choose Color </label>
+         <input type="color" id="create_todo_color" autofocus>
+       </div>
        <input type="submit" id="create_todo" value="Create Todo List">
      </form>
    </section>
 
    <section id="task_section">
      <ul id="task_list"></ul>
-     <i id="plus_task" class="fa fa-plus-circle" aria-hidden="true"></i>
+     <div id="add_task">
+       <i id="plus_task" class="fa fa-plus-circle" aria-hidden="true"></i>
+       <label id="plus_task_label"> Add Task </label>
+     </div>
      <form id="create_task_form" class="user_form">
        <input type="text" id="create_task_text" placeholder="Task" required autofocus>
        <input type="date" id="create_task_date" required>
