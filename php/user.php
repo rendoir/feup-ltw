@@ -44,29 +44,19 @@ function displayProjects($user) {
     </ul>
     <i id="plus_project" class="fa fa-plus-circle" aria-hidden="true"></i>
     <label id="plus_project_label"> Add Project </label>
-   <form id="create_project_form" class="user_form">
+    <form id="create_project_form" class="user_form">
       <label id="new_project_label"> New Project </label>
       <input type="text" id="create_project_title" placeholder="Project Title" required autofocus>
       <input type="submit" id="create_project" value="Create Project">
     </form>
-
-  <!--  <form id="create_project_form" class="user_form">
-      <form id="add_box" class="box_form">
-        <label id="new_project_label"> New Project </label>
-        <input type="text" id="create_project_title" placeholder="Project Title" required autofocus>
-        <input type="submit" id="create_project" value="Create Project">
-      </form>
-    </form> -->
-
-
    </section>
 
    <section id="todo_section">
-     <label id="project_todo">ToDo List - </label>
+     <label id="todo_label">To Do List</label>
      <ul id="todo_list"></ul>
      <div id="add_todo">
        <i id="plus_todo" class="fa fa-plus-circle" aria-hidden="true"></i>
-       <label id="plus_todoList_label"> Add Todo List </label>
+       <label id="plus_todo_label"> Add Todo List </label>
      </div>
 
      <form id="create_todo_form" class="user_form">

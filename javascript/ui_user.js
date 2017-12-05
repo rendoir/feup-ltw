@@ -249,7 +249,11 @@ function getTodoPlus() {
 }
 
 function getTodoPlusLabel() {
-  return document.getElementById("plus_todoList_label");
+  return document.getElementById("plus_todo_label");
+}
+
+function getTodoLabel() {
+  return document.getElementById("todo_label");
 }
 
 function plusListHandler() {
@@ -300,6 +304,10 @@ function displayProjectTitle(project) {
   getProjectTitle(project).style.display = "flex";
 }
 
+function displayTodoLabel() {
+  getTodoLabel().style.display = "block";
+}
+
 function setCurrentTodo(todo_array) {
   let todo_ul = getTodoList();
   if(todo_array !== null) {
@@ -324,6 +332,7 @@ function clickProjectHandler(project_li) {
       hideTaskSection();
       hideTodoSection();
       setCurrentTodo(todo_array);
+      displayTodoLabel();
       displayTodoList();
       displayTodoPlus();
     });
@@ -350,6 +359,7 @@ function updateSelectedTodo(new_selected) {
 function hideTodoSection() {
   getTodoList().style.display = "none";
   getTodoPlus().style.display = "none";
+  getTodoLabel().style.display = "none";
 }
 
 function hideTaskSection() {

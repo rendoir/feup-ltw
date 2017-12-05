@@ -137,7 +137,7 @@ footer {
   padding: 1em 1em 1em 1em;
 }
 
-#plus_todo, #plus_task, #plus_todoList_label, #plus_task_label {
+#plus_todo, #plus_task, #plus_todo_label, #plus_task_label, #todo_label {
   display: none;
 }
 
