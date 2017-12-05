@@ -83,7 +83,7 @@ function createTask(task) {
   let completed_checkbox = document.createElement("input");
   completed_checkbox.classList.add('task_user');
   completed_checkbox.type = "checkbox";
-  completed_checkbox.checked = ((task.is_completed === "0") ? false : true);
+  completed_checkbox.checked = ((task.is_completed == 0) ? false : true);
   task_li.appendChild(completed_checkbox);
 
   return task_li;
@@ -465,6 +465,7 @@ function createTaskHandler() {
         let task_ul = getTaskList();
         let task_li = createTask(task_input);
         task_ul.appendChild(task_li);
+        clickTaskCheckbox(task_li);
       }
       resetTaskInput();
     });
