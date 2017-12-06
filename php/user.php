@@ -52,7 +52,7 @@ function displayProjects($user) {
    </section>
 
    <section id="todo_section">
-     <label id="todo_label">To Do List</label>
+     <label id="todo_label" title="'s to-do lists"></label>
      <ul id="todo_list"></ul>
      <div id="add_todo">
        <i id="plus_todo" class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -81,6 +81,7 @@ function displayProjects($user) {
    </section>
 
    <section id="task_section">
+     <label id="task_label" title="'s tasks"></label>
      <ul id="task_list"></ul>
      <div id="add_task">
        <i id="plus_task" class="fa fa-plus-circle" aria-hidden="true"></i>

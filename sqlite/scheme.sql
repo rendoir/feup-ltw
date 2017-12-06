@@ -2,7 +2,9 @@ PRAGMA FOREIGN_KEYS = ON;
 
 CREATE TABLE User (
   username STRING PRIMARY KEY,
-  password STRING NOT NULL
+  password STRING NOT NULL,
+  email STRING NOT NULL UNIQUE,
+  birth_date INTEGER
 );
 
 CREATE TABLE Project (
