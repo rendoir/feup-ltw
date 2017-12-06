@@ -87,6 +87,7 @@ function displayProjects($user) {
        <label id="plus_task_label"> Add Task </label>
      </div>
      <form id="create_task_form" class="user_form">
+       <label id="new_task_label">New Task</label>
        <input type="text" id="create_task_text" placeholder="Task" required autofocus>
        <input type="date" id="create_task_date" required>
        <input type="time" id="create_task_time" required>

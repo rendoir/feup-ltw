@@ -158,24 +158,6 @@ footer {
   content: attr(data-username);
 }
 
-/*
-.user_form {
-  position: absolute;
-  z-index: 1;
-  right: 100px;
-  -left: 1px;
-  top: 200px;
-  --bottom: 200px;
-  height:25%;
-  background-color: black;
-  opacity: 1;
-  display: flex;
-  text-align:center;
-  flex-direction: column;
-  justify-content: space-between;
-}*/
-
-
 #create_project_form{
   position: fixed;
   z-index: 1;
@@ -183,26 +165,35 @@ footer {
   left: 0px;
   top: 0;
   bottom: 0px;
-  /*  Mudar para posição relativa e layout*/
   flex-direction: column;
   justify-content: space-between;
-  background-color: white;
-  opacity: 0.3;
-  padding: 20em 30em 20em 30em;
+  background-color: transparent;
+  padding: 20em 40em 19em 35em;
   text-align: center;
 }
 
-#add_box{
-
-  background-color: black;
-}
-
 #create_project_form label{
-  margin-bottom: 1em;
+  width: 20em;
+  padding: 1em 1em 1em 1em;
+  background-color: black;
+  color:white;
 }
 
-#create_project_form input{
-  margin-bottom: 1em;
+#create_project_title{
+  width: 26em;
+}
+
+#create_project{
+  width: 21.8em;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: white;
+  color:black;
+  text-align: center;
+  border-color: black;
+}
+
+#create_project:hover{
+  font-weight: lighter;
 }
 
 .user_form input {
@@ -240,23 +231,38 @@ input[type="submit"]{
 }
 
 #create_todo_form{
-  position: absolute;
+  position: fixed;
   z-index: 1;
-  right: 300px;
-  left: 300px;
-  top: 200px;
-  bottom: 300px;
-  /*  Mudar para posição relativa e layout*/
+  right: 0;
+  left: 0px;
+  top: 0;
+  bottom: 0px;
   flex-direction: column;
   justify-content: space-between;
-  background-color: grey;
-  padding: 1em 20em 1em 20em;
+  background-color: transparent;
+  padding: 20em 40em 15em 35em;
   text-align: center;
+}
+
+#new_project_label{
+  width: 20em;
+  padding: 1em 1em 1em 1em;
+  background-color: black;
+  color:white;
+}
+
+#create_todo_title{
+  width:26em;
+}
+
+#create_todo_category{
+  width:26.3em;
 }
 
 #create_todo_color{
   background-color: transparent;
-  border-color:grey;
+  border-color:white;
+  width:5em;
 }
 
 #add_todo{
@@ -266,28 +272,60 @@ input[type="submit"]{
   align-items: center;
 }
 
+#create_todo{
+  width: 22em;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: white;
+  color:black;
+  text-align: center;
+  border-color: black;
+}
+
+#create_todo:hover{
+  font-weight: lighter;
+}
+
 .todo:hover{
   font-weight: bold;
 }
 
 #create_task_form{
-  position: absolute;
+  position: fixed;
   z-index: 1;
-  right: 300px;
-  left: 300px;
-  top: 200px;
-  bottom: 300px;
-  /*  Mudar para posição relativa e layout*/
+  right: 0;
+  left: 0px;
+  top: 0;
+  bottom: 0px;
   flex-direction: column;
   justify-content: space-between;
-  background-color: grey;
-  padding: 1em 20em 1em 20em;
+  background-color: transparent;
+  padding: 20em 40em 15em 35em;
   text-align: center;
 }
 
-#add_task{
+#add_task{ /* ver add task label - nao aparece*/
   display: flex;
   flex-direction: row;
   text-align: left;
   align-items: center;
+}
+
+#new_task_label{
+  color:white;
+  background-color: black;
+  padding: 0.5em 1em 0.5em 1em;
+
+}
+
+#create_task{
+  width: 21em;
+  padding: 0.4em 1em 0.4em 1em;
+  background-color: white;
+  color:black;
+  text-align: center;
+  border-color: black;
+}
+
+#create_task:hover{
+  font-weight: lighter;
 }
