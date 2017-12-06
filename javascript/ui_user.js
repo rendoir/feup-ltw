@@ -3,6 +3,13 @@
 const MAX_TITLE_LENGTH = 32;
 const MAX_TASK_LENGTH = 128;
 
+const TRASH = '<i class="fa fa-trash" aria-hidden="true"></i>';
+const EMPTY_CHECKBOX = '<i class="fa fa-square-o" aria-hidden="true"></i>';
+const CHECKED_CHECKBOX = '<i class="fa fa-check-square-o" aria-hidden="true"></i>';
+const TODO = '<i class="fa fa-list-ul" aria-hidden="true"></i>';
+const TASK = '<i class="fa fa-tasks" aria-hidden="true"></i>';
+const USER = '<i class="fa fa-user" aria-hidden="true"></i>';
+
 function encodeForAjax(data) {
   return Object.keys(data).map(function(k){
     return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
