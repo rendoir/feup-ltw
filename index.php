@@ -25,7 +25,6 @@
       <section id="logo">
         <img src="images/check.svg">
         <h1> <a href ="index.php">List It</a></h1>
-      <!--  <label id="description"> Organize yourself </label>-->
       </section>
       </header>
 
@@ -35,24 +34,24 @@
         <input type="button" id="change_to_register" value="Register">
         <section id="login">
            <form action="php/actions/action_login.php" method="post">
-             <input type="text" placeholder="username" name="username">
-             <input type="password" placeholder="password" name="password">
+             <input type="text" placeholder="username" name="username" required>
+             <input type="password" placeholder="password" name="password" required>
              <input type="submit" value="Login">
            </form>
          </section>
          <section id="register">
             <form action="php/actions/action_register.php" method="post">
-              <input type="text" placeholder="username" name="username">
-              <input type="password" placeholder="password" name="password">
+              <input type="text" placeholder="username" name="username" required>
+              <input type="text" placeholder="First Name" name="first_name" required>
+              <input type="text" placeholder="Last Name" name="last_name" required>
+              <input type="email" placeholder="example@listit.com" name="email" required>
+              <input type="password" placeholder="password" name="password" required>
               <input type="submit" value="Register">
             </form>
           </section>
         </section>
 
-      <section id="description">
-        <p>description</p>
-      </section>
-
+        <label id="description"> Organize yourself </label>
 
     <footer>
       &copy 2017;  Daniel Machado  -  Daniel Marques  -  Sofia Alves

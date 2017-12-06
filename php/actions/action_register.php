@@ -4,6 +4,9 @@
 
   $username = $_POST['username'];
   $password = $_POST['password'];
+  $email = strtolower($_POST['email']);
+  $first_name = $_POST['first_name'];
+  $last_name = $_POST['last_name'];
 
   function validUsername($username) {
     return preg_match ('/^[a-zA-Z][a-zA-Z0-9_\-]{1,30}[a-zA-Z0-9]$/', $username);
@@ -17,25 +20,49 @@
     return $has_uppercase && $has_lowercase && $has_number && $valid_length;
   }
 
-  if($username === null || $password === null) {
+  function validEmail($email) {
+    return preg_match ('/^[a-zA-Z][a-zA-Z0-9_]{1,30}[a-zA-Z0-9]@[a-zA-Z]{2,10}\.[a-zA-Z]{1,6}$/', $email);
+  }
+
+  function validName($first_name, $last_name) {
+    $regex = '/^[A-Z][a-z]{2,20}$/';
+    if(preg_match($regex, $first_name) && preg_match($regex, $last_name))
+      return $first_name . " " . $last_name;
+    return false;
+  }
+
+  if($username === null || $password === null || $email === null ||
+    $first_name === null || $last_name === null) {
     header('HTTP/1.0 403 Forbidden');
     exit();
-  } else if(!validUsername($username)) {
+  }
+  if(!validUsername($username)) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     die("Invalid username!");
-  } else if(!validPassword($password)) {
+  }
+  if(!validPassword($password)) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     die("Invalid password!");
-  } if (DataBase::checkLogin($username, $password)) {
+  }
+  if(!validEmail($email)) {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    die("Invalid email!");
+  }
+  if (DataBase::checkLogin($username, $password)) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     die("Username already in use!");
-  } else if(DataBase::addUser($username, $password)) {
+  }
+  $name = validName($first_name, $last_name);
+  if(!$name) {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    die("Invalid Name!");
+  }
+  if(DataBase::addUser($username, $password, $email, $name)) {
     Session::setCurrentUser($username);
     header('Location: ../user.php');
     exit();
-  } else {
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
-    die("Unknown error!");
   }
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
+  die("Unknown error!");
 
 ?>

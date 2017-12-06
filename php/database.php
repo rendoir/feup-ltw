@@ -29,10 +29,12 @@
       return false;
     }
 
-    public static function addUser($username, $password) {
-      $stmt = self::$db->prepare('INSERT INTO User (username, password)
-                                  VALUES (?, ?);');
-      return $stmt->execute(array($username, $password));
+    public static function addUser($username, $password, $email, $name) {
+      $stmt = self::$db->prepare('INSERT INTO User (username, password, email, name)
+                                  VALUES (?, ?, ?, ?);');
+      if(!$stmt)
+        return false;
+      return $stmt->execute(array($username, $password, $email, $name));
     }
 
     public static function getUserProjects($username) {
