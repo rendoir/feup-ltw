@@ -31,7 +31,7 @@ function displayProjects($user) {
      <ul id="project_list">
       <?php
         $projects = DataBase::getUserProjects($user);
-        if($projects != FALSE) {
+        if($projects !== false) {
           foreach($projects as $project){
             ?>
              <li class="project" data-project-manager="<?=$project['project_manager']?>">

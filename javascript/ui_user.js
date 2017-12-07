@@ -339,15 +339,12 @@ function clearCurrentTasks() {
     task_ul.removeChild(task_ul.firstElementChild);
 }
 
-function displayAddTodo() {
-  //TODO Change from "flex" to whatever you're using in css
-  getTodoPlus().style.display = "flex";
-  getTodoPlusLabel().style.display = "flex";
-}
-
-function displayTodoList() {
+function displayTodoSection() {
+  getTodoSection().style.display = "block";
   displayTodoLabel();
   getTodoList().style.display = "grid";
+  getTodoPlus().style.display = "flex";
+  getTodoPlusLabel().style.display = "flex";
 }
 
 function displayProjectTitle(project) {
@@ -383,8 +380,7 @@ function clickProjectHandler(project_li) {
       hideTaskSection();
       hideTodoSection();
       setCurrentTodo(todo_array);
-      displayTodoList();
-      displayAddTodo();
+      displayTodoSection();
     });
 
     request.open('POST', '../php/actions/action_get_todo_lists.php', true);
@@ -406,7 +402,12 @@ function updateSelectedTodo(new_selected) {
   new_selected.id = "selected_todo";
 }
 
+function getTodoSection() {
+  return document.getElementById("todo_section");
+}
+
 function hideTodoSection() {
+  getTodoSection().style.display = "none";
   getTodoList().style.display = "none";
   getTodoPlus().style.display = "none";
   getTodoLabel().style.display = "none";

@@ -102,14 +102,15 @@
         return false;
       $result = $stmt->execute(array($project, $user));
       if(!$result)
-        $result = self::addUserToProject($user, $project);
+        return false;
+      $result = self::addUserToProject($user, $project);
       return $result;
     }
 
     public static function addUserToProject($user, $project) {
       $stmt = self::$db->prepare('INSERT INTO Contributes (user, project)
                                   VALUES (?, ?);');
-      if(!$stmt)
+      if($stmt)
         return $stmt->execute(array($user, $project));
       return false;
     }
