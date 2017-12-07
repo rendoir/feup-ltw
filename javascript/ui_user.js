@@ -96,6 +96,43 @@ function createTask(task) {
   return task_li;
 }
 
+function attachTrashProject(project_li) {
+  let trash = document.createElement("i");
+  project_li.appendChild(trash);
+  trash.outerHTML = TRASH;
+  clickTrashProject(project_li);
+}
+
+function deleteProject(project_li) {
+  project_li.parentElement.removeChild(project_li);
+}
+
+function clickTrashProject(project_li) {
+  project_li.lastElementChild.addEventListener("click", function(event) {
+    console.log("DELETE");
+    let project_title = getProjectTitle(project_li);
+    let request = new XMLHttpRequest();
+    request.addEventListener('load', function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response !== false) {
+        console.log("SUCCESS");
+        if(project_title === getProjectTitle(getSelectedProject())) {
+          clearCurrentTodo();
+          clearCurrentTasks();
+          hideTaskSection();
+          hideTodoSection();
+        }
+        deleteProject(project_li);
+      }
+    });
+    request.open('POST', '../php/actions/action_delete_project.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({project: project_title}));
+    event.stopImmediatePropagation();
+  });
+  console.log("ADDED TRASH LISTENER");
+}
+
 function getTodoTitle(todo) {
   return todo.firstElementChild.innerHTML;
 }
@@ -147,6 +184,7 @@ function createProjectHandler() {
         let project_li = createProject(project_title);
         project_ul.appendChild(project_li);
         clickProjectHandler(project_li);
+        attachTrashProject(project_li);
       }
       resetProjectInput();
     });
@@ -184,7 +222,9 @@ function getSelectedProject() {
 }
 
 function getProjectTitle(project) {
-  return project.firstElementChild.innerHTML;
+  if(project !== null)
+    return project.firstElementChild.innerHTML;
+  return "";
 }
 
 function hideCreateTodoForm() {
@@ -274,8 +314,10 @@ function plusListHandler() {
 
 function clickProjectsHandler() {
   let project_list = getProjectList();
-  for(let i = 0; i < project_list.children.length; i++)
+  for(let i = 0; i < project_list.children.length; i++) {
     clickProjectHandler(project_list.children[i]);
+    attachTrashProject(project_list.children[i]);
+  }
 }
 
 function updateSelectedProject(new_selected) {
@@ -543,7 +585,6 @@ function init() {
 
   plusTaskHandler();
   createTaskHandler();
-
 }
 
 init();

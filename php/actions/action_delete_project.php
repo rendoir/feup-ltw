@@ -3,10 +3,9 @@
   include_once('../database.php');
 
   $project = $_POST["project"];
-  $user = Session::getCurrentUser();
 
   if($project !== null)
-    echo json_encode(DataBase::addProject($project, $user));
+    echo json_encode(DataBase::deleteProject($project));
   else echo json_encode(false);
 
 ?>

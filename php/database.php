@@ -88,8 +88,10 @@
     public static function addProject($project, $user) {
       $stmt = self::$db->prepare('INSERT INTO Project (title, project_manager)
                                   VALUES (?, ?);');
+      if(!$stmt)
+        return false;
       $result = $stmt->execute(array($project, $user));
-      if($result != false)
+      if(!$result)
         $result = self::addUserToProject($user, $project);
       return $result;
     }
@@ -97,7 +99,9 @@
     public static function addUserToProject($user, $project) {
       $stmt = self::$db->prepare('INSERT INTO Contributes (user, project)
                                   VALUES (?, ?);');
-      return $stmt->execute(array($user, $project));
+      if(!$stmt)
+        return $stmt->execute(array($user, $project));
+      return false;
     }
 
     public static function addToDoList($title, $project, $category, $color) {
@@ -128,6 +132,14 @@
                                   SET is_completed = ?
                                   WHERE todo_list == ? AND task == ?;');
       return $stmt->execute(array($completed, $todo_id, $task));
+    }
+
+    public static function deleteProject($project) {
+      $stmt = self::$db->prepare('DELETE FROM Project
+                                  WHERE title == ?;');
+      if($stmt)
+        return $stmt->execute(array($project));
+      return false;
     }
   }
 
