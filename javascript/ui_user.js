@@ -435,7 +435,7 @@ function displayTaskLabel() {
 
 function displayTaskList() {
   displayTaskLabel();
-  getTaskList().style.display = "block";
+  getTaskList().style.display = "grid";
 }
 
 function clickTodoHandler(todo_li) {
