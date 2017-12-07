@@ -92,8 +92,9 @@
       $stmt = self::$db->prepare('SELECT *
                                  FROM User
                                  WHERE username == ?;');
-      $stmt -> execute([$user]);
-      return $stmt->fetch()[$field];
+      if($stmt -> execute([$user]))
+        return $stmt->fetch()[$field];
+      return null;
     }
 
     public static function addProject($project, $user) {
