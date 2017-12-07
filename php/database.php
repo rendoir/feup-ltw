@@ -12,6 +12,7 @@
         try {
           self::$db = new PDO('sqlite:' . ROOT . '/sqlite/todo.db');
           self::$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+          self::$db->exec('PRAGMA foreign_keys = ON;');
         } catch (PDOException $e) {
           die($e->getMessage());
         }
