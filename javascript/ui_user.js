@@ -166,6 +166,36 @@ function clickTrashTodo(todo_li) {
   });
 }
 
+function attachTrashTask(task_li) {
+  let trash = document.createElement("i");
+  task_li.appendChild(trash);
+  trash.outerHTML = TRASH;
+  clickTrashTask(task_li);
+}
+
+function deleteTask(task_li) {
+  task_li.parentElement.removeChild(task_li);
+}
+
+function clickTrashTask(task_li) {
+  task_li.lastElementChild.addEventListener("click", function(event) {
+    let project_title = getProjectTitle(getSelectedProject());
+    let todo_title = getTodoTitle(getSelectedTodo());
+    let task = getTask(task_li);
+    let request = new XMLHttpRequest();
+    request.addEventListener('load', function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response !== false) {
+        deleteTask(task_li);
+      }
+    });
+    request.open('POST', '../php/actions/action_delete_task.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({project: project_title, todo: todo_title, task: task}));
+    event.stopImmediatePropagation();
+  });
+}
+
 function getTodoTitle(todo) {
   if(todo !== null)
     return todo.firstElementChild.innerHTML;
@@ -473,6 +503,7 @@ function setTaskList(tasks_array) {
       let task_li = createTask(tasks_array[i]);
       task_ul.appendChild(task_li);
       clickTaskCheckbox(task_li);
+      attachTrashTask(task_li);
     }
   }
 }
@@ -587,6 +618,7 @@ function createTaskHandler() {
         let task_li = createTask(task_input);
         task_ul.appendChild(task_li);
         clickTaskCheckbox(task_li);
+        attachTrashTask(task_li);
       }
       resetTaskInput();
     });

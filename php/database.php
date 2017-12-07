@@ -181,6 +181,17 @@
       return $stmt->execute(array($todo, $project));
     }
 
+    public static function deleteTask($project, $todo, $task) {
+      $todo_id = DataBase::getTodoID($project, $todo);
+      if($todo_id === null)
+        return false;
+      $stmt = self::$db->prepare('DELETE FROM ListItem
+                                  WHERE todo_list == ? AND task == ?;');
+      if(!$stmt)
+        return false;
+      return $stmt->execute(array($todo_id, $task));
+    }
+
     public static function setProfileImage($user, $path) {
       $stmt = self::$db->prepare('UPDATE User
                                   SET image = ?
