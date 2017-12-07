@@ -116,6 +116,7 @@ function clickTrashProject(project_li) {
       let response = JSON.parse(this.responseText);
       if(response !== false) {
         if(project_title === getProjectTitle(getSelectedProject())) {
+          updateSelectedProject("");
           clearCurrentTodo();
           clearCurrentTasks();
           hideTaskSection();
@@ -131,8 +132,44 @@ function clickTrashProject(project_li) {
   });
 }
 
+function attachTrashTodo(todo_li) {
+  let trash = document.createElement("i");
+  todo_li.appendChild(trash);
+  trash.outerHTML = TRASH;
+  clickTrashTodo(todo_li);
+}
+
+function deleteTodo(todo_li) {
+  todo_li.parentElement.removeChild(todo_li);
+}
+
+function clickTrashTodo(todo_li) {
+  todo_li.lastElementChild.addEventListener("click", function(event) {
+    let project_title = getProjectTitle(getSelectedProject());
+    let todo_title = getTodoTitle(todo_li);
+    let request = new XMLHttpRequest();
+    request.addEventListener('load', function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response !== false) {
+        if(todo_title === getTodoTitle(getSelectedTodo())) {
+          updateSelectedTodo("");
+          clearCurrentTasks();
+          hideTaskSection();
+        }
+        deleteTodo(todo_li);
+      }
+    });
+    request.open('POST', '../php/actions/action_delete_todo.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({project: project_title, todo: todo_title}));
+    event.stopImmediatePropagation();
+  });
+}
+
 function getTodoTitle(todo) {
-  return todo.firstElementChild.innerHTML;
+  if(todo !== null)
+    return todo.firstElementChild.innerHTML;
+  return "";
 }
 
 function getTask(task) {
@@ -259,6 +296,7 @@ function createListHandler() {
         let todo_li = createTodo(todo_input);
         todo_ul.appendChild(todo_li);
         clickTodoHandler(todo_li);
+        attachTrashTodo(todo_li);
       }
       resetTodoInput();
     });
@@ -362,6 +400,7 @@ function setCurrentTodo(todo_array) {
       let todo_li = createTodo(todo_array[i]);
       todo_ul.appendChild(todo_li);
       clickTodoHandler(todo_li);
+      attachTrashTodo(todo_li);
     }
   }
 }

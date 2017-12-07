@@ -172,6 +172,23 @@
         return false;
       return $stmt->execute(array($project));
     }
+
+    public static function deleteTodo($project, $todo) {
+      $stmt = self::$db->prepare('DELETE FROM TodoList
+                                  WHERE title == ? AND project == ?;');
+      if(!$stmt)
+        return false;
+      return $stmt->execute(array($todo, $project));
+    }
+
+    public static function setProfileImage($user, $path) {
+      $stmt = self::$db->prepare('UPDATE User
+                                  SET image = ?
+                                  WHERE username == ?;');
+      if(!$stmt)
+        return false;
+      return $stmt->execute(array($path, $user));
+    }
   }
 
   DataBase::init();
