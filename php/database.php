@@ -85,6 +85,17 @@
       return null;
     }
 
+    public  static function getUserField($user, $field){
+      if($field == "password")
+        return null;
+
+      $stmt = self::$db->prepare('SELECT *
+                                 FROM User
+                                 WHERE username == ?;');
+      $stmt -> execute([$user]);
+      return $stmt->fetch()[$field];
+    }
+
     public static function addProject($project, $user) {
       $stmt = self::$db->prepare('INSERT INTO Project (title, project_manager)
                                   VALUES (?, ?);');

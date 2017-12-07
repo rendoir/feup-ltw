@@ -14,6 +14,7 @@
       $_SESSION['username'] = $username;
     }
 
+
     public static function getCurrentUser() {
       if(!isset($_SESSION['username']))
         return NULL;
