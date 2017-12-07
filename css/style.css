@@ -1,12 +1,32 @@
 body {
 
   font-family: 'Barlow Semi Condensed', sans-serif;
+  margin: 0 auto;
+  width: 60em;
+
+  display:grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas:
+          "header header"
+          "user_header  user_header"
+          "project_section  todo_section"
+          "footer  footer";
+
 }
 
 body > header {
   align-items: stretch;
   border-style: solid;
   border-width: 0 0 5px 0;
+}
+
+header{
+  grid-area:header;
+}
+
+header.user_header{
+  grid-area:user_header;
 }
 
 #logo {
@@ -101,6 +121,7 @@ input:focus{
 
 
 footer {
+  grid-area:footer;
   background-color: black;
   color: white;
   padding: 1em;
@@ -125,6 +146,10 @@ footer {
 }
 
 .project_title:hover{
+  font-weight: bold;
+}
+
+#selected_project{
   font-weight: bold;
 }
 
@@ -224,13 +249,25 @@ input[type="submit"]{
 
 
 #todo_section{
-  padding: 1em 1em 1em 2em;
+  padding: 1em 1em 1em 1em;
 
 }
 
 #todo_list{
+  display: grid;
+  padding: 0em;
+  grid-template-columns: 2fr 2fr 2fr;
+  grid-template-rows: 3fr 3fr;
+}
+
+.todo{
+  display:flex;
   flex-direction: column;
-  justify-content: space-between;
+  text-align: center;
+  border: 1px grey solid;
+  padding: 1em;
+  margin: 1em;
+
 }
 
 #create_todo_form{

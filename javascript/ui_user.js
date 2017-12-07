@@ -305,7 +305,7 @@ function displayAddTodo() {
 
 function displayTodoList() {
   displayTodoLabel();
-  getTodoList().style.display = "flex";
+  getTodoList().style.display = "grid";
 }
 
 function displayProjectTitle(project) {
