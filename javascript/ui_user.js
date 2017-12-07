@@ -9,6 +9,7 @@ const CHECKED_CHECKBOX = '<i class="fa fa-check-square-o" aria-hidden="true"></i
 const TODO = '<i class="fa fa-list-ul" aria-hidden="true"></i>';
 const TASK = '<i class="fa fa-tasks" aria-hidden="true"></i>';
 const USER = '<i class="fa fa-user" aria-hidden="true"></i>';
+const CANCEL = '<i class="fa fa-times" aria-hidden="true"></i>';
 
 function encodeForAjax(data) {
   return Object.keys(data).map(function(k){
