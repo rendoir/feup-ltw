@@ -21,16 +21,29 @@ if($user_info === null)
 $email = $user_info['email'];
 $name = $user_info['name'];
 $birth = $user_info['birth_date'];
+$image = $user_info['image'];
 
 include_once('../html/header.html');
 
 ?>
 <body>
   <section id="profile_section">
-    <a id="username"><?php echo $user ?> </a>
-    <a id="name"><?php echo $name ?> </a>
-    <a id="email"><?php echo $email ?> </a>
-    <a id="birth_date"><?php echo $birth ?> </a>
+    <span id="username"><?=$user?></span>
+    <span id="name"><?=$name?></span>
+    <span id="email"><?=$email?></span>
+    <span id="birth_date"><?=$birth?></span>
+<?php
+  if($image !== null) {
+    ?>
+     <img src="../images/profiles/<?=$image?>" width="256" height="256">
+    <?php
+  } else {
+  ?>
+    <img src="../images/default.png" width="256" height="256">
+  <?php
+  }
+  ?>
+
   </section>
 </body>
 

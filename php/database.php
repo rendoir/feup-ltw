@@ -97,7 +97,7 @@
     }
 
     public  static function getUserInfo($username){
-      $stmt = self::$db->prepare('SELECT name, email, birth_date
+      $stmt = self::$db->prepare('SELECT name, email, birth_date, image
                                   FROM User
                                   WHERE username == ?;');
       if(!$stmt)

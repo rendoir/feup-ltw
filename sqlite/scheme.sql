@@ -5,7 +5,8 @@ CREATE TABLE User (
   name STRING NOT NULL,
   password STRING NOT NULL,
   email STRING NOT NULL UNIQUE,
-  birth_date INTEGER
+  birth_date INTEGER,
+  image STRING
 );
 
 CREATE TABLE Project (
