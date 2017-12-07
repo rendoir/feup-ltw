@@ -109,13 +109,11 @@ function deleteProject(project_li) {
 
 function clickTrashProject(project_li) {
   project_li.lastElementChild.addEventListener("click", function(event) {
-    console.log("DELETE");
     let project_title = getProjectTitle(project_li);
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
       if(response !== false) {
-        console.log("SUCCESS");
         if(project_title === getProjectTitle(getSelectedProject())) {
           clearCurrentTodo();
           clearCurrentTasks();
@@ -130,7 +128,6 @@ function clickTrashProject(project_li) {
     request.send(encodeForAjax({project: project_title}));
     event.stopImmediatePropagation();
   });
-  console.log("ADDED TRASH LISTENER");
 }
 
 function getTodoTitle(todo) {

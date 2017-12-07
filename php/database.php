@@ -42,6 +42,8 @@
       $stmt = self::$db->prepare('SELECT project, project_manager
                                   FROM Contributes, Project
                                   WHERE project == title AND user == ?;');
+      if(!$stmt)
+        return false;
       if($stmt->execute(array($username)))
         return $stmt->fetchAll();
       return null;
@@ -51,6 +53,8 @@
       $stmt = self::$db->prepare('SELECT title, category, color
                                   FROM TodoList
                                   WHERE project == ?;');
+      if(!$stmt)
+        return false;
       if($stmt->execute(array($project)))
         return $stmt->fetchAll();
       return null;
@@ -63,6 +67,8 @@
       $stmt = self::$db->prepare('SELECT task, is_completed, due_date, user
                                   FROM ListItem
                                   WHERE todo_list == ?;');
+      if(!$stmt)
+        return false;
       if($stmt->execute(array($todo_id)))
         return $stmt->fetchAll();
       return null;
@@ -72,6 +78,8 @@
       $stmt = self::$db->prepare('SELECT list_id
                                   FROM TodoList
                                   WHERE project == ? AND title == ?;');
+      if(!$stmt)
+        return false;
       if($stmt->execute(array($project, $todo)))
         return $stmt->fetch()["list_id"];
       return null;
@@ -81,6 +89,8 @@
       $stmt = self::$db->prepare('SELECT *
                                   FROM ListItem
                                   WHERE user == ?;');
+      if(!$stmt)
+        return false;
       if($stmt->execute(array($user)))
         return $stmt->fetchAll();
       return null;
@@ -90,7 +100,9 @@
       $stmt = self::$db->prepare('SELECT name, email, birth_date
                                   FROM User
                                   WHERE username == ?;');
-      if($stmt -> execute([$username]))
+      if(!$stmt)
+        return false;
+      if($stmt->execute([$username]))
         return $stmt->fetch();
       return null;
     }
@@ -100,24 +112,24 @@
                                   VALUES (?, ?);');
       if(!$stmt)
         return false;
-      $result = $stmt->execute(array($project, $user));
-      if(!$result)
+      if(!$stmt->execute(array($project, $user)))
         return false;
-      $result = self::addUserToProject($user, $project);
-      return $result;
+      return self::addUserToProject($user, $project);
     }
 
     public static function addUserToProject($user, $project) {
       $stmt = self::$db->prepare('INSERT INTO Contributes (user, project)
                                   VALUES (?, ?);');
-      if($stmt)
-        return $stmt->execute(array($user, $project));
-      return false;
+      if(!$stmt)
+        return false;
+      return $stmt->execute(array($user, $project));
     }
 
     public static function addToDoList($title, $project, $category, $color) {
       $stmt = self::$db->prepare('INSERT INTO TodoList (title, category, color, project)
                                   VALUES (?, ?, ?, ?);');
+      if(!$stmt)
+        return false;
       return $stmt->execute(array($title, $category, $color, $project));
     }
 
@@ -127,6 +139,8 @@
         return false;
       $stmt = self::$db->prepare('INSERT INTO ListItem (task, due_date, todo_list)
                                   VALUES (?, ?, ?);');
+      if(!$stmt)
+        return false;
       return $stmt->execute(array($task, $due_date, $todo_id));
     }
 
@@ -134,23 +148,29 @@
       $stmt = self::$db->prepare('UPDATE ListItem
                                   SET user = ?
                                   WHERE item_id == ?;');
+      if(!$stmt)
+        return false;
       return $stmt->execute(array($user, $item));
     }
 
     public static function setCompletedListItem($task, $todo, $project, $completed) {
       $todo_id = DataBase::getTodoID($project, $todo);
+      if($todo_id === null)
+        return false;
       $stmt = self::$db->prepare('UPDATE ListItem
                                   SET is_completed = ?
                                   WHERE todo_list == ? AND task == ?;');
+      if(!$stmt)
+        return false;
       return $stmt->execute(array($completed, $todo_id, $task));
     }
 
     public static function deleteProject($project) {
       $stmt = self::$db->prepare('DELETE FROM Project
                                   WHERE title == ?;');
-      if($stmt)
-        return $stmt->execute(array($project));
-      return false;
+      if(!$stmt)
+        return false;
+      return $stmt->execute(array($project));
     }
   }
 

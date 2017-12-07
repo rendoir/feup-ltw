@@ -20,6 +20,7 @@ include_once('../html/header.html');
 
 function displayProjects($user) {
   ?>
+  <script src="../javascript/ui_user.js" defer></script>
 
   <header class="user_header">
     <a href="profile.php" id="current_user" data-username="<?=$user?>"></a>

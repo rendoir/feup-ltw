@@ -4,10 +4,6 @@ profile page
 
 php + javascript:
 poder eliminar projects/todo lists/list items
-poder marcar list items como completos
 
 html/php:
 index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional
-
-css:
-pegar nos atributos data-* e nos spans e fazer cenas com isso
