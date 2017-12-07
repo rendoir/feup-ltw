@@ -85,15 +85,12 @@
       return null;
     }
 
-    public  static function getUserField($user, $field){
-      if($field == "password")
-        return null;
-
-      $stmt = self::$db->prepare('SELECT *
-                                 FROM User
-                                 WHERE username == ?;');
-      if($stmt -> execute([$user]))
-        return $stmt->fetch()[$field];
+    public  static function getUserInfo($username){
+      $stmt = self::$db->prepare('SELECT name, email, birth_date
+                                  FROM User
+                                  WHERE username == ?;');
+      if($stmt -> execute([$username]))
+        return $stmt->fetch();
       return null;
     }
 

@@ -9,15 +9,18 @@ include_once('database.php');
 
 $user = Session::getCurrentUser();
 
-if($user == NULL) {
+if($user === null) {
   Session::destroySession();
   header('Location: ../index.php');
   die("Unauthorized access!");
 }
 
-$email = DataBase::getUserField($user, 'email');
-$name = DataBase::getUserField($user, 'name');
-$birth = DataBase::getUserField($user, 'birth_date');
+$user_info = DataBase::getUserInfo($user);
+if($user_info === null)
+  die("Unknown error!");
+$email = $user_info['email'];
+$name = $user_info['name'];
+$birth = $user_info['birth_date'];
 
 include_once('../html/header.html');
 
