@@ -345,7 +345,7 @@ input[type="submit"]{
   padding: 20em 40em 15em 35em;
 }
 
-#add_task{ /* ver add task label - nao aparece*/
+#add_task{ /* ver add task label - nao aparece -resolvido*/
   display: flex;
   flex-direction: row;
   text-align: left;
