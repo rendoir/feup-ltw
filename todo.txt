@@ -1,9 +1,5 @@
 php:
-encriptar passwords - é preciso ler os slides, já não me lembro qual era a técnica que tinhamos de usar
-profile page
-
-php + javascript:
-poder eliminar projects/todo lists/list items
+encriptar passwords - é só usar as funções password_hash e password_verify
 
 html/php:
 index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional

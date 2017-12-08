@@ -26,6 +26,8 @@ $image = $user_info['image'];
 include_once('../html/header.html');
 
 ?>
+<script src="../javascript/ui_profile.js" defer></script>
+
 <body>
   <section id="profile_section">
     <span id="username"><?=$user?></span>
@@ -35,15 +37,15 @@ include_once('../html/header.html');
 <?php
   if($image !== null) {
     ?>
-     <img src="../images/profiles/<?=$image?>" width="256" height="256">
+     <img id="image" src="../images/profiles/<?=$image?>" width="256" height="256">
     <?php
   } else {
   ?>
-    <img src="../images/default.png" width="256" height="256">
+    <img id="image" src="../images/default.png" width="256" height="256">
   <?php
   }
   ?>
-
+    <input id="change_image" type="file" name="image">
   </section>
 </body>
 
