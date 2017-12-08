@@ -9,9 +9,12 @@
     $file_name = $user . '_' . $_FILES['image']['name'];
     $tmp_name = $_FILES['image']['tmp_name'];
     $path = "../../images/profiles/$file_name";
-    move_uploaded_file($tmp_name, $path);
+    $old_path = DataBase::getUserInfo($user)["image"];
     if(DataBase::setProfileImage($user, $path)) {
-      echo json_encode($tmp_name);
+      if($old_path !== null)
+        unlink($old_path);
+      move_uploaded_file($tmp_name, $path);
+      echo json_encode(true);
     } else echo json_encode(false);
   }
 ?>
