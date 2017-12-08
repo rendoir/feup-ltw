@@ -6,9 +6,12 @@
     echo json_encode(false);
   else {
     $user = Session::getCurrentUser();
-    $file_name = "../../images/profiles/$user.jpg";
-    print_r($_FILES);
-    move_uploaded_file($_FILES['image']['tmp_name'], $file_name);
-    echo json_encode(DataBase::setProfileImage($user, $file_name));
+    $file_name = $user . '_' . $_FILES['image']['name'];
+    $tmp_name = $_FILES['image']['tmp_name'];
+    $path = "../../images/profiles/$file_name";
+    move_uploaded_file($tmp_name, $path);
+    if(DataBase::setProfileImage($user, $path)) {
+      echo json_encode($tmp_name);
+    } else echo json_encode(false);
   }
 ?>

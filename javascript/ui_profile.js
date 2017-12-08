@@ -4,6 +4,14 @@ function getChangeButton() {
   return document.getElementById("change_image");
 }
 
+function getImage() {
+  return document.getElementById("image");
+}
+
+function updateImage(image) {
+  getImage().src = URL.createObjectURL(image);
+}
+
 function uploadImageHandler() {
   getChangeButton().addEventListener("change", function() {
     let image = event.target.files[0];
@@ -13,7 +21,7 @@ function uploadImageHandler() {
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
       if(response !== false) {
-        alert("PINTOU!!!!");
+        updateImage(image);
       }
     });
 
