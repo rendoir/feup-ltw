@@ -6,9 +6,10 @@
     echo json_encode(false);
   else {
     $user = Session::getCurrentUser();
-    $file_name = $user . '_' . $_FILES['image']['name'];
+    $file_name = $_FILES['image']['name'];
+    $extension = pathinfo($file_name, PATHINFO_EXTENSION);
     $tmp_name = $_FILES['image']['tmp_name'];
-    $path = "../../images/profiles/$file_name";
+    $path = "../../images/profiles/" . $user . '.' . $extension;
     $old_path = DataBase::getUserInfo($user)["image"];
     if(DataBase::setProfileImage($user, $path)) {
       if($old_path !== null)
