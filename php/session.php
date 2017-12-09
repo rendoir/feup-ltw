@@ -25,6 +25,7 @@
     public static function destroySession() {
       session_destroy();
       session_start();
+      session_regenerate_id(true);
       $_SESSION['username'] = NULL;
     }
 

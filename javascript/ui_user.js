@@ -424,6 +424,11 @@ function displayTodoSection() {
   getTodoList().style.display = "grid";
   getTodoPlus().style.display = "flex";
   getTodoPlusLabel().style.display = "flex";
+  getInvitation().style.display = "flex";
+}
+
+function getInvitation() {
+  return document.getElementById("invitation");
 }
 
 function displayProjectTitle(project) {
@@ -492,6 +497,7 @@ function hideTodoSection() {
   getTodoPlus().style.display = "none";
   getTodoLabel().style.display = "none";
   getTodoPlusLabel().style.display = "none";
+  getInvitation().style.display = "none";
 }
 
 function hideTaskSection() {

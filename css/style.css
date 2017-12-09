@@ -297,11 +297,15 @@ input[type="submit"]{
   width:5em;
 }
 
-#add_todo{
+#add_todo, #invitation {
   display: flex;
   flex-direction: row;
   text-align: left;
   align-items: center;
+}
+
+#invitation {
+  display: none;
 }
 
 #create_todo{
@@ -375,5 +379,5 @@ input[type="submit"]{
 
 /* profile.php */
 input[type='file'] {
-  visibility: hidden;    
+  visibility: hidden;
 }

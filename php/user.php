@@ -59,6 +59,10 @@ function displayProjects($user) {
        <i id="plus_todo" class="fa fa-plus-circle" aria-hidden="true"></i>
        <label id="plus_todo_label"> Add Todo List </label>
      </div>
+     <div id="invitation">
+       <i id="invite_user" class="fa fa-user" aria-hidden="true"></i>
+       <label id="invite_user_label"> Invite User </label>
+     </div>
      <form id="create_todo_form" class="user_form">
        <label id="new_project_label"> New Todo List </label>
        <input type="text" id="create_todo_title" placeholder="Todo Title" required autofocus>
