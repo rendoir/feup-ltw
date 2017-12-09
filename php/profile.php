@@ -20,7 +20,7 @@ if($user_info === null)
   die("Unknown error!");
 $email = $user_info['email'];
 $name = $user_info['name'];
-$birth = $user_info['birth_date'];
+$birth = date('d-m-Y', $user_info['birth_date']);
 $image = $user_info['image'];
 
 include_once('../html/header.html');
@@ -45,6 +45,7 @@ include_once('../html/header.html');
   <?php
   }
   ?>
+    <label for="change_image">Select Image</label>
     <input id="change_image" type="file" name="image">
   </section>
 </body>
