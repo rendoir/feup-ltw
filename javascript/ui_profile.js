@@ -9,7 +9,7 @@ function getImage() {
 }
 
 function updateImage(image) {
-  getImage().src = URL.createObjectURL(image);
+  getImage().src = image;
 }
 
 function uploadImageHandler() {
@@ -21,7 +21,7 @@ function uploadImageHandler() {
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
       if(response !== false) {
-        updateImage(image);
+        updateImage(response);
       }
     });
 

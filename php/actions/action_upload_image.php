@@ -2,6 +2,12 @@
   include_once('../session.php');
   include_once('../database.php');
 
+  /*function cropImage($tmp_name, $path) {
+    $data = file_get_contents($tmp_name);
+    $image = @imagecreatefromstring($data);
+  }*/
+
+
   if(!isset($_FILES["image"]))
     echo json_encode(false);
   else {
@@ -14,8 +20,9 @@
     if(DataBase::setProfileImage($user, $path)) {
       if($old_path !== null)
         unlink($old_path);
+      //cropImage($tmp_name, $path);
       move_uploaded_file($tmp_name, $path);
-      echo json_encode(true);
+      echo json_encode($path);
     } else echo json_encode(false);
   }
 ?>

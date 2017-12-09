@@ -44,6 +44,7 @@
               <input type="text" placeholder="username" name="username" required>
               <input type="text" placeholder="First Name" name="first_name" required>
               <input type="text" placeholder="Last Name" name="last_name" required>
+              <input type="date" name="birth_date" required>
               <input type="email" placeholder="example@listit.com" name="email" required>
               <input type="password" placeholder="password" name="password" required>
               <input type="submit" value="Register">

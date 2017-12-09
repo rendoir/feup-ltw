@@ -7,6 +7,7 @@
   $email = strtolower($_POST['email']);
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
+  $birth_date = strtotime($_POST['birth_date']);
 
   function validUsername($username) {
     return preg_match ('/^[a-zA-Z][a-zA-Z0-9_\-]{1,30}[a-zA-Z0-9]$/', $username);
@@ -57,7 +58,7 @@
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     die("Invalid Name!");
   }
-  if(DataBase::addUser($username, $password, $email, $name)) {
+  if(DataBase::addUser($username, $password, $email, $name, $birth_date)) {
     Session::setCurrentUser($username);
     header('Location: ../user.php');
     exit();
