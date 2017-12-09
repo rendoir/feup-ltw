@@ -19,14 +19,30 @@
       }
     }
 
-    public static function checkLogin($username, $password) {
+    public static function userExists($username) {
       $stmt = self::$db->prepare('SELECT *
                                   FROM User
-                                  WHERE username == ? AND password == ?;');
+                                  WHERE username == ?;');
       if(!$stmt)
         return false;
-      if($stmt->execute(array($username, $password)))
-        return $stmt->fetch() != false;
+      if($stmt->execute(array($username)))
+        return $stmt->fetch() !== false;
+      return false;
+    }
+
+
+    public static function checkLogin($username, $password) {
+      $stmt = self::$db->prepare('SELECT password
+                                  FROM User
+                                  WHERE username == ?;');
+      if(!$stmt)
+        return false;
+      if($stmt->execute(array($username))) {
+        $result = $stmt->fetch();
+        if(!$result)
+          return false;
+        return password_verify($password, $result["password"]);
+      }
       return false;
     }
 
@@ -35,7 +51,8 @@
                                   VALUES (?, ?, ?, ?, ?);');
       if(!$stmt)
         return false;
-      return $stmt->execute(array($username, $password, $email, $name, $birth_date));
+      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+      return $stmt->execute(array($username, $hashed_password, $email, $name, $birth_date));
     }
 
     public static function getUserProjects($username) {

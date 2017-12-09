@@ -1,5 +1,5 @@
-php:
-encriptar passwords - é só usar as funções password_hash e password_verify
-
 html/php:
 index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional
+
+css:
+meter as tasks na vertical

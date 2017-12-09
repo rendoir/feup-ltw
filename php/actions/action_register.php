@@ -49,7 +49,7 @@
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     die("Invalid email!");
   }
-  if (DataBase::checkLogin($username, $password)) {
+  if (DataBase::userExists($username)) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     die("Username already in use!");
   }
