@@ -9,7 +9,7 @@ function getImage() {
 }
 
 function updateImage(image) {
-  getImage().src = image;
+  getImage().src = image + '?time=' + performance.now();
 }
 
 function uploadImageHandler() {
