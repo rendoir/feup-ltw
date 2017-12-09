@@ -10,19 +10,19 @@
         $image = imagecreatefromjpeg($tmp_name);
         $image = cropImageToSquare($image);
         imagejpeg($image, $path);
-        break;
+        return true;
       case 'png':
         $image = imagecreatefrompng($tmp_name);
         $image = cropImageToSquare($image);
         imagepng($image, $path);
-        break;
+        return true;
       case 'bmp':
         $image = imagecreatefrombmp($tmp_name);
         $image = cropImageToSquare($image);
         imagebmp($image, $path);
-        break;
+        return true;
       default:
-        break;
+        return false;
     }
   }
 
@@ -40,7 +40,7 @@
     }
   }
 
-  if(!isset($_FILES["image"]))
+  if(!isset($_FILES["image"]) || $_FILES["image"]["error"] !== 0)
     echo json_encode(false);
   else {
     $user = Session::getCurrentUser();
@@ -49,11 +49,11 @@
     $tmp_name = $_FILES['image']['tmp_name'];
     $path = "../../images/profiles/" . $user . '.' . $extension;
     $old_path = DataBase::getUserInfo($user)["image"];
-    if(DataBase::setProfileImage($user, $path)) {
-      if($old_path !== null)
-        unlink($old_path);
-      saveImage($tmp_name, $path, $extension);
-      echo json_encode($path);
+    if(saveImage($tmp_name, $path, $extension) &&
+       DataBase::setProfileImage($user, $path)) {
+         if($old_path !== null && $old_path !== $path)
+           unlink($old_path);
+         echo json_encode($path);
     } else echo json_encode(false);
   }
 ?>
