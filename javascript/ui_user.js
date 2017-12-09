@@ -80,8 +80,13 @@ function createTask(task) {
 
   let date_span = document.createElement("span");
   date_span.classList.add('task_date');
-  date_span.innerHTML = task.due_date;
+  date_span.innerHTML = task.due_date.substr(0, 10);
   task_li.appendChild(date_span);
+
+  let time_span = document.createElement("span");
+  time_span.classList.add('task_time');
+  time_span.innerHTML = task.due_date.substr(10);
+  task_li.appendChild(time_span);
 
   let user_span = document.createElement("span");
   user_span.classList.add('task_user');
