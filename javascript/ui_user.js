@@ -220,8 +220,12 @@ function resetProjectInput() {
   document.getElementById("create_project_title").value = '';
 }
 
+function getProjectForm() {
+  return document.getElementById("create_project_form");
+}
+
 function hideCreateProjectForm() {
-  document.getElementById("create_project_form").style.display = "none";
+  getProjectForm().style.display = "none";
 }
 
 function getProjectList() {
@@ -292,8 +296,12 @@ function getProjectTitle(project) {
   return "";
 }
 
+function getTodoForm() {
+  return document.getElementById("create_todo_form");
+}
+
 function hideCreateTodoForm() {
-  document.getElementById("create_todo_form").style.display = "none";
+  getTodoForm().style.display = "none";
 }
 
 function getTodoList() {
@@ -338,7 +346,7 @@ function createListHandler() {
 }
 
 function displayCreateProjectForm() {
-  document.getElementById("create_project_form").style.display = "flex";
+  getProjectForm().style.display = "flex";
 }
 
 function getProjectPlus() {
@@ -354,7 +362,7 @@ function plusProjectHandler() {
 }
 
 function displayCreateTodoForm() {
-  document.getElementById("create_todo_form").style.display = "flex";
+  getTodoForm().style.display = "flex";
 }
 
 function getTodoPlus() {
@@ -520,8 +528,12 @@ function getTaskPlus() {
   return document.getElementById("plus_task");
 }
 
+function getTaskForm() {
+  return document.getElementById("create_task_form");
+}
+
 function displayCreateTaskForm() {
-  document.getElementById("create_task_form").style.display = "flex";
+  getTaskForm().style.display = "flex";
 }
 
 function displayPlusTask() {
@@ -587,7 +599,7 @@ function getTaskInput() {
 }
 
 function hideCreateTaskForm() {
-  return document.getElementById("create_task_form").style.display = "none";
+  getTaskForm().style.display = "none";
 }
 
 function getTaskList() {
@@ -645,16 +657,44 @@ function clickTaskCheckbox(task_li) {
   });
 }
 
+function cancelProjectFormHandler() {
+  cancelFormHandler(getProjectForm());
+}
+
+function cancelTodoFormHandler() {
+  cancelFormHandler(getTodoForm());
+}
+
+function cancelTaskFormHandler() {
+  cancelFormHandler(getTaskForm());
+}
+
+function hideForm(form) {
+  form.style.display = "none";
+}
+
+function cancelFormHandler(form) {
+  let cancel = document.createElement("i");
+  form.appendChild(cancel);
+  cancel.outerHTML = CANCEL;
+  form.lastElementChild.addEventListener("click", function(event) {
+    hideForm(form);
+  });
+}
+
 function init() {
   plusProjectHandler();
   createProjectHandler();
   clickProjectsHandler();
+  cancelProjectFormHandler();
 
   plusListHandler();
   createListHandler();
+  cancelTodoFormHandler();
 
   plusTaskHandler();
   createTaskHandler();
+  cancelTaskFormHandler();
 }
 
 init();
