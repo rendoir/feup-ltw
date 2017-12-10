@@ -39,7 +39,7 @@ CREATE TABLE ListItem (
   UNIQUE(task, todo_list)
 );
 
-CREATE TABLE Invites (
+CREATE TABLE Invite (
   invite_id INTEGER PRIMARY KEY AUTOINCREMENT,
   pending BOOLEAN DEFAULT(1),
   accepted BOOLEAN,

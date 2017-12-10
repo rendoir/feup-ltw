@@ -790,6 +790,8 @@ function inviteUser() {
     if(response !== false){
       hideInviteForm();
     }
+    clearSimilarList();
+    getInviteUserTextbox().value = "";
   });
 
   request.open('POST', '../php/actions/action_invite_user_to_project.php', true);

@@ -230,11 +230,22 @@
     }
 
     public static function inviteUserToProject($user, $project) {
-      $stmt = self::$db->prepare('INSERT INTO Invites (user, project)
+      $stmt = self::$db->prepare('INSERT INTO Invite (user, project)
                                   VALUES (?, ?);');
       if(!$stmt)
         return false;
       return $stmt->execute(array($user, $project));
+    }
+
+    public static function getPendingInvites($user) {
+      $stmt = self::$db->prepare('SELECT DISTINCT project
+                                  FROM Invite
+                                  WHERE user == ? AND pending == 1');
+      if(!$stmt)
+        return false;
+      if($stmt->execute(array($user)))
+        return $stmt->fetchAll();
+      return false;
     }
   }
 

@@ -22,6 +22,7 @@ $email = $user_info['email'];
 $name = $user_info['name'];
 $birth = date('d-m-Y', $user_info['birth_date']);
 $image = $user_info['image'];
+$invites = DataBase::getPendingInvites($user);
 
 include_once('../html/header.html');
 
@@ -65,8 +66,20 @@ include_once('../html/header.html');
       <span id="email"><?=$email?></span>
     </div>
     <div id="birth_div">
-      <span id="birth_label">Birth Date </span>
+      <span id="birth_label"> Birth Date </span>
       <span id="birth"><?=$birth?></span>
+    </div>
+    <div id="invites_div">
+      <?php
+        if($invites !== false && count($invites) > 0) {
+           ?> <span class="invite_label"> You were invited to join: </span> <?php
+          foreach ($invites as $invite) {
+            ?> <span class="invite"><?=$invite["project"]?></span> <?php
+          }
+        } else {
+           ?> <span class="invite_label"> You have no invites to join projects! </span> <?php
+        }
+      ?>
     </div>
   </section>
 
