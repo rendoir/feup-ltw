@@ -4,9 +4,10 @@ body {
   margin: 0 auto;
   width: 60em;
 
+
   display:grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: 1fr 0.5fr 5fr 5fr 0.5fr;
   grid-template-areas:
           "header header"
           "user_header  user_header"
@@ -120,6 +121,7 @@ input:focus{
   display: none;
 }
 
+/*footer*/
 
 footer {
   grid-area:footer;
@@ -146,6 +148,13 @@ footer {
   padding: 1em 1em 1em 1em;
 }
 
+/* projects section */
+
+.project{
+  display:grid;
+  grid-template-columns: 3fr 1fr;
+}
+
 .project_title:hover{
   font-weight: bold;
 }
@@ -162,6 +171,7 @@ footer {
 
 #project_section{
   padding: 1em 1em 1em 1em;
+  height: 70vh;
 }
 
 #plus_todo, #plus_task, #plus_todo_label, #plus_task_label, #todo_label {
@@ -250,6 +260,7 @@ input[type="submit"]{
 
 
 #todo_section{
+  z-index: 2;
   padding: 1em 1em 1em 1em;
   grid-area:todo_section;
 
@@ -325,8 +336,13 @@ input[type="submit"]{
   font-weight: bold;
 }
 
+
+
 #task_section{
+  z-index: 1;
+  padding: 1em;
   grid-area:task_section;
+  transform: translate(0, -560px);
 }
 
 #task_list{
@@ -342,7 +358,7 @@ input[type="submit"]{
   align-items: center;
   flex-grow: 1;
   border: 1px grey solid;
-  padding: 1em;
+  padding: 0.5em 1em;
   margin:1em;
 }
 
