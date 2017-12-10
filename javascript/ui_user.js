@@ -499,6 +499,10 @@ function getTaskSection() {
   return document.getElementById("task_section");
 }
 
+function getInviteUserButton() {
+  return document.getElementById("invite_user");
+}
+
 function hideTodoSection() {
   getTodoSection().style.display = "none";
   getTodoList().style.display = "none";
@@ -714,10 +718,66 @@ function getCancel(form) {
 
 function cancelFormHandler(form) {
   let cancel = document.createElement("i");
-  form.appendChild(cancel);
+  form.insertAdjacentElement('afterbegin', cancel)
   cancel.outerHTML = CANCEL;
   getCancel(form).addEventListener("click", function(event) {
     hideForm(form);
+  });
+}
+
+function displayInviteUserForm() {
+  document.getElementById("invite_user_form").style.display = "flex";
+}
+
+function getInviteUserTextbox() {
+  return document.getElementById("invite_username");
+}
+
+function getSimilarList() {
+  return document.getElementById("autocomplete");
+}
+
+function clearSimilarList() {
+  let similar_ul = getSimilarList();
+  while (similar_ul.children.length != 0)
+    similar_ul.removeChild(similar_ul.firstElementChild);
+}
+
+function setSimilarList(users) {
+  let similar_ul = getSimilarList();
+  if(users !== null) {
+    for(let i = 0; i < users.length; i++) {
+      let user_li = document.createElement("li");
+      user_li.innerHTML = users[i].username;
+      similar_ul.appendChild(user_li);
+      //clickSimilarUserHandler(user_li);
+    }
+  }
+}
+
+function inviteUserHandler() {
+  getInviteUserButton().addEventListener("click", function(event) {
+    displayInviteUserForm();
+  });
+  getInviteUserTextbox().addEventListener("keyup", function(event) {
+    event.stopImmediatePropagation();
+    if(event.target.value === "") {
+      clearSimilarList();
+      return;
+    }
+
+    let request = new XMLHttpRequest();
+    request.addEventListener("load", function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response !== false){
+        clearSimilarList();
+        setSimilarList(response);
+      }
+    });
+
+    request.open('POST', '../php/actions/action_get_similar_users.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({input: event.target.value}));
   });
 }
 
@@ -730,6 +790,7 @@ function init() {
   plusListHandler();
   createListHandler();
   cancelTodoFormHandler();
+  inviteUserHandler();
 
   plusTaskHandler();
   createTaskHandler();
