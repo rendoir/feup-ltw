@@ -218,15 +218,23 @@
       return $stmt->execute(array($path, $user));
     }
 
-    public static function getSimilarUsers($input) {
+    public static function getSimilarUsers($input, $current_user) {
       $stmt = self::$db->prepare('SELECT username
                                   FROM User
-                                  WHERE username LIKE ?;');
+                                  WHERE username LIKE ? AND username != ?;');
       if(!$stmt)
         return false;
-      if($stmt->execute(array('%' . $input . '%')))
+      if($stmt->execute(array('%' . $input . '%', $current_user)))
         return $stmt->fetchAll();
       return false;
+    }
+
+    public static function inviteUserToProject($user, $project) {
+      $stmt = self::$db->prepare('INSERT INTO Invites (user, project)
+                                  VALUES (?, ?);');
+      if(!$stmt)
+        return false;
+      return $stmt->execute(array($user, $project));
     }
   }
 

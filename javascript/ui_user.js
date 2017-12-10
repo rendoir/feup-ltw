@@ -704,8 +704,16 @@ function cancelTodoFormHandler() {
   cancelFormHandler(getTodoForm());
 }
 
+function cancelInviteFormHandler() {
+  cancelFormHandler(getInviteForm());
+}
+
 function cancelTaskFormHandler() {
   cancelFormHandler(getTaskForm());
+}
+
+function getInviteForm() {
+  return document.getElementById("invite_user_form")
 }
 
 function hideForm(form) {
@@ -726,7 +734,7 @@ function cancelFormHandler(form) {
 }
 
 function displayInviteUserForm() {
-  document.getElementById("invite_user_form").style.display = "flex";
+  getInviteForm().style.display = "flex";
 }
 
 function getInviteUserTextbox() {
@@ -748,14 +756,50 @@ function setSimilarList(users) {
   if(users !== null) {
     for(let i = 0; i < users.length; i++) {
       let user_li = document.createElement("li");
+      user_li.classList.add('similar_user');
       user_li.innerHTML = users[i].username;
       similar_ul.appendChild(user_li);
-      //clickSimilarUserHandler(user_li);
+      user_li.addEventListener("click", setInputAndInvite);
     }
   }
 }
 
+function setInputAndInvite() {
+  getInviteUserTextbox().value = this.innerHTML;
+  inviteUser();
+}
+
+function getInviteButton() {
+  return document.getElementById("invite_submit");
+}
+
+function hideInviteForm() {
+  getInviteForm().style.display = "none";
+}
+
+function inviteUser() {
+  event.stopImmediatePropagation();
+  event.preventDefault();
+
+  let user = getInviteUserTextbox().value;
+  let project = getProjectTitle(getSelectedProject());
+
+  let request = new XMLHttpRequest();
+  request.addEventListener("load", function(event) {
+    let response = JSON.parse(this.responseText);
+    if(response !== false){
+      hideInviteForm();
+    }
+  });
+
+  request.open('POST', '../php/actions/action_invite_user_to_project.php', true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  request.send(encodeForAjax({user: user, project: project}));
+}
+
 function inviteUserHandler() {
+  cancelInviteFormHandler();
+  getInviteButton().addEventListener("click", inviteUser);
   getInviteUserButton().addEventListener("click", function(event) {
     displayInviteUserForm();
   });
