@@ -495,6 +495,10 @@ function getTodoSection() {
   return document.getElementById("todo_section");
 }
 
+function getTaskSection() {
+  return document.getElementById("task_section");
+}
+
 function hideTodoSection() {
   getTodoSection().style.display = "none";
   getTodoList().style.display = "none";
@@ -505,6 +509,7 @@ function hideTodoSection() {
 }
 
 function hideTaskSection() {
+  getTaskSection().style.display = "none";
   getTaskList().style.display = "none";
   getTaskPlus().style.display = "none";
   getTaskLabel().style.display = "none";
@@ -564,6 +569,13 @@ function getTaskLabel() {
   return document.getElementById("task_label");
 }
 
+function displayTaskSection() {
+  getTaskSection().style.display = "block";
+  displayTaskLabel();
+  displayTaskList();
+  displayPlusTask();
+}
+
 function displayTaskLabel() {
   let label = getTaskLabel();
   label.style.display = "block";
@@ -571,7 +583,6 @@ function displayTaskLabel() {
 }
 
 function displayTaskList() {
-  displayTaskLabel();
   getTaskList().style.display = "grid";
 }
 
@@ -587,8 +598,7 @@ function clickTodoHandler(todo_li) {
       hideTodoSection();
       clearCurrentTasks();
       setTaskList(tasks_array);
-      displayTaskList();
-      displayPlusTask();
+      displayTaskSection();
     });
 
     request.open('POST', '../php/actions/action_get_tasks.php', true);
