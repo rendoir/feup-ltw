@@ -63,6 +63,7 @@ function displayProjects($user) {
        <i id="invite_user" class="fa fa-user" aria-hidden="true"></i>
        <label id="invite_user_label"> Invite User </label>
        <form id="invite_user_form" class="user_form">
+         <label id="invite_label"> Invite User </label>
          <input type="text" id="invite_username" placeholder="User" required autofocus>
          <input type="submit" id="invite_submit" value="Invite">
          <ul id="autocomplete"></ul>

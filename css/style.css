@@ -7,7 +7,7 @@ body {
 
   display:grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr 0.5fr 5fr 5fr 0.5fr;
+  grid-template-rows: 1fr 0.5fr auto auto 0.5fr;
   grid-template-areas:
           "header header"
           "user_header  user_header"
@@ -195,16 +195,16 @@ footer {
   content: attr(data-username);
 }
 
-#create_project_form, #create_todo_form{
+#create_project_form, #create_todo_form, #invite_user_form{
   position: absolute;
   z-index: 5;
   right: 0px;
   left: 0px;
-  top: 180px;
-  bottom: -500px;
+  top: 170px;
+  bottom: 0px;
   flex-direction: column;
   align-items: center;
-  background-color: grey;
+  background-color: white;
   text-align: center;
 }
 
@@ -225,7 +225,7 @@ footer {
   --padding: 20em 40em 19em 35em;
 }
 
-#create_project_form label, #new_project_label, #new_task_label{
+#create_project_form label, #new_project_label, #new_task_label, #invite_label{
   width: 18%;
   padding: 1em 1em 1em 1em;
   background-color: black;
@@ -401,7 +401,7 @@ input[type="submit"]{
 }
 
 
-#create_task{
+#create_task, #invite_submit{
   width: 21%;
   padding: 0.4em 1em 0.4em 1em;
   background-color: white;
@@ -414,7 +414,7 @@ input[type="submit"]{
   font-weight: lighter;
 }
 
-#create_task_time, #create_task_date, #create_task_text{
+#create_task_time, #create_task_date, #create_task_text, #invite_username{
   width:20%;
   margin-bottom: 1em;
 }
