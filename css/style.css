@@ -332,19 +332,26 @@ input[type="submit"]{
 #task_list{
   display: grid;
   padding: 0em;
-  grid-template-columns: 2fr 2fr 2fr;
-  grid-template-rows: 5fr 3fr;
+  --grid-template-columns: 1fr;
+  --grid-template-rows: 2fr;
 }
 
 .task{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  flex-grow: 1;
   border: 1px grey solid;
   padding: 1em;
   margin:1em;
-
 }
+
+
+
+.task span{
+ width: 100%;
+}
+
 #create_task_form{
   padding: 20em 40em 15em 35em;
 }
@@ -378,6 +385,37 @@ input[type="submit"]{
 
 
 /* profile.php */
+
+#profile_section{
+  display:flex;
+  flex-direction: column;
+  margin-top: 2em;
+}
+
+#user_label, #name_label, #email_label, #birth_label{
+  font-weight: bolder;
+  font-variant-caps:all-small-caps;
+}
+
+#profile_section div {
+  padding: 0.7em;
+
+}
+
+#username{
+  font-size: 2.5em;
+  font-variant-caps:all-small-caps;
+  font-weight: bold;
+}
+
+#profile_section_picture label{
+  margin-left: 5.5em;
+}
+
+#profile_section_picture img{
+  margin-top: 1em;
+}
+
 input[type='file'] {
   visibility: hidden;
 }

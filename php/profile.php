@@ -29,11 +29,7 @@ include_once('../html/header.html');
 <script src="../javascript/ui_profile.js" defer></script>
 
 <body>
-  <section id="profile_section">
-    <span id="username"><?=$user?></span>
-    <span id="name"><?=$name?></span>
-    <span id="email"><?=$email?></span>
-    <span id="birth_date"><?=$birth?></span>
+  <section id="profile_section_picture">
 <?php
   if($image !== null) {
     ?>
@@ -47,7 +43,27 @@ include_once('../html/header.html');
   ?>
     <label for="change_image">Select Image</label>
     <input id="change_image" type="file" name="image">
+
+  </section><section id="profile_section">
+    <div id="user_div">
+      <span id="user_label"> </span>
+      <span id="username"><?=$user?></span>
+    </div>
+    <div id="name_div">
+      <span id="name_label">Name </span>
+      <span id="name"><?=$name?></span>
+    </div>
+    <div id="email_div">
+      <span id="email_label">Email </span>
+      <span id="email"><?=$email?></span>
+    </div>
+    <div id="birth_div">
+      <span id="birth_label">Birth Date </span>
+      <span id="birth"><?=$birth?></span>
+    </div>
   </section>
+
+
 </body>
 
 <?php
