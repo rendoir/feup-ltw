@@ -32,9 +32,9 @@
 
 * [ ] Initial Description - Home page
 * [ ] Organize the project files and their code
-* [ ] Height page problem
-* [ ] Delete Items size
-* [ ] Hiding todo and tasks sections 
+* [x] Height page problem
+* [x] Delete Items size
+* [x] Hiding todo and tasks sections 
 
 
 
