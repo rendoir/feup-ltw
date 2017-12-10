@@ -12,7 +12,9 @@
 ### Requirements
 
 [ ] Register a new account.
-[ ] Login and logout.
+
+[x] Login and logout.
+
 [ ] Edit their profile.
 [ ] List their to-do lists.
 [ ] Create new to-do lists.
