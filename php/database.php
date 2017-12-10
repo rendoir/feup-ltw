@@ -217,6 +217,17 @@
         return false;
       return $stmt->execute(array($path, $user));
     }
+
+    public static function getSimilarUsers($input) {
+      $stmt = self::$db->prepare('SELECT username
+                                  FROM User
+                                  WHERE username LIKE ?;');
+      if(!$stmt)
+        return false;
+      if($stmt->execute(array('%' . $input . '%')))
+        return $stmt->fetchAll();
+      return false;
+    }
   }
 
   DataBase::init();

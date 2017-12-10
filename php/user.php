@@ -62,6 +62,10 @@ function displayProjects($user) {
      <div id="invitation">
        <i id="invite_user" class="fa fa-user" aria-hidden="true"></i>
        <label id="invite_user_label"> Invite User </label>
+       <form id="invite_user_form" class="user_form">
+         <input type="text" id="invite_username" placeholder="User" required autofocus>
+         <ul id="autocomplete"></ul>
+       </form>
      </div>
      <form id="create_todo_form" class="user_form">
        <label id="new_project_label"> New Todo List </label>

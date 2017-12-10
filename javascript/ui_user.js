@@ -94,7 +94,7 @@ function createTask(task) {
   task_li.appendChild(user_span);
 
   let completed_checkbox = document.createElement("input");
-  completed_checkbox.classList.add('task_user');
+  completed_checkbox.classList.add('task_checkbox');
   completed_checkbox.type = "checkbox";
   completed_checkbox.checked = ((task.is_completed == 0) ? false : true);
   task_li.appendChild(completed_checkbox);
@@ -113,8 +113,12 @@ function deleteProject(project_li) {
   project_li.parentElement.removeChild(project_li);
 }
 
+function getTrash(li) {
+  return li.getElementsByClassName("fa-trash")[0];
+}
+
 function clickTrashProject(project_li) {
-  project_li.lastElementChild.addEventListener("click", function(event) {
+  getTrash(project_li).addEventListener("click", function(event) {
     let project_title = getProjectTitle(project_li);
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
@@ -149,7 +153,7 @@ function deleteTodo(todo_li) {
 }
 
 function clickTrashTodo(todo_li) {
-  todo_li.lastElementChild.addEventListener("click", function(event) {
+  getTrash(todo_li).addEventListener("click", function(event) {
     let project_title = getProjectTitle(getSelectedProject());
     let todo_title = getTodoTitle(todo_li);
     let request = new XMLHttpRequest();
@@ -183,7 +187,7 @@ function deleteTask(task_li) {
 }
 
 function clickTrashTask(task_li) {
-  task_li.lastElementChild.addEventListener("click", function(event) {
+  getTrash(task_li).addEventListener("click", function(event) {
     let project_title = getProjectTitle(getSelectedProject());
     let todo_title = getTodoTitle(getSelectedTodo());
     let task = getTask(task_li);
@@ -491,6 +495,14 @@ function getTodoSection() {
   return document.getElementById("todo_section");
 }
 
+function getTaskSection() {
+  return document.getElementById("task_section");
+}
+
+function getInviteUserButton() {
+  return document.getElementById("invite_user");
+}
+
 function hideTodoSection() {
   getTodoSection().style.display = "none";
   getTodoList().style.display = "none";
@@ -501,6 +513,7 @@ function hideTodoSection() {
 }
 
 function hideTaskSection() {
+  getTaskSection().style.display = "none";
   getTaskList().style.display = "none";
   getTaskPlus().style.display = "none";
   getTaskLabel().style.display = "none";
@@ -548,7 +561,6 @@ function displayCreateTaskForm() {
 }
 
 function displayPlusTask() {
-  //TODO Change from "flex" to whatever you're using in css
   getTaskPlus().style.display = "flex";
   getTaskPlusLabel().style.display = "flex";
 }
@@ -561,6 +573,13 @@ function getTaskLabel() {
   return document.getElementById("task_label");
 }
 
+function displayTaskSection() {
+  getTaskSection().style.display = "block";
+  displayTaskLabel();
+  displayTaskList();
+  displayPlusTask();
+}
+
 function displayTaskLabel() {
   let label = getTaskLabel();
   label.style.display = "block";
@@ -568,7 +587,6 @@ function displayTaskLabel() {
 }
 
 function displayTaskList() {
-  displayTaskLabel();
   getTaskList().style.display = "grid";
 }
 
@@ -584,8 +602,7 @@ function clickTodoHandler(todo_li) {
       hideTodoSection();
       clearCurrentTasks();
       setTaskList(tasks_array);
-      displayTaskList();
-      displayPlusTask();
+      displayTaskSection();
     });
 
     request.open('POST', '../php/actions/action_get_tasks.php', true);
@@ -652,16 +669,27 @@ function createTaskHandler() {
   });
 }
 
+function getCheckbox(task_li) {
+  return task_li.getElementsByClassName("task_checkbox")[0];
+}
+
 function clickTaskCheckbox(task_li) {
-  task_li.lastElementChild.addEventListener("change", function(event) {
+  getCheckbox(task_li).addEventListener("change", function(event) {
     event.stopImmediatePropagation();
+    event.preventDefault();
 
     let project_title = getProjectTitle(getSelectedProject());
     let todo_title = getTodoTitle(getSelectedTodo());
     let task = getTask(task_li);
-    let task_completed = (task_li.lastElementChild.checked ? 1 : 0);
+    let task_completed = (event.target.checked ? 1 : 0);
 
     let request = new XMLHttpRequest();
+    request.addEventListener("load", function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response !== false)
+        event.target.checked = task_completed;
+    });
+
     request.open('POST', '../php/actions/action_set_completed_task.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(encodeForAjax({project: project_title, todo: todo_title, task: task, completed: task_completed}));
@@ -684,12 +712,72 @@ function hideForm(form) {
   form.style.display = "none";
 }
 
+function getCancel(form) {
+  return form.getElementsByClassName("fa-times")[0];
+}
+
 function cancelFormHandler(form) {
   let cancel = document.createElement("i");
-  form.appendChild(cancel);
+  form.insertAdjacentElement('afterbegin', cancel)
   cancel.outerHTML = CANCEL;
-  form.lastElementChild.addEventListener("click", function(event) {
+  getCancel(form).addEventListener("click", function(event) {
     hideForm(form);
+  });
+}
+
+function displayInviteUserForm() {
+  document.getElementById("invite_user_form").style.display = "flex";
+}
+
+function getInviteUserTextbox() {
+  return document.getElementById("invite_username");
+}
+
+function getSimilarList() {
+  return document.getElementById("autocomplete");
+}
+
+function clearSimilarList() {
+  let similar_ul = getSimilarList();
+  while (similar_ul.children.length != 0)
+    similar_ul.removeChild(similar_ul.firstElementChild);
+}
+
+function setSimilarList(users) {
+  let similar_ul = getSimilarList();
+  if(users !== null) {
+    for(let i = 0; i < users.length; i++) {
+      let user_li = document.createElement("li");
+      user_li.innerHTML = users[i].username;
+      similar_ul.appendChild(user_li);
+      //clickSimilarUserHandler(user_li);
+    }
+  }
+}
+
+function inviteUserHandler() {
+  getInviteUserButton().addEventListener("click", function(event) {
+    displayInviteUserForm();
+  });
+  getInviteUserTextbox().addEventListener("keyup", function(event) {
+    event.stopImmediatePropagation();
+    if(event.target.value === "") {
+      clearSimilarList();
+      return;
+    }
+
+    let request = new XMLHttpRequest();
+    request.addEventListener("load", function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response !== false){
+        clearSimilarList();
+        setSimilarList(response);
+      }
+    });
+
+    request.open('POST', '../php/actions/action_get_similar_users.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({input: event.target.value}));
   });
 }
 
@@ -702,6 +790,7 @@ function init() {
   plusListHandler();
   createListHandler();
   cancelTodoFormHandler();
+  inviteUserHandler();
 
   plusTaskHandler();
   createTaskHandler();
