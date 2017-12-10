@@ -29,6 +29,13 @@ include_once('../html/header.html');
 <script src="../javascript/ui_profile.js" defer></script>
 
 <body>
+  <section id="form_section">
+    <form id="profile_form"></form>
+  </section>
+
+  <section id= "form_section2">
+    <form id="profile_form2">Profile Page</form>
+  </section>
   <section id="profile_section_picture">
 <?php
   if($image !== null) {
