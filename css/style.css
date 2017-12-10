@@ -201,7 +201,7 @@ footer {
   right: 0px;
   left: 0px;
   top: 180px;
-  bottom: 0px;
+  bottom: -500px;
   flex-direction: column;
   align-items: center;
   background-color: grey;
@@ -214,10 +214,10 @@ footer {
   right: 0px;
   left: -200px;
   top: 0px;
-  bottom: 0px;
+  bottom: -500px;
   flex-direction: column;
   align-items: center;
-  background-color: grey;
+  background-color: white;
   text-align: center;
 }
 
@@ -225,13 +225,19 @@ footer {
   --padding: 20em 40em 19em 35em;
 }
 
-#create_project_form label{
+#create_project_form label, #new_project_label, #new_task_label{
   width: 18%;
   padding: 1em 1em 1em 1em;
   background-color: black;
   color:white;
-  margin-top: 5em;
+  margin-top: 1em;
   margin-bottom: 1em;
+  font-weight: bold;
+}
+
+.fa-times{
+  margin-top:5em;
+  padding-left:20%;
 }
 
 #create_project_title{
@@ -261,10 +267,7 @@ footer {
   opacity: 1;
 }
 
-#new_project_label{
-  color:black;
-  font-weight: bold;
-}
+
 
 input[type="submit"]{
   background-color: GhostWhite  ;
@@ -306,13 +309,6 @@ input[type="submit"]{
   --padding: 20em 40em 15em 35em;
 }
 
-#new_project_label{
-  width:18%;
-  padding: 1em 1em 1em 1em;
-  background-color: black;
-  color:white;
-  margin: 5em 0 1em 0;
-}
 
 #create_todo_title{
   width:19.5%;
@@ -358,6 +354,7 @@ input[type="submit"]{
 
 .todo:hover{
   font-weight: bold;
+  cursor:default;
 }
 
 
@@ -403,17 +400,9 @@ input[type="submit"]{
   align-items: center;
 }
 
-#new_task_label{
-  width:30%;
-  color:white;
-  background-color: black;
-  padding: 0.5em 1em 0.5em 1em;
-  margin: 5em 0 1em 0;
-
-}
 
 #create_task{
-  width: 34%;
+  width: 21%;
   padding: 0.4em 1em 0.4em 1em;
   background-color: white;
   color:black;
@@ -426,7 +415,7 @@ input[type="submit"]{
 }
 
 #create_task_time, #create_task_date, #create_task_text{
-  width:33%;
+  width:20%;
   margin-bottom: 1em;
 }
 
