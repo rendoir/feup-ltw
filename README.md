@@ -35,6 +35,7 @@
 * [x] Height page problem
 * [x] Delete Items size
 * [x] Hiding todo and tasks sections 
+* [ ] Change color in todo lists (add color to items?)
 
 
 
