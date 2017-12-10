@@ -201,10 +201,10 @@ footer {
   right: 0px;
   left: 0px;
   top: 180px;
-  bottom: 0px;
+  bottom: -500px;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: grey;
   text-align: center;
 }
 
@@ -214,7 +214,7 @@ footer {
   right: 0px;
   left: -200px;
   top: 0px;
-  bottom: 0px;
+  bottom: -500px;
   flex-direction: column;
   align-items: center;
   background-color: white;
