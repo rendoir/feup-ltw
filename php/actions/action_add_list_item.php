@@ -2,13 +2,20 @@
   include_once('../session.php');
   include_once('../database.php');
 
-  $task = $_POST["task"];
-  $due_date = $_POST["datetime"];
-  $todo = $_POST["todo"];
-  $project = $_POST["project"];
+  $user = Session::getCurrentUser();
 
-  if($task !== null && $due_date !== null && $todo !== null && $project !== null)
-    echo json_encode(DataBase::addListItem($task, $due_date, $todo, $project));
-  else echo json_encode(false);
+  if(isset($_POST["task"]) &&
+     isset($_POST["datetime"]) &&
+     isset($_POST["todo"]) &&
+     isset($_POST["project"]) &&
+     $user !== null) {
+       $task = $_POST["task"];
+       $due_date = $_POST["datetime"];
+       $todo = $_POST["todo"];
+       $project = $_POST["project"];
+       if(DataBase::userContributesToProject($user, $project))
+         echo json_encode(DataBase::addListItem($task, $due_date, $todo, $project));
+       else echo json_encode(false);
+  } else echo json_encode(false);
 
 ?>

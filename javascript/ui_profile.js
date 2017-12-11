@@ -31,6 +31,9 @@ function validImage(type) {
 
 function uploadImageHandler() {
   getChangeButton().addEventListener("change", function() {
+    if(event.target.files.length == 0)
+      return;
+
     let image = event.target.files[0];
 
     if(image.size > 2000000)
