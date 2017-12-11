@@ -12,7 +12,7 @@ body {
           "header header"
           "user_header  user_header"
           "project_section  todo_section"
-          "project_section task_section"
+        /*  "project_section task_section"*/
           "footer  footer";
 
 }
@@ -195,26 +195,13 @@ footer {
   content: attr(data-username);
 }
 
-#create_project_form, #create_todo_form, #invite_user_form{
+#create_project_form, #create_todo_form, #invite_user_form, #create_task_form{
   position: absolute;
   z-index: 5;
   right: 0px;
   left: 0px;
   top: 170px;
   bottom: 0px;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  text-align: center;
-}
-
-#create_task_form{
-  position: absolute;
-  z-index: 5;
-  right: 0px;
-  left: -200px;
-  top: 0px;
-  bottom: -500px;
   flex-direction: column;
   align-items: center;
   background-color: white;
@@ -362,32 +349,29 @@ input[type="submit"]{
 #task_section{
   z-index: 1;
   padding: 1em;
-  grid-area:task_section;
-  transform: translate(0, -560px);
+  grid-area:todo_section;
+  --transform: translate(0, -560px);
 }
 
 #task_list{
   display: grid;
-  padding: 0em;
+  padding: 1em;
   --grid-template-columns: 1fr;
   --grid-template-rows: 2fr;
+
 }
 
 .task{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  flex-grow: 1;
   border: 1px grey solid;
   padding: 0.5em 1em;
   margin:1em;
 }
 
 
-
-.task span{
- width: 100%;
-}
 
 #create_task_form{
   --padding: 20em 40em 15em 35em;
