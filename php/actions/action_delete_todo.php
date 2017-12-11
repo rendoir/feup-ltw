@@ -2,11 +2,16 @@
   include_once('../session.php');
   include_once('../database.php');
 
-  $project = $_POST["project"];
-  $todo    = $_POST["todo"];
+  $user = Session::getCurrentUser();
 
-  if($project !== null && $todo !== null)
-    echo json_encode(DataBase::deleteTodo($project, $todo));
-  else echo json_encode(false);
+  if(isset($_POST["project"]) &&
+     isset($_POST["todo"]) &&
+     $user !== null) {
+      $project = $_POST["project"];
+      $todo = $_POST["todo"];
+      if(DataBase::userContributesToProject($user, $project))
+        echo json_encode(DataBase::deleteTodo($project, $todo));
+      else echo json_encode(false);
+  } else echo json_encode(false);
 
 ?>

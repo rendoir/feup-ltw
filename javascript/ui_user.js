@@ -679,6 +679,7 @@ function createTaskHandler() {
         task_ul.appendChild(task_li);
         clickTaskCheckbox(task_li);
         attachTrashTask(task_li);
+        clickAssignUser(task_li);
       }
       resetTaskInput();
     });

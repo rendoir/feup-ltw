@@ -1,5 +1,3 @@
-html/php:
-index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional
-
-css:
-meter as tasks na vertical
+- index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional
+- melhorar a estrutura
+- meter o login/registo com ajax

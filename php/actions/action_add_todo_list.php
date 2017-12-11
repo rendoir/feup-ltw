@@ -7,7 +7,7 @@
   if(isset($_POST["project"]) &&
      isset($_POST["todo_title"]) &&
      isset($_POST["todo_category"]) &&
-     isset($_POST["todo_color"])
+     isset($_POST["todo_color"]) &&
      $user !== null) {
        $project = $_POST["project"];
        $todo_title = $_POST["todo_title"];
