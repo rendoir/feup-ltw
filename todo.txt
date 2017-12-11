@@ -2,3 +2,5 @@
 - melhorar a estrutura
 - meter o login/registo com ajax (refactor action_login.php/action_register.php)
 - dar refactor ao javascript (agrupar funções por tipo)
+- aplicar a cor da todo list a alguma coisa (na border da caixa ou ao título)
+- aplicar cor vermelha à border se uma task não completa passar da due_date ou verde se completa 
