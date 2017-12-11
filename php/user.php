@@ -104,6 +104,14 @@ function displayProjects($user) {
        <input type="time" id="create_task_time" required>
        <input type="submit" id="create_task" value="Create Task">
      </form>
+     <div id="assign_user_div">
+       <form id="assign_user_form" class="user_form">
+         <label id="assign_user_lavel"> Assign User </label>
+         <input type="text" id="assign_username" placeholder="User" required autofocus>
+         <input type="submit" id="assign" value="Assign">
+         <ul id="autocomplete_assign"></ul>
+       </form>
+     </div>
    </section>
   <?php
 }

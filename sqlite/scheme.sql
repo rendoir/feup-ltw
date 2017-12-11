@@ -5,7 +5,7 @@ CREATE TABLE User (
   name STRING NOT NULL,
   password STRING NOT NULL,
   email STRING NOT NULL UNIQUE,
-  birth_date INTEGER,
+  birth_date INTEGER NOT NULL,
   image STRING
 );
 
@@ -22,18 +22,18 @@ CREATE TABLE Contributes (
 
 CREATE TABLE TodoList (
   list_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  title STRING,
-  category STRING,
-  color STRING,
+  title STRING NOT NULL,
+  category STRING NOT NULL,
+  color STRING NOT NULL,
   project STRING REFERENCES Project (title) ON DELETE CASCADE ON UPDATE CASCADE,
   UNIQUE(title, project)
 );
 
 CREATE TABLE ListItem (
   item_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  task STRING,
+  task STRING NOT NULL,
   is_completed BOOLEAN DEFAULT(0),
-  due_date INTEGER,
+  due_date INTEGER NOT NULL,
   todo_list INTEGER REFERENCES TodoList (list_id) ON DELETE CASCADE ON UPDATE CASCADE,
   user STRING REFERENCES User (username) ON DELETE SET NULL ON UPDATE CASCADE,
   UNIQUE(task, todo_list)

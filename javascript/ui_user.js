@@ -88,6 +88,10 @@ function createTask(task) {
   time_span.innerHTML = task.due_date.substr(10);
   task_li.appendChild(time_span);
 
+  let assign_user = document.createElement("i");
+  task_li.appendChild(assign_user);
+  assign_user.outerHTML = USER;
+
   let user_span = document.createElement("span");
   user_span.classList.add('task_user');
   user_span.innerHTML = task.user;
@@ -535,9 +539,24 @@ function setTaskList(tasks_array) {
       let task_li = createTask(tasks_array[i]);
       task_ul.appendChild(task_li);
       clickTaskCheckbox(task_li);
+      clickAssignUser(task_li);
       attachTrashTask(task_li);
     }
   }
+}
+
+function getAssignUserForm() {
+  return document.getElementById("assign_user_form");
+}
+
+function displayAssignUserForm() {
+  getAssignUserForm().style.display = "flex";
+}
+
+function clickAssignUser(task_li) {
+  task_li.children[3].addEventListener("click", function(event) {
+    displayAssignUserForm();
+  });
 }
 
 function plusTaskHandler() {
@@ -712,6 +731,10 @@ function cancelTaskFormHandler() {
   cancelFormHandler(getTaskForm());
 }
 
+function cancelAssingUserFormHandler() {
+  cancelFormHandler(getAssignUserForm());
+}
+
 function getInviteForm() {
   return document.getElementById("invite_user_form")
 }
@@ -827,6 +850,10 @@ function inviteUserHandler() {
   });
 }
 
+function assignUserHandler() {
+  cancelAssingUserFormHandler();
+}
+
 function init() {
   plusProjectHandler();
   createProjectHandler();
@@ -841,6 +868,7 @@ function init() {
   plusTaskHandler();
   createTaskHandler();
   cancelTaskFormHandler();
+  assignUserHandler();
 }
 
 init();
