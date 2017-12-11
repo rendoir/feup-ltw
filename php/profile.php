@@ -72,10 +72,12 @@ include_once('../html/header.html');
     <div id="invites_div">
       <?php
         if($invites !== false && count($invites) > 0) {
-           ?> <span class="invite_label"> You were invited to join: </span> <?php
+           ?> <span class="invite_label"> You were invited to join: </span>
+              <ul id="invite_list"> <?php
           foreach ($invites as $invite) {
-            ?> <span class="invite"><?=$invite["project"]?></span> <?php
+            ?> <li><span><?=$invite["project"]?></span></li> <?php
           }
+          ?> </ul> <?php
         } else {
            ?> <span class="invite_label"> You have no invites to join projects! </span> <?php
         }
