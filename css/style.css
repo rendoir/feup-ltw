@@ -64,6 +64,7 @@ header.user_header{
   background-color: Black;
   justify-content: space-between;
   text-align:center;
+    margin: 2em 2em 9em 5em;
 }
 
 #user form {
