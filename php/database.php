@@ -150,12 +150,28 @@
       return false;
     }
 
-    public static function assignListItemToUser($item, $user) {
+    public static function getTaskID($project, $todo, $task) {
+      $todo_id = DataBase::getTodoID($project, $todo);
+      if($todo_id !== null) {
+        $stmt = self::$db->prepare('SELECT item_id
+                                    FROM ListItem
+                                    WHERE todo_list == ? AND task == ?;');
+        if($stmt)
+          if($stmt->execute(array($todo_id, $task)))
+            return $stmt->fetch()["item_id"];
+      }
+      return null;
+    }
+
+    public static function assignListItemToUser($project, $todo, $task, $user) {
+      $task_id = DataBase::getTaskID($project, $todo, $task);
+      if($task_id === null)
+        return false;
       $stmt = self::$db->prepare('UPDATE ListItem
                                   SET user = ?
                                   WHERE item_id == ?;');
       if($stmt)
-        return $stmt->execute(array($user, $item));
+        return $stmt->execute(array($user, $task_id));
       return false;
     }
 
@@ -213,6 +229,16 @@
                                   WHERE username LIKE ? AND username != ?;');
       if($stmt)
         if($stmt->execute(array('%' . $input . '%', $current_user)))
+          return $stmt->fetchAll();
+      return false;
+    }
+
+    public static function getSimilarUsersInProject($input, $project) {
+      $stmt = self::$db->prepare('SELECT user
+                                  FROM Contributes
+                                  WHERE user LIKE ? AND project == ?;');
+      if($stmt)
+        if($stmt->execute(array('%' . $input . '%', $project)))
           return $stmt->fetchAll();
       return false;
     }

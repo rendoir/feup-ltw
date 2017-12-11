@@ -556,6 +556,7 @@ function displayAssignUserForm() {
 function clickAssignUser(task_li) {
   task_li.children[3].addEventListener("click", function(event) {
     displayAssignUserForm();
+    getAssignUserForm().name = getTask(task_li);
   });
 }
 
@@ -731,7 +732,7 @@ function cancelTaskFormHandler() {
   cancelFormHandler(getTaskForm());
 }
 
-function cancelAssingUserFormHandler() {
+function cancelAssignUserFormHandler() {
   cancelFormHandler(getAssignUserForm());
 }
 
@@ -850,8 +851,123 @@ function inviteUserHandler() {
   });
 }
 
+function getAssignUserTextbox() {
+  return document.getElementById("assign_username");
+}
+
+function getSimilarAssignList() {
+  return document.getElementById("autocomplete_assign");
+}
+
+function getAssignUserButton() {
+  return document.getElementById("assign");
+}
+
+function clearSimilarAssignList() {
+  let similar_ul = getSimilarAssignList();
+  while (similar_ul.children.length != 0)
+    similar_ul.removeChild(similar_ul.firstElementChild);
+}
+
+function setSimilarAssignList(users) {
+  let similar_ul = getSimilarAssignList();
+  if(users !== null) {
+    for(let i = 0; i < users.length; i++) {
+      let user_li = document.createElement("li");
+      user_li.classList.add('similar_assign_user');
+      user_li.innerHTML = users[i].user;
+      similar_ul.appendChild(user_li);
+      user_li.addEventListener("click", function(event) {
+        setInputAndAssign(event);
+      });
+    }
+  }
+}
+
+function setInputAndAssign(event) {
+  getAssignUserTextbox().value = event.target.innerHTML;
+  assignUser(event);
+}
+
+function hideAssignUserForm() {
+  getAssignUserForm().style.display = "none";
+}
+
+function textboxAssignUserHandler() {
+  getAssignUserTextbox().addEventListener("keyup", function(event) {
+    event.stopImmediatePropagation();
+    if(event.target.value === "") {
+      clearSimilarAssignList();
+      return;
+    }
+
+    let project = getProjectTitle(getSelectedProject());
+
+    let request = new XMLHttpRequest();
+    request.addEventListener("load", function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response !== false){
+        clearSimilarAssignList();
+        setSimilarAssignList(response);
+      }
+    });
+
+    request.open('POST', '../php/actions/action_get_similar_contributers.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({project: project, input: event.target.value}));
+  });
+}
+
+function getUser(task_li) {
+  return task_li.getElementsByClassName("task_user")[0];
+}
+
+function setAssignedUser(task, user) {
+  let task_ul = getTaskList();
+  for(let i = 0; i < task_ul.children.length; i++) {
+    let task_li = task_ul.children[i];
+    if(getTask(task_li) === task) {
+      getUser(task_li).innerHTML = user;
+      return;
+    }
+  }
+}
+
+function assignUser(event) {
+  event.stopImmediatePropagation();
+  event.preventDefault();
+
+  let user = getAssignUserTextbox().value;
+  let project = getProjectTitle(getSelectedProject());
+  let todo = getTodoTitle(getSelectedTodo());
+  let task = getAssignUserForm().name;
+
+  let request = new XMLHttpRequest();
+  request.addEventListener("load", function(event) {
+    let response = JSON.parse(this.responseText);
+    if(response !== false){
+      hideAssignUserForm();
+      setAssignedUser(task, user);
+    }
+    clearSimilarAssignList();
+    getAssignUserTextbox().value = "";
+  });
+
+  request.open('POST', '../php/actions/action_assign_task_to_user.php', true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  request.send(encodeForAjax({user: user, project: project, todo: todo, task: task}));
+}
+
+function submitAssignUserHandler() {
+  getAssignUserButton().addEventListener("click", function(event){
+    assignUser(event);
+  });
+}
+
 function assignUserHandler() {
-  cancelAssingUserFormHandler();
+  cancelAssignUserFormHandler();
+  textboxAssignUserHandler();
+  submitAssignUserHandler();
 }
 
 function init() {
