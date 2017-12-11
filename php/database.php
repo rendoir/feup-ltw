@@ -267,6 +267,16 @@
       }
       return false;
     }
+
+    public static function isProjectManager($user, $project) {
+      $stmt = self::$db->prepare('SELECT *
+                                  FROM Project
+                                  WHERE title == ? AND project_manager == ?;');
+      if($stmt)
+        if($stmt->execute(array($project, $user)))
+          return $stmt->fetch() != false;
+      return false;
+    }
   }
 
   DataBase::init();

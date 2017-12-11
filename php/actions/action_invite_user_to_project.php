@@ -7,7 +7,7 @@
   $project = $_POST["project"];
 
   if($user !== null && $project !== null && $current_user !== null)
-    if(DataBase::userContributesToProject($current_user, $project) &&
+    if(DataBase::isProjectManager($current_user, $project) &&
        !DataBase::userContributesToProject($user, $project) &&
        DataBase::userHasNoPendingInvite($user, $project))
          echo json_encode(DataBase::inviteUserToProject($user, $project));
