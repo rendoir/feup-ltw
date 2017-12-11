@@ -1,3 +1,4 @@
 - index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional
 - melhorar a estrutura
-- meter o login/registo com ajax
+- meter o login/registo com ajax (refactor action_login.php/action_register.php)
+- dar refactor ao javascript (agrupar funções por tipo)
