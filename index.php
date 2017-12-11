@@ -6,57 +6,6 @@
     header('Location: php/user.php');
     exit();
   }
+  include_once('html/index.html');
+  include_once('html/footer.html');
 ?>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>ListIt</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link href="https://fonts.googleapis.com/css?family=Oxygen:700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
-    <script src="javascript/ui_index.js" defer></script>
-  </head>
-  <body>
-
-    <header>
-      <section id="logo">
-        <img src="images/check.svg">
-        <h1> <a href ="index.php">List It</a></h1>
-      </section>
-      </header>
-
-
-      <section id="user">
-        <input type="button" id="change_to_login" value="Login">
-        <input type="button" id="change_to_register" value="Register">
-        <section id="login">
-           <form action="php/actions/action_login.php" method="post">
-             <input type="text" placeholder="username" name="username" required>
-             <input type="password" placeholder="password" name="password" required>
-             <input type="submit" value="Login">
-           </form>
-         </section>
-         <section id="register">
-            <form action="php/actions/action_register.php" method="post">
-              <input type="text" placeholder="username" name="username" required>
-              <input type="text" placeholder="First Name" name="first_name" required>
-              <input type="text" placeholder="Last Name" name="last_name" required>
-              <input type="date" name="birth_date" required>
-              <input type="email" placeholder="example@listit.com" name="email" required>
-              <input type="password" placeholder="password" name="password" required>
-              <input type="submit" value="Register">
-            </form>
-          </section>
-        </section>
-
-        <label id="description"> Organize yourself </label>
-
-    <footer>
-      &copy 2017;  Daniel Machado  -  Daniel Marques  -  Sofia Alves
-    <footer>
-
-  </body>
-</html>
