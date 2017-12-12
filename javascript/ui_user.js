@@ -76,14 +76,16 @@ function createTask(task) {
   task_span.innerHTML = task.task;
   task_li.appendChild(task_span);
 
+  let date = new Date(parseInt(task.due_date));
+
   let date_span = document.createElement("span");
   date_span.classList.add('task_date');
-  date_span.innerHTML = task.due_date.substr(0, 10);
+  date_span.innerHTML = date.toLocaleDateString();
   task_li.appendChild(date_span);
 
   let time_span = document.createElement("span");
   time_span.classList.add('task_time');
-  time_span.innerHTML = task.due_date.substr(10);
+  time_span.innerHTML = date.toLocaleTimeString();
   task_li.appendChild(time_span);
 
   let assign_user = document.createElement("i");
@@ -639,8 +641,11 @@ function getTaskInput() {
   let task_text = document.getElementById("create_task_text").value;
   let task_date = document.getElementById("create_task_date").value;
   let task_time = document.getElementById("create_task_time").value;
-  let task_datetime = task_date + task_time;
-  let task = { task: task_text, due_date: task_datetime, is_completed: 0, user: "" };
+  let task_datetime = task_date + ' ' + task_time;
+  let date = new Date(task_datetime);
+  if(date == 'Invalid Date' || task_date == '' || task_time == '')
+    return null;
+  let task = { task: task_text, due_date: date.getTime(), is_completed: 0, user: "" };
   return task;
 }
 
@@ -662,7 +667,7 @@ function createTaskHandler() {
     let todo_title = getTodoTitle(getSelectedTodo());
     let task_input = getTaskInput();
 
-    if(!validText(task_input.task_text, MAX_TASK_LENGTH)) {
+    if(getTaskInput() === null || !validText(task_input.task_text, MAX_TASK_LENGTH)) {
       resetTaskInput();
       return;
     }

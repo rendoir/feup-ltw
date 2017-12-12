@@ -8,7 +8,7 @@
      isset($_POST["project"]) &&
      isset($_POST["todo"]) &&
      isset($_POST["task"]) &&
-     $user !== null) {
+     $current_user !== null) {
        $user = $_POST["user"];
        $project = $_POST["project"];
        $todo = $_POST["todo"];

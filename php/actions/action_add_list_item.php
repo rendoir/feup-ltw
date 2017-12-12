@@ -10,7 +10,7 @@
      isset($_POST["project"]) &&
      $user !== null) {
        $task = $_POST["task"];
-       $due_date = $_POST["datetime"];
+       $due_date = intval($_POST["datetime"]);
        $todo = $_POST["todo"];
        $project = $_POST["project"];
        if(DataBase::userContributesToProject($user, $project))
