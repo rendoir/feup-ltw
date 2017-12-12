@@ -80,12 +80,12 @@ function createTask(task) {
 
   let date_span = document.createElement("span");
   date_span.classList.add('task_date');
-  date_span.innerHTML = date.toLocaleDateString();
+  date_span.innerHTML = date.toLocaleDateString('en-GB');
   task_li.appendChild(date_span);
 
   let time_span = document.createElement("span");
   time_span.classList.add('task_time');
-  time_span.innerHTML = date.toLocaleTimeString();
+  time_span.innerHTML = date.toLocaleTimeString('en-GB', {hourCycle: 'h23', hour: '2-digit', minute:'2-digit'});
   task_li.appendChild(time_span);
 
   let assign_user = document.createElement("i");
