@@ -103,6 +103,8 @@ function createTask(task) {
   completed_checkbox.checked = ((task.is_completed == 0) ? false : true);
   task_li.appendChild(completed_checkbox);
 
+  updateTaskColor(task_li);
+
   return task_li;
 }
 
@@ -697,6 +699,25 @@ function getCheckbox(task_li) {
   return task_li.getElementsByClassName("task_checkbox")[0];
 }
 
+function updateTaskColor(task_li) {
+  let task_completed = task_li.getElementsByClassName("task_checkbox")[0].checked;
+  if(task_completed) {
+    task_li.style.borderColor = "green";
+    return;
+  }
+
+  let task_date = task_li.getElementsByClassName("task_date")[0].innerHTML;
+  let task_time = task_li.getElementsByClassName("task_time")[0].innerHTML;
+  let datetime_str = task_date + ' ' + task_time;
+  let current_timestamp = (new Date()).getTime();
+  let task_timestamp = (new Date(datetime_str)).getTime();
+  if(!task_completed && current_timestamp > task_timestamp) {
+    task_li.style.borderColor = "red";
+  } else {
+    task_li.style.borderColor = "black";
+  }
+}
+
 function clickTaskCheckbox(task_li) {
   getCheckbox(task_li).addEventListener("change", function(event) {
     event.stopImmediatePropagation();
@@ -712,6 +733,7 @@ function clickTaskCheckbox(task_li) {
       let response = JSON.parse(this.responseText);
       if(response !== false)
         event.target.checked = task_completed;
+        updateTaskColor(task_li);
     });
 
     request.open('POST', '../php/actions/action_set_completed_task.php', true);
