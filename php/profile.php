@@ -18,6 +18,7 @@ if($user === null) {
 $user_info = DataBase::getUserInfo($user);
 if($user_info === null)
   die("Unknown error!");
+
 $email = $user_info['email'];
 $name = $user_info['name'];
 $birth = date('d-m-Y', $user_info['birth_date']);
@@ -30,46 +31,38 @@ include_once('../html/header.html');
 <script src="../javascript/ui_profile.js" defer></script>
 
 <body>
-  <section id="form_section">
-    <form id="profile_form"></form>
-  </section>
+  <h1 id="profile_form">Profile Page</h1>
 
-  <section id= "form_section2">
-    <form id="profile_form2">Profile Page</form>
-  </section>
   <section id="profile_section_picture">
-<?php
-  if($image !== null) {
-    ?>
-     <img id="image" src="../images/profiles/<?=$image?>" width="256" height="256">
     <?php
-  } else {
-  ?>
-    <img id="image" src="../images/default.png" width="256" height="256">
-  <?php
-  }
-  ?>
+    if($image !== null) {
+      ?>
+       <img id="image" src="../images/profiles/<?=$image?>" width="256" height="256">
+      <?php
+    } else {
+    ?>
+      <img id="image" src="../images/default.png" width="256" height="256">
+    <?php
+    }
+    ?>
     <label for="change_image">Select Image</label>
     <input id="change_image" type="file" name="image">
+  </section>
 
-  </section><section id="profile_section">
-    <div id="user_div">
-      <span id="user_label"> </span>
-      <span id="username"><?=$user?></span>
-    </div>
-    <div id="name_div">
-      <span id="name_label">Name </span>
-      <span id="name"><?=$name?></span>
-    </div>
-    <div id="email_div">
-      <span id="email_label">Email </span>
-      <span id="email"><?=$email?></span>
-    </div>
-    <div id="birth_div">
-      <span id="birth_label"> Birth Date </span>
-      <span id="birth"><?=$birth?></span>
-    </div>
-    <div id="change_password">
+
+  <section id="profile_section">
+    <span><?=$user?></span>
+
+    <label>Name </label>
+    <span><?=$name?></label>
+
+    <label>Email </span>
+    <span><?=$email?></span>
+
+    <label> Birth Date </label>
+    <span><?=$birth?></span>
+
+    <section id="change_password">
       <input id="change_password_button" type="button" value="Change Password">
       <form id="change_password_form" class="user_form">
         <label class="form_header">Change Password</label>
@@ -77,8 +70,9 @@ include_once('../html/header.html');
         <input id="new_password" type="password" placeholder="New Password" required>
         <input id="submit_password" type="submit" value="Change Password">
       </form>
-    </div>
-    <div id="invites_div">
+    </section>
+
+    <section id="invites_div">
       <?php
         if($invites !== false && count($invites) > 0) {
            ?> <span class="invite_label"> You were invited to join: </span>
@@ -91,7 +85,7 @@ include_once('../html/header.html');
            ?> <span class="invite_label"> You have no invites to join projects! </span> <?php
         }
       ?>
-    </div>
+    </section>
   </section>
 
 
