@@ -30,6 +30,14 @@ function validImage(type) {
   return /^image\//.test(type);
 }
 
+function validPassword(password) {
+  return (/[A-Z]/g).test(password) &&
+         (/[a-z]/g).test(password) &&
+         (/[0-9]/g).test(password) &&
+         password.length >= 8    &&
+         password.length <= 64;
+}
+
 function uploadImageHandler() {
   getChangeButton().addEventListener("change", function() {
     if(event.target.files.length == 0)
@@ -175,6 +183,9 @@ function changePasswordHandler() {
     event.stopImmediatePropagation();
     let old_password = getOldPassTextbox().value;
     let new_password = getNewPassTextbox().value;
+
+    if(!validPassword(new_password) || new_password === old_password)
+      return;
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
