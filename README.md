@@ -25,3 +25,8 @@
 * [x] Allow items to be assigned to other users. Show the list of items assigned to the current user.
 * [x] Allow the creation of projects. A project would have a set of users and to-do lists.
 * [ ] Advanced search capabilities.
+
+### Todo
+* [ ] Ajustar o css ao novo HTML do index e profile
+* [ ] Mostrar erros ao utilizador
+* [ ] Encher a index page

@@ -1,3 +1,0 @@
-- index page ter cenas que descrevam para que serve o site + imagens fixes para parecer que esta merda é mesmo profissional
-- dar refactor ao javascript (agrupar funções por tipo), passar common para um ficheiro
-- mostrar erros ao utilizador
