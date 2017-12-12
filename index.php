@@ -6,6 +6,8 @@
     header('Location: php/user.php');
     exit();
   }
+
+  include_once('html/header.html');
   include_once('html/index.html');
   include_once('html/footer.html');
 ?>
