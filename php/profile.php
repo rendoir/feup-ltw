@@ -51,7 +51,7 @@ include_once('../html/header.html');
 
 
   <section id="profile_section">
-    <span><?=$user?></span>
+    <span id="profile_user"><?=$user?></span>
 
     <label>Name </label>
     <span><?=$name?></label>
