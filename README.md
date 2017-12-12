@@ -12,7 +12,7 @@
 ### Requirements
 * [x]  Register a new account.
 * [x] Login and logout.
-* [ ] Edit their profile.
+* [x] Edit their profile.
 * [x] List their to-do lists.
 * [x] Create new to-do lists.
 * [x] Add items to a to-do list.
@@ -21,7 +21,7 @@
 
 ### Extra requirements
 * [x] Add extra information to to-do lists (category, title, color, …).
-* [ ] Add extra information to items (date due, dependency, color, …).
-* [ ] Allow items to be assigned to other users. Show the list of items assigned to the current user.
+* [x] Add extra information to items (date due, dependency, color, …).
+* [x] Allow items to be assigned to other users. Show the list of items assigned to the current user.
 * [x] Allow the creation of projects. A project would have a set of users and to-do lists.
 * [ ] Advanced search capabilities.
