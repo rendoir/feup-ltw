@@ -1,11 +1,6 @@
 'use strict';
 
-function encodeForAjax(data) {
-  return Object.keys(data).map(function(k){
-    return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-  }).join('&');
-}
-
+/*Validation*/
 function validUsername(username) {
   return (/^[a-zA-Z][a-zA-Z0-9_\-]{1,30}[a-zA-Z0-9]$/g).test(username);
 }
@@ -26,6 +21,21 @@ function validPassword(password) {
          password.length <= 64;
 }
 
+function validBirthDate(date) {
+  return new Date(date) != 'Invalid Date';
+}
+
+function validInput(input) {
+  return validUsername(input.username) &&
+         validPassword(input.password) &&
+         validName(input.first_name) &&
+         validName(input.last_name) &&
+         validEmail(input.email) &&
+         validBirthDate(input.birth_date);
+}
+
+
+/*Element getters/setters*/
 function getLoginButton() {
   return document.getElementById("change_to_login");
 }
@@ -42,14 +52,38 @@ function getRegister() {
   return document.getElementById("register");
 }
 
-function hide(element) {
-  element.style.display = "none";
+function getLoginSubmit() {
+  return getLogin().getElementsByClassName("submit")[0];
 }
 
-function displayFlex(element) {
-  element.style.display = "flex";
+function getLoginInput() {
+  let username = getLogin().getElementsByClassName("username")[0].value;
+  let password = getLogin().getElementsByClassName("password")[0].value;
+  return { username: username, password: password };
 }
 
+function resetLoginInput() {
+  getLogin().getElementsByClassName("username")[0].value = "";
+  getLogin().getElementsByClassName("password")[0].value = "";
+}
+
+function getRegisterSubmit() {
+  return getRegister().getElementsByClassName("submit")[0];
+}
+
+function getRegisterInput() {
+  let username = getRegister().getElementsByClassName("username")[0].value;
+  let first_name = getRegister().getElementsByClassName("name")[0].value;
+  let last_name = getRegister().getElementsByClassName("name")[1].value;
+  let email = getRegister().getElementsByClassName("email")[0].value;
+  let birth_date = getRegister().getElementsByClassName("date")[0].value;
+  let password = getRegister().getElementsByClassName("password")[0].value;
+  return { username: username, password: password, first_name: first_name, last_name: last_name,
+           email: email, birth_date: birth_date };
+}
+
+
+/*Event Listeners*/
 function selectLoginHandler() {
   let login_button = getLoginButton();
   login_button.addEventListener('click', function(event) {
@@ -64,21 +98,6 @@ function selectRegisterHandler() {
     hide(getLogin());
     displayFlex(getRegister());
   });
-}
-
-function getLoginSubmit() {
-  return getLogin().getElementsByClassName("submit")[0];
-}
-
-function getLoginInput() {
-  let username = getLogin().getElementsByClassName("username")[0].value;
-  let password = getLogin().getElementsByClassName("password")[0].value;
-  return { username: username, password: password };
-}
-
-function resetLoginInput() {
-  getLogin().getElementsByClassName("username")[0].value = "";
-  getLogin().getElementsByClassName("password")[0].value = "";
 }
 
 function loginHandler() {
@@ -102,34 +121,6 @@ function loginHandler() {
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(encodeForAjax({ username: input.username, password: input.password }));
   });
-}
-
-function getRegisterSubmit() {
-  return getRegister().getElementsByClassName("submit")[0];
-}
-
-function getRegisterInput() {
-  let username = getRegister().getElementsByClassName("username")[0].value;
-  let first_name = getRegister().getElementsByClassName("name")[0].value;
-  let last_name = getRegister().getElementsByClassName("name")[1].value;
-  let email = getRegister().getElementsByClassName("email")[0].value;
-  let birth_date = getRegister().getElementsByClassName("date")[0].value;
-  let password = getRegister().getElementsByClassName("password")[0].value;
-  return { username: username, password: password, first_name: first_name, last_name: last_name,
-           email: email, birth_date: birth_date };
-}
-
-function validBirthDate(date) {
-  return new Date(date) != 'Invalid Date';
-}
-
-function validInput(input) {
-  return validUsername(input.username) &&
-         validPassword(input.password) &&
-         validName(input.first_name) &&
-         validName(input.last_name) &&
-         validEmail(input.email) &&
-         validBirthDate(input.birth_date);
 }
 
 function registerHandler() {
