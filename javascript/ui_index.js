@@ -18,12 +18,12 @@ function validName(name) {
   return (/^[A-Z][a-z]{2,20}$/g).test(name);
 }
 
-function validPassword($password) {
+function validPassword(password) {
   return (/[A-Z]/g).test(password) &&
          (/[a-z]/g).test(password) &&
          (/[0-9]/g).test(password) &&
-         strlen($password) >= 8    &&
-         strlen($password) <= 64;
+         password.length >= 8    &&
+         password.length <= 64;
 }
 
 function getLoginButton() {
@@ -104,17 +104,64 @@ function loginHandler() {
   });
 }
 
+function getRegisterSubmit() {
+  return getRegister().getElementsByClassName("submit")[0];
+}
+
+function getRegisterInput() {
+  let username = getRegister().getElementsByClassName("username")[0].value;
+  let first_name = getRegister().getElementsByClassName("name")[0].value;
+  let last_name = getRegister().getElementsByClassName("name")[1].value;
+  let email = getRegister().getElementsByClassName("email")[0].value;
+  let birth_date = getRegister().getElementsByClassName("date")[0].value;
+  let password = getRegister().getElementsByClassName("password")[0].value;
+  return { username: username, password: password, first_name: first_name, last_name: last_name,
+           email: email, birth_date: birth_date };
+}
+
+function validBirthDate(date) {
+  return new Date(date) != 'Invalid Date';
+}
+
+function validInput(input) {
+  return validUsername(input.username) &&
+         validPassword(input.password) &&
+         validName(input.first_name) &&
+         validName(input.last_name) &&
+         validEmail(input.email) &&
+         validBirthDate(input.birth_date);
+}
+
+function registerHandler() {
+  getRegisterSubmit().addEventListener("click", function(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    let input = getRegisterInput();
+    if(!validInput(input))
+       return;
+
+    let request = new XMLHttpRequest();
+    request.addEventListener('load', function(event) {
+      let response = JSON.parse(this.responseText);
+      if(response === true) {
+        window.location.replace('../php/user.php');
+        return;
+      }
+    });
+
+    request.open('POST', '../php/actions/action_register.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({ username: input.username, password: input.password, name: input.first_name + ' ' + input.last_name,
+                                 email: input.email, birth_date: input.birth_date }));
+  });
+}
+
 function init() {
   selectLoginHandler();
   selectRegisterHandler();
-
-  /*usernameHandler();
-  passwordHandler();
-  nameHandler();
-  emailHandler();*/
-
   loginHandler();
-  //registerHandler();
+  registerHandler();
 }
 
 init();
