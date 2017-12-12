@@ -41,6 +41,19 @@
       return false;
     }
 
+    public static function changePassword($user, $old_password, $new_password) {
+      if(!DataBase::checkLogin($user, $old_password))
+        return false;
+      $stmt = self::$db->prepare('UPDATE User
+                                  SET password = ?
+                                  WHERE username = ?;');
+      if($stmt) {
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        return $stmt->execute(array($hashed_password, $user));
+      }
+      return false;
+    }
+
     public static function addUser($username, $password, $email, $name, $birth_date) {
       $stmt = self::$db->prepare('INSERT INTO User (username, password, email, name, birth_date)
                                   VALUES (?, ?, ?, ?, ?);');

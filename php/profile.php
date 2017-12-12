@@ -69,6 +69,15 @@ include_once('../html/header.html');
       <span id="birth_label"> Birth Date </span>
       <span id="birth"><?=$birth?></span>
     </div>
+    <div id="change_password">
+      <input id="change_password_button" type="button" value="Change Password">
+      <form id="change_password_form" class="user_form">
+        <label class="form_header">Change Password</label>
+        <input id="old_password" type="password" placeholder="Old Password" required>
+        <input id="new_password" type="password" placeholder="New Password" required>
+        <input id="submit_password" type="submit" value="Change Password">
+      </form>
+    </div>
     <div id="invites_div">
       <?php
         if($invites !== false && count($invites) > 0) {

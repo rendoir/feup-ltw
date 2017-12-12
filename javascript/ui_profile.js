@@ -2,6 +2,7 @@
 
 const DECLINE = '<i class="fa fa-times" aria-hidden="true"></i>';
 const ACCEPT  = '<i class="fa fa-check" aria-hidden="true"></i>';
+const CANCEL = '<i class="fa fa-times" aria-hidden="true"></i>';
 
 function encodeForAjax(data) {
   return Object.keys(data).map(function(k){
@@ -115,9 +116,85 @@ function attachDecline(invite_li) {
   invite_li.children[2].addEventListener("click", declineInvite);
 }
 
+function getChangePasswordButton() {
+  return document.getElementById("change_password_button");
+}
+
+function getChangePasswordForm() {
+  return document.getElementById("change_password_form");
+}
+
+function getChangePasswordSubmit() {
+  return document.getElementById("submit_password");
+}
+
+function displayForm(form) {
+  form.style.display = "flex";
+}
+
+function hide(element) {
+  element.style.display = "none";
+}
+
+function getCancel(form) {
+  return form.getElementsByClassName("fa-times")[0];
+}
+
+function displayFlex(element) {
+  element.style.display = "flex";
+}
+
+function cancelFormHandler(form) {
+  let cancel = document.createElement("i");
+  form.insertAdjacentElement('afterbegin', cancel)
+  cancel.outerHTML = CANCEL;
+  getCancel(form).addEventListener("click", function(event) {
+    event.stopImmediatePropagation();
+    hide(form);
+    displayFlex(getChangePasswordButton());
+  });
+}
+
+function getOldPassTextbox() {
+  return document.getElementById("old_password");
+}
+
+function getNewPassTextbox() {
+  return document.getElementById("new_password");
+}
+
+function changePasswordHandler() {
+  cancelFormHandler(getChangePasswordForm());
+  getChangePasswordButton().addEventListener("click", function(event) {
+    event.stopImmediatePropagation();
+    hide(this);
+    displayForm(getChangePasswordForm());
+  });
+  getChangePasswordSubmit().addEventListener("click", function(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    let old_password = getOldPassTextbox().value;
+    let new_password = getNewPassTextbox().value;
+
+    let request = new XMLHttpRequest();
+    request.addEventListener('load', function(event) {
+      let response = JSON.parse(this.responseText);
+      hide(getChangePasswordForm());
+      displayFlex(getChangePasswordButton());
+      getOldPassTextbox().value = "";
+      getNewPassTextbox().value = "";
+    });
+
+    request.open('POST', '../php/actions/action_change_password.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax({old_password: old_password, new_password: new_password}));
+  });
+}
+
 function init() {
   uploadImageHandler();
   inviteHandler();
+  changePasswordHandler();
 }
 
 init();
