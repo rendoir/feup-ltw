@@ -41,9 +41,7 @@ function createTodo(todo) {
   todo_category_span.innerHTML = todo.category;
   todo_li.appendChild(todo_category_span);
 
-  let data_todo_color = document.createAttribute("data-todo-color");
-  data_todo_color.value = todo.color;
-  todo_li.setAttributeNode(data_todo_color);
+  todo_li.style.borderColor = todo.color;
 
   return todo_li;
 }
