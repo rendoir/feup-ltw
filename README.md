@@ -28,5 +28,5 @@
 
 ### Todo
 * [ ] Ajustar o css ao novo HTML do index e profile
-* [ ] Mostrar erros ao utilizador
+* [X] Mostrar erros ao utilizador
 * [ ] Encher a index page
