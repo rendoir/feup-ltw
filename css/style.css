@@ -1,13 +1,18 @@
-body {
+html{
+  height: 9999;
+  background-image: url(../images/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
+body {
   font-family: 'Barlow Semi Condensed', sans-serif;
   margin: 0 auto;
-  width: 60em;
-
+  height: 100%;
 
   display:grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr 0.5fr auto auto 0.5fr;
+  grid-template-rows: auto auto 1fr auto;
   grid-template-areas:
           "header header"
           "user_header  user_header"
@@ -16,61 +21,57 @@ body {
 
 }
 
+
 body > header {
-  align-items: stretch;
   border-style: solid;
-  border-width: 0 0 5px 0;
-}
-
-header{
+  border-width: 0 0 7px 0;
+  border-color: rgba(0, 0, 0, 0.9);
   grid-area:header;
-}
-
-header.user_header{
-  grid-area:user_header;
-}
-
-#logo {
   display: flex;
-  align-items: center;
-  flex-grow: 1;
-  padding: 1em 0;
+  align-items: flex-start;
+  padding: 0 0 0.5em 0;
+  margin: 2em;
 }
 
-#logo a {
+header img {
+  width: 60px;
+  opacity: 0.90;
+}
+
+header h1{
+  margin:  0;
+  opacity: 0.90;
+}
+
+header a {
+  font-size: 1.5em;
+  font-family: 'Oxygen', sans-serif;
   text-decoration: none;
   color: black;
 }
 
-#logo h1 {
-  font-size: 3em;
-  font-family: 'Oxygen', sans-serif;
-  margin: 0;
-  flex-grow: 1;
-}
-
-#logo img {
-  width: 60px;
-}
-
-#add_project {
-  display: none;
-}
-
-#user  {
+#user {
+  border-radius: 25px;
+  grid-area:project_section;
   padding: 1em 2em 1em 2em;
-  background-color: Black;
-  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.75);
   text-align:center;
-  margin: 2em 2em 9em 5em;
-  grid-area: project_section;
+  margin: 3em 3em 10em 7em;
+}
+
+#user:before{
+  background-color: black;
+  opacity: 0.75;
+}
+
+input:focus{
+   outline: none;
 }
 
 #user form {
+
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: 100%;
 }
 
 #user input {
@@ -78,37 +79,30 @@ header.user_header{
   margin-bottom: 1.5em;
 }
 
-
-input:focus{
-   outline: none;
-}
-
 #user input[type="button"]{
   text-decoration: none;
   background-color: transparent;
-  border: solid;
+  border: none;
   color:white;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   font-family: 'Barlow Semi Condensed', sans-serif;
-  font-size: 18px;
-  border-color: black;
+  font-size: 20px;
 }
 
 #user input[type="button"]:hover{
   font-weight: bold;
 }
 
-
 #user input[type="submit"]{
-  background-color: GhostWhite  ;
+  background-color: GhostWhite ;
   align-self: center;
-  border: solid;
-  border-color: GhostWhite  ;
+  border: none;
   font-family: 'Barlow Semi Condensed', sans-serif;
-  font-size: 100%;
   font-weight: bold;
+  padding: .5em 1em;
+  margin: 1em 0.5em;
   width: 5em;
-  align-items: flex-end;
+
 }
 
 
@@ -119,24 +113,27 @@ input:focus{
 
 #register {
   display: none;
+  margin: 0;
 }
 
-/*footer*/
+#description{
+  grid-area:todo_section
+}
 
 footer {
   grid-area:footer;
-  background-color: black;
+  background: rgba(0, 0, 0, 0.75);
   color: white;
   padding: 1em;
-  display:flex;
-  justify-content: rows;
-  align-items: center;
+
 }
 
 
+
 /* user.php */
-.task_user a:link, .task_user a:visited {
-  color: black;
+
+header.user_header{
+  grid-area:user_header;
 }
 
 .user_header a {
@@ -152,8 +149,6 @@ footer {
 .user_header{
   background-color: black;
   padding: 1em 1em 1em 1em;
-  display: flex;
-  justify-content: space-between;
 }
 
 /* projects section */
@@ -203,24 +198,24 @@ footer {
   content: attr(data-username);
 }
 
-#create_project_form, #create_todo_form,
-#invite_user_form, #create_task_form,
- #change_password_form, #assign_user_form{
+#create_project_form, #create_todo_form, #invite_user_form, #create_task_form{
   position: absolute;
   z-index: 5;
   right: 0px;
   left: 0px;
-  top: 10em;
-  bottom: -10em;
+  top: 170px;
+  bottom: 0px;
   flex-direction: column;
   align-items: center;
   background-color: white;
   text-align: center;
 }
 
-#new_project_label, #new_project_label,
-#new_task_label, #invite_label, .form_header,
-#assign_user_lavel{
+#create_project_form{
+  --padding: 20em 40em 19em 35em;
+}
+
+#create_project_form label, #new_project_label, #new_task_label, #invite_label{
   width: 18%;
   padding: 1em 1em 1em 1em;
   background-color: black;
@@ -255,16 +250,13 @@ footer {
   font-weight: lighter;
 }
 
-.error_label{
-  margin-top: 2em;
-}
-
 .user_form input {
   font-family: 'Barlow Semi Condensed', sans-serif;
   z-index: 2;
   background-color: white;
   opacity: 1;
 }
+
 
 
 input[type="submit"]{
@@ -301,6 +293,11 @@ input[type="submit"]{
   padding: 1em;
   margin: 1em;
 
+}
+
+
+#create_todo_form{
+  --padding: 20em 40em 15em 35em;
 }
 
 
@@ -346,7 +343,7 @@ input[type="submit"]{
   font-weight: lighter;
 }
 
-.todo_title:hover{
+.todo:hover{
   font-weight: bold;
   cursor:default;
 }
@@ -363,6 +360,9 @@ input[type="submit"]{
 #task_list{
   display: grid;
   padding: 1em;
+  --grid-template-columns: 1fr;
+  --grid-template-rows: 2fr;
+
 }
 
 .task{
@@ -376,6 +376,11 @@ input[type="submit"]{
 }
 
 
+
+#create_task_form{
+  --padding: 20em 40em 15em 35em;
+}
+
 #add_task{
   display: flex;
   flex-direction: row;
@@ -384,8 +389,7 @@ input[type="submit"]{
 }
 
 
-#create_task, #invite_submit,
-#submit_password, #assign{
+#create_task, #invite_submit{
   width: 21%;
   padding: 0.4em 1em 0.4em 1em;
   background-color: white;
@@ -398,18 +402,9 @@ input[type="submit"]{
   font-weight: lighter;
 }
 
-#create_task_time, #create_task_date,
- #create_task_text, #assign_username,
-#invite_username, #old_password, #new_password{
+#create_task_time, #create_task_date, #create_task_text, #invite_username{
   width:20%;
   margin-bottom: 1em;
-}
-
-/* Invite list*/
-
-#invite_list .fa-times, .fa-check{
-  margin:0em;
-  padding-left: 1em;
 }
 
 
@@ -418,6 +413,8 @@ input[type="submit"]{
 #profile_section{
   display:flex;
   flex-direction: column;
+  margin-top: 2em;
+  margin-left: 2em;
 }
 
 #user_label, #name_label, #email_label, #birth_label{
@@ -427,6 +424,7 @@ input[type="submit"]{
 
 #profile_section div {
   padding: 0.7em;
+
 }
 
 #username{
@@ -435,13 +433,14 @@ input[type="submit"]{
   font-weight: bold;
 }
 
+
+
 #profile_section_picture label{
   margin-left: 5.5em;
 }
 
 #profile_section_picture img{
-  margin-top: 1em;
-  margin-right: 2em;
+  margin-top: 2em;
 }
 
 input[type='file'] {
@@ -449,13 +448,10 @@ input[type='file'] {
 }
 
 #profile_form{
-  padding-right :1em;
+  padding-left :1em;
   font-size: 2.5em;
   font-variant-caps:all-small-caps;
   font-weight: bold;
-  grid-area:user_header;
-  display: flex;
-  justify-content: flex-end;
 }
 
 #form_section2{
@@ -472,23 +468,7 @@ input[type='file'] {
   font-weight: bold;
 }
 
-#profile_section label {
-  display:flex;
-  font-variant-caps:all-small-caps;
-  font-weight: bold;
-  padding-right: 1em;
-  font-size:1.2em;
-}
-
-#profile_user{
-  font-size: 2.5em;
-  font-variant-caps:all-small-caps;
-  font-weight: bold;
-}
-
-
-
-#profile_section input[type="button"] {
+#profile_section button{
   border: 2px solid black;
   background-color: white;
   margin-left:27em;
@@ -499,11 +479,59 @@ input[type='file'] {
   margin-bottom: 2em;
 }
 
-#profile_section input[type="button"]:hover{
+#profile_section button:hover{
   font-weight: lighter;
 }
 
-.form_header{
-  display: flex;
+#profile_section button:focus{
+  outline: none;
+}
+/* Edit Profile Section  */
+
+#edit_profile_section{
+  display:flex;
+  align-items: center;
+  padding: 3em 1em;
+}
+
+#edit_profile_section div{
+  padding:1em;
+}
+
+#edit_profile_section span {
+  display:flex;
+  font-variant-caps:all-small-caps;
+  font-weight: bold;
+  padding-right: 1em;
+  font-size:1.2em;
+}
+
+#edit_profile_section input {
+  border: none;
+  border-bottom: 2px solid black;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 1.2em;
+}
+
+#edit_profile_section input[type="submit"] {
+  border: 2px solid black;
+  background-color: white;
+  margin-left: 20em;
+  padding:0.5em;
+}
+
+#edit_profile_section input[type="submit"]:hover{
+  font-weight: lighter;
+}
+
+#edit_picture{
+  display:flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-right: 1em;
+}
+
+#select_label{
+  padding: 1em;
 }
