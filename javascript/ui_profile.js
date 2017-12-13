@@ -99,13 +99,15 @@ function attachDecline(invite_li) {
 function validChangePasswordInput(old_password, new_password) {
   if(!validPassword(new_password.value)) {
     onError(getNewPassTextbox(), "Passwords must be between 8 and 32 characters long and have at least a number, a lower-case letter and a upper-case letter.");
-    return;
+    return false;
   } else onValid(getNewPassTextbox());
 
   if(new_password.value === old_password.value) {
     onError(getNewPassTextbox(), "New password must be different from the old password");
-    return;
+    return false;
   } else onValid(getNewPassTextbox());
+
+  return true;
 }
 
 
@@ -180,22 +182,26 @@ function changePasswordHandler() {
     let old_password = getOldPassTextbox();
     let new_password = getNewPassTextbox();
 
-    if(!validChangePasswordInput(old_password, new_password))
+    if(!validChangePasswordInput(old_password, new_password)) {
+      event.preventDefault();
       return;
+    }
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
-      hide(getChangePasswordForm());
-      displayFlex(getChangePasswordButton());
-      old_password.value = "";
-      new_password.value = "";
+      if(response) {
+        hide(getChangePasswordForm());
+        displayFlex(getChangePasswordButton());
+      } else onError(old_password, "Incorrect password");
+      getOldPassTextbox().value = "";
+      getNewPassTextbox().value = "";
     });
 
-    event.preventDefault();
     request.open('POST', '../php/actions/action_change_password.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(encodeForAjax({old_password: old_password.value, new_password: new_password.value}));
+    event.preventDefault();
   });
 }
 
