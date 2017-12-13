@@ -576,7 +576,6 @@ function clickTrashTodo(todo_li) {
       let response = JSON.parse(this.responseText);
       if(response !== false) {
         if(todo_title === getTodoTitle(getSelectedTodo())) {
-          updateSelectedTodo("");
           clearCurrentTasks();
           hideTaskSection();
         }
