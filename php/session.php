@@ -8,7 +8,6 @@
 
     public static function initSession() {
       session_start();
-      session_regenerate_id(true);
     }
 
     public static function setCurrentUser($username) {
@@ -25,7 +24,6 @@
     public static function destroySession() {
       session_destroy();
       session_start();
-      session_regenerate_id(true);
       $_SESSION['username'] = NULL;
     }
 

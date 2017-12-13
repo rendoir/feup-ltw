@@ -943,6 +943,7 @@ function inviteUserHandler() {
   cancelInviteFormHandler();
   getInviteButton().addEventListener("click", inviteUser);
   getInviteUserButton().addEventListener("click", function(event) {
+    onFormValid(getInviteForm());
     displayInviteUserForm();
   });
   getInviteUserTextbox().addEventListener("keyup", function(event) {
@@ -977,9 +978,9 @@ function inviteUser() {
   let request = new XMLHttpRequest();
   request.addEventListener("load", function(event) {
     let response = JSON.parse(this.responseText);
-    if(response !== false){
+    if(response === true) {
       hideInviteForm();
-    }
+    } else onFormError(getInviteForm(), response);
     clearSimilarList();
     getInviteUserTextbox().value = "";
   });
