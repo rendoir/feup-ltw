@@ -728,6 +728,7 @@ function clickProjectHandler(project_li) {
 
 function clickAssignUser(task_li) {
   task_li.children[3].addEventListener("click", function(event) {
+    onFormValid(getAssignUserForm());
     displayAssignUserForm();
     getAssignUserForm().name = getTask(task_li);
   });
@@ -887,10 +888,10 @@ function assignUser(event) {
   let request = new XMLHttpRequest();
   request.addEventListener("load", function(event) {
     let response = JSON.parse(this.responseText);
-    if(response !== false){
+    if(response === true){
       hideAssignUserForm();
       setAssignedUser(task, user);
-    }
+    } else onFormError(getAssignUserForm(), response);
     clearSimilarAssignList();
     getAssignUserTextbox().value = "";
   });
