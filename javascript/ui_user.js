@@ -799,6 +799,14 @@ function createTaskHandler() {
   });
 }
 
+function swapString(str, first, last){
+    return str.substr(0, first)
+           + str[last]
+           + str.substring(first+1, last)
+           + str[first]
+           + str.substr(last+1);
+}
+
 function updateTaskColor(task_li) {
   let task_completed = task_li.getElementsByClassName("task_checkbox")[0].checked;
   if(task_completed) {
@@ -809,6 +817,8 @@ function updateTaskColor(task_li) {
   let task_date = task_li.getElementsByClassName("task_date")[0].innerHTML;
   let task_time = task_li.getElementsByClassName("task_time")[0].innerHTML;
   let datetime_str = task_date + ' ' + task_time;
+  datetime_str = swapString(datetime_str, 0, 3);
+  datetime_str = swapString(datetime_str, 1, 4);
   let current_timestamp = (new Date()).getTime();
   let task_timestamp = (new Date(datetime_str)).getTime();
   if(!task_completed && current_timestamp > task_timestamp) {
