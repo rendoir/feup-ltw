@@ -1,30 +1,25 @@
-<script src="../javascript/ui_index.js" defer></script>
 
-<section id="user">
-  <input type="button" id="change_to_login" value="Login">
-  <input type="button" id="change_to_register" value="Register">
-  <section id="login">
-     <form>
-       <input class="username" type="text" placeholder="username" name="username" required>
-       <input class="password" type="password" placeholder="password" name="password" required>
-       <input class="submit" type="submit" value="Login">
-     </form>
-  </section>
+    <section id="user">
+      <input type="button" id="change_to_login" value="Login">
+      <input type="button" id="change_to_register" value="Register">
+      <section id="login">
+         <form action="php/actions/action_login.php" method="post">
+           <input type="text" placeholder="username" name="username" required>
+           <input type="password" placeholder="password" name="password" required>
+           <input type="submit" value="Login">
+         </form>
+       </section>
+       <section id="register">
+          <form action="php/actions/action_register.php" method="post">
+            <input type="text" placeholder="username" name="username" required>
+            <input type="text" placeholder="First Name" name="first_name" required>
+            <input type="text" placeholder="Last Name" name="last_name" required>
+            <input type="date" name="birth_date" required>
+            <input type="email" placeholder="example@listit.com" name="email" required>
+            <input type="password" placeholder="password" name="password" required>
+            <input type="submit" value="Register">
+          </form>
+        </section>
+      </section>
 
-  <section id="register">
-    <form>
-      <input class="username" type="text" placeholder="username" name="username" required>
-      <input class="name" type="text" placeholder="First Name" name="first_name" required>
-      <input class="name" type="text" placeholder="Last Name" name="last_name" required>
-      <input class="date" type="date" name="birth_date" required>
-      <input class="email" type="email" placeholder="example@listit.com" name="email" required>
-      <input class="password" type="password" placeholder="password" name="password" required>
-      <input class="submit" type="submit" value="Register">
-    </form>
-  </section>
-</section>
-
-<label id="description"> Organize yourself </label>
-<label> Create your own projects </label>
-
-<img id="image" src="../images/welcome.png" width="800" height="500">
+      <label id="description"> Organize yourself </label>
