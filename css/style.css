@@ -129,6 +129,9 @@ footer {
   background-color: black;
   color: white;
   padding: 1em;
+  display:flex;
+  justify-content: rows;
+  align-items: center;
 }
 
 
@@ -392,6 +395,13 @@ input[type="submit"]{
 #invite_username, #old_password, #new_password{
   width:20%;
   margin-bottom: 1em;
+}
+
+/* Invite list*/
+
+#invite_list .fa-times, .fa-check{
+  margin:0em;
+  padding-left: 1em;
 }
 
 
