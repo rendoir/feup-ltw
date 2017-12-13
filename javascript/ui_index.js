@@ -1,5 +1,8 @@
 'use strict';
 
+//12 years in milliseconds
+const MINIMUM_AGE = 378683112000;
+
 /*Validation*/
 function validUsername(username) {
   return (/^[a-zA-Z][a-zA-Z0-9_\-]{1,30}[a-zA-Z0-9]$/g).test(username);
@@ -22,7 +25,9 @@ function validPassword(password) {
 }
 
 function validBirthDate(date) {
-  return new Date(date) != 'Invalid Date';
+  let temp = new Date(date);
+  let current = Date.now();
+  return temp != 'Invalid Date' && (current - temp.getTime()) >= MINIMUM_AGE;
 }
 
 function validInput(input) {
@@ -44,11 +49,11 @@ function validInput(input) {
     valid = false;
   } else onValid(input.last_name);
   if(!validEmail(input.email.value)) {
-    onError(input.email, "Invalid email");
+    onError(input.email, "Please enter a valid email");
     valid = false;
   } else onValid(input.email);
   if(!validBirthDate(input.birth_date.value)) {
-    onError(input.birth_date, "Invalid date");
+    onError(input.birth_date, "You must be at least 12 years old");
     valid = false;
   } else onValid(input.birth_date);
 
