@@ -544,7 +544,10 @@ function setAssignedUser(task, user) {
   for(let i = 0; i < task_ul.children.length; i++) {
     let task_li = task_ul.children[i];
     if(getTask(task_li) === task) {
-      getUser(task_li).innerHTML = user;
+      let link = document.createElement("a");
+      link.innerHTML = user;
+      link.href = "../php/profile.php?username=" + user;
+      getUser(task_li).appendChild(link);
       return;
     }
   }
