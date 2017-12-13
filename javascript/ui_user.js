@@ -660,14 +660,14 @@ function createListHandler() {
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
-      if(response !== false) {
+      if(response === true) {
         hideCreateTodoForm();
         let todo_ul = getTodoList();
         let todo_li = createTodo(todo_input);
         todo_ul.appendChild(todo_li);
         clickTodoHandler(todo_li);
         attachTrashTodo(todo_li);
-      }
+      } else onFormError(getTodoForm(), "A todo list with the same name already exists in this project");
       resetTodoInput();
     });
 
@@ -689,6 +689,7 @@ function plusProjectHandler() {
 function plusListHandler() {
   let plus = getTodoPlus();
   plus.addEventListener("click", function(event) {
+    onFormValid(getTodoForm());
     displayCreateTodoForm();
     event.stopImmediatePropagation();
   });
