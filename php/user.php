@@ -24,7 +24,7 @@ function displayProjects($user) {
 
   <header class="user_header">
     <a href="profile.php" id="current_user" data-username="<?=$user?>"></a>
-    <a href="actions/action_logout.php">Logout</a>
+    <a href="actions/action_logout.php" id="logout">Logout</a>
   </header>
 
    <section id="project_section">

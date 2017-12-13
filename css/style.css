@@ -42,7 +42,6 @@ header.user_header{
   color: black;
 }
 
-
 #logo h1 {
   font-size: 3em;
   font-family: 'Oxygen', sans-serif;
@@ -150,6 +149,8 @@ footer {
 .user_header{
   background-color: black;
   padding: 1em 1em 1em 1em;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* projects section */
@@ -214,7 +215,7 @@ footer {
   text-align: center;
 }
 
-#create_project_form label, #new_project_label,
+#new_project_label, #new_project_label,
 #new_task_label, #invite_label, .form_header,
 #assign_user_lavel{
   width: 18%;
@@ -249,6 +250,10 @@ footer {
 
 #create_project:hover{
   font-weight: lighter;
+}
+
+.error_label{
+  margin-top: 2em;
 }
 
 .user_form input {
@@ -433,6 +438,7 @@ input[type="submit"]{
 
 #profile_section_picture img{
   margin-top: 1em;
+  margin-right: 2em;
 }
 
 input[type='file'] {
