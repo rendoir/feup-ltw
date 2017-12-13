@@ -135,6 +135,9 @@ footer {
 
 
 /* user.php */
+.task_user a:link, .task_user a:visited {
+  color: black;
+}
 
 .user_header a {
   text-decoration: none;

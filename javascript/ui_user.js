@@ -268,7 +268,7 @@ function getTaskInput() {
   let date = new Date(task_datetime);
   if(date == 'Invalid Date' || task_date == '' || task_time == '')
     return null;
-  let task = { title_element: title_element, task_text: task_text, due_date: date.getTime(), is_completed: 0, user: "" };
+  let task = { title_element: title_element, task: task_text, due_date: date.getTime(), is_completed: 0, user: "" };
   return task;
 }
 
@@ -410,8 +410,14 @@ function createTask(task) {
 
   let user_span = document.createElement("span");
   user_span.classList.add('task_user');
-  user_span.innerHTML = task.user;
   task_li.appendChild(user_span);
+
+  if(task.user !== "" && task.user !== null) {
+    let link = document.createElement("a");
+    link.innerHTML = task.user;
+    link.href = "../php/profile.php?username=" + task.user;
+    user_span.appendChild(link);
+  }
 
   let completed_checkbox = document.createElement("input");
   completed_checkbox.classList.add('task_checkbox');
@@ -791,7 +797,7 @@ function createTaskHandler() {
       return;
     }
 
-    if(!validText(task_input.task_text, MAX_TASK_LENGTH)) {
+    if(!validText(task_input.task, MAX_TASK_LENGTH)) {
       onError(task_input.title_element, "Invalid task");
       resetTaskInput();
       return;
