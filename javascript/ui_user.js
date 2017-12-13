@@ -552,7 +552,6 @@ function clickTrashProject(project_li) {
       let response = JSON.parse(this.responseText);
       if(response !== false) {
         if(project_title === getProjectTitle(getSelectedProject())) {
-          updateSelectedProject("");
           clearCurrentTodo();
           clearCurrentTasks();
           hideTaskSection();
