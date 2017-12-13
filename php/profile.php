@@ -7,28 +7,39 @@
 include_once('session.php');
 include_once('database.php');
 
-$user = Session::getCurrentUser();
+$session_user = Session::getCurrentUser();
 
-if($user === null) {
+if($session_user === null) {
   Session::destroySession();
   header('Location: ../index.php');
   die("Unauthorized access!");
 }
 
-$user_info = DataBase::getUserInfo($user);
-if($user_info === null)
-  die("Unknown error!");
+if(isset($_GET["username"])) {
+  $user_to_display = $_GET["username"];
+  $own_profile = $user_to_display === $session_user;
+} else {
+  $user_to_display = $session_user;
+  $own_profile = true;
+}
+
+$user_info = DataBase::getUserInfo($user_to_display);
+if($user_info === null || !$user_info)
+  die("User not found!");
 
 $email = $user_info['email'];
 $name = $user_info['name'];
 $birth = date('d-m-Y', $user_info['birth_date']);
 $image = $user_info['image'];
-$invites = DataBase::getPendingInvites($user);
 
 include_once('../html/header.html');
 
 ?>
-<script src="../javascript/ui_profile.js" defer></script>
+
+<?php if($own_profile) { ?>
+  <script src="../javascript/ui_profile.js" defer></script>
+<?php } ?>
+
 
 <body>
   <h1 id="profile_form">Profile Page</h1>
@@ -45,13 +56,18 @@ include_once('../html/header.html');
     <?php
     }
     ?>
+
+<?php if($own_profile) { ?>
+
     <label for="change_image">Select Image</label>
     <input id="change_image" type="file" name="image">
+
+<?php } ?>
   </section>
 
 
   <section id="profile_section">
-    <span id="profile_user"><?=$user?></span>
+    <span id="profile_user"><?=$user_to_display?></span>
 
     <label>Name </label>
     <span><?=$name?></label>
@@ -62,6 +78,8 @@ include_once('../html/header.html');
     <label> Birth Date </label>
     <span><?=$birth?></span>
 
+<?php if($own_profile) { ?>
+
     <section id="change_password">
       <input id="change_password_button" type="button" value="Change Password">
       <form id="change_password_form" class="user_form">
@@ -71,23 +89,25 @@ include_once('../html/header.html');
         <input id="submit_password" type="submit" value="Change Password">
       </form>
     </section>
-
-    <section id="invites_div">
-      <?php
-        if($invites !== false && count($invites) > 0) {
-           ?> <span class="invite_label"> You were invited to join: </span>
-              <ul id="invite_list"> <?php
-          foreach ($invites as $invite) {
-            ?> <li><span><?=$invite["project"]?></span></li> <?php
+<?php
+      $invites = DataBase::getPendingInvites($session_user);
+      ?> <section id="invites_div">
+        <?php
+          if($invites !== false && count($invites) > 0) {
+             ?> <span class="invite_label"> You were invited to join: </span>
+                <ul id="invite_list"> <?php
+            foreach ($invites as $invite) {
+              ?> <li><span><?=$invite["project"]?></span></li> <?php
+            }
+            ?> </ul> <?php
+          } else {
+             ?> <span class="invite_label"> You have no invites to join projects! </span> <?php
           }
-          ?> </ul> <?php
-        } else {
-           ?> <span class="invite_label"> You have no invites to join projects! </span> <?php
-        }
-      ?>
-    </section>
-  </section>
+        ?>
+      </section>
+<?php } ?>
 
+  </section>
 
 </body>
 
