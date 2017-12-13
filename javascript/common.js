@@ -19,3 +19,14 @@ function hide(element) {
 function displayFlex(element) {
   element.style.display = "flex";
 }
+
+function onError(element, msg) {
+  element.style.borderColor = "red";
+  element.setCustomValidity("");
+  element.setCustomValidity(msg);
+}
+
+function onValid(element) {
+  element.style.borderColor = "initial";
+  element.setCustomValidity("");
+}

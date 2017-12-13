@@ -26,12 +26,33 @@ function validBirthDate(date) {
 }
 
 function validInput(input) {
-  return validUsername(input.username) &&
-         validPassword(input.password) &&
-         validName(input.first_name) &&
-         validName(input.last_name) &&
-         validEmail(input.email) &&
-         validBirthDate(input.birth_date);
+  let valid = true;
+  if(!validUsername(input.username.value)) {
+    onError(input.username, "Usernames must start with a letter and can't have special symbols");
+    valid = false;
+  } else onValid(input.username);
+  if(!validPassword(input.password.value)) {
+    onError(input.password, "Passwords must be between 8 and 32 characters long and have at least a number, a lower-case letter and a upper-case letter.");
+    valid = false;
+  } else onValid(input.password);
+  if(!validName(input.first_name.value)) {
+    onError(input.first_name, "Names must start with a upper-case letter and the remaining letters must be lower-case");
+    valid = false;
+  } else onValid(input.first_name);
+  if(!validName(input.last_name.value)) {
+    onError(input.last_name, "Names must start with a upper-case letter and the remaining letters must be lower-case");
+    valid = false;
+  } else onValid(input.last_name);
+  if(!validEmail(input.email.value)) {
+    onError(input.email, "Invalid email");
+    valid = false;
+  } else onValid(input.email);
+  if(!validBirthDate(input.birth_date.value)) {
+    onError(input.birth_date, "Invalid date");
+    valid = false;
+  } else onValid(input.birth_date);
+
+  return valid;
 }
 
 
@@ -72,12 +93,12 @@ function getRegisterSubmit() {
 }
 
 function getRegisterInput() {
-  let username = getRegister().getElementsByClassName("username")[0].value;
-  let first_name = getRegister().getElementsByClassName("name")[0].value;
-  let last_name = getRegister().getElementsByClassName("name")[1].value;
-  let email = getRegister().getElementsByClassName("email")[0].value;
-  let birth_date = getRegister().getElementsByClassName("date")[0].value;
-  let password = getRegister().getElementsByClassName("password")[0].value;
+  let username = getRegister().getElementsByClassName("username")[0];
+  let first_name = getRegister().getElementsByClassName("name")[0];
+  let last_name = getRegister().getElementsByClassName("name")[1];
+  let email = getRegister().getElementsByClassName("email")[0];
+  let birth_date = getRegister().getElementsByClassName("date")[0];
+  let password = getRegister().getElementsByClassName("password")[0];
   return { username: username, password: password, first_name: first_name, last_name: last_name,
            email: email, birth_date: birth_date };
 }
@@ -125,7 +146,6 @@ function loginHandler() {
 
 function registerHandler() {
   getRegisterSubmit().addEventListener("click", function(event) {
-    event.preventDefault();
     event.stopImmediatePropagation();
 
     let input = getRegisterInput();
@@ -141,11 +161,21 @@ function registerHandler() {
       }
     });
 
+    event.preventDefault();
     request.open('POST', '../php/actions/action_register.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send(encodeForAjax({ username: input.username, password: input.password, name: input.first_name + ' ' + input.last_name,
-                                 email: input.email, birth_date: input.birth_date }));
+    request.send(encodeForAjax({ username: input.username.value, password: input.password.value, name: input.first_name.value + ' ' + input.last_name.value,
+                                 email: input.email.value, birth_date: input.birth_date.value }));
   });
+}
+
+function clearErrorFlagsOnInput() {
+  let inputs = document.getElementsByTagName("input");
+  for(let i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener("input", function(event) {
+      onValid(inputs[i]);
+    });
+  }
 }
 
 function init() {
@@ -153,6 +183,7 @@ function init() {
   selectRegisterHandler();
   loginHandler();
   registerHandler();
+  clearErrorFlagsOnInput();
 }
 
 init();
