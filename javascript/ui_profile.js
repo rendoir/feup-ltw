@@ -9,7 +9,7 @@ function validPassword(password) {
   return (/[A-Z]/g).test(password) &&
          (/[a-z]/g).test(password) &&
          (/[0-9]/g).test(password) &&
-         password.length >= 8    &&
+         password.length >= 8 &&
          password.length <= 64;
 }
 
@@ -96,6 +96,18 @@ function attachDecline(invite_li) {
   invite_li.children[2].addEventListener("click", declineInvite);
 }
 
+function validChangePasswordInput(old_password, new_password) {
+  if(!validPassword(new_password.value)) {
+    onError(getNewPassTextbox(), "Passwords must be between 8 and 32 characters long and have at least a number, a lower-case letter and a upper-case letter.");
+    return;
+  } else onValid(getNewPassTextbox());
+
+  if(new_password.value === old_password.value) {
+    onError(getNewPassTextbox(), "New password must be different from the old password");
+    return;
+  } else onValid(getNewPassTextbox());
+}
+
 
 /*Event Listeners*/
 function uploadImageHandler() {
@@ -164,12 +176,11 @@ function changePasswordHandler() {
     displayFlex(getChangePasswordForm());
   });
   getChangePasswordSubmit().addEventListener("click", function(event) {
-    event.preventDefault();
     event.stopImmediatePropagation();
-    let old_password = getOldPassTextbox().value;
-    let new_password = getNewPassTextbox().value;
+    let old_password = getOldPassTextbox();
+    let new_password = getNewPassTextbox();
 
-    if(!validPassword(new_password) || new_password === old_password)
+    if(!validChangePasswordInput(old_password, new_password))
       return;
 
     let request = new XMLHttpRequest();
@@ -177,13 +188,14 @@ function changePasswordHandler() {
       let response = JSON.parse(this.responseText);
       hide(getChangePasswordForm());
       displayFlex(getChangePasswordButton());
-      getOldPassTextbox().value = "";
-      getNewPassTextbox().value = "";
+      old_password.value = "";
+      new_password.value = "";
     });
 
+    event.preventDefault();
     request.open('POST', '../php/actions/action_change_password.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send(encodeForAjax({old_password: old_password, new_password: new_password}));
+    request.send(encodeForAjax({old_password: old_password.value, new_password: new_password.value}));
   });
 }
 
@@ -191,6 +203,7 @@ function init() {
   uploadImageHandler();
   inviteHandler();
   changePasswordHandler();
+  clearErrorFlagsOnInput();
 }
 
 init();

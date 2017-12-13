@@ -169,15 +169,6 @@ function registerHandler() {
   });
 }
 
-function clearErrorFlagsOnInput() {
-  let inputs = document.getElementsByTagName("input");
-  for(let i = 0; i < inputs.length; i++) {
-    inputs[i].addEventListener("input", function(event) {
-      onValid(inputs[i]);
-    });
-  }
-}
-
 function init() {
   selectLoginHandler();
   selectRegisterHandler();
