@@ -21,14 +21,18 @@ function displayFlex(element) {
 }
 
 function onError(element, msg) {
-  element.style.borderColor = "red";
-  element.setCustomValidity("");
-  element.setCustomValidity(msg);
+  if(element !== undefined) {
+    element.style.borderColor = "red";
+    element.setCustomValidity("");
+    element.setCustomValidity(msg);
+  }
 }
 
 function onValid(element) {
-  element.style.borderColor = "initial";
-  element.setCustomValidity("");
+  if(element !== undefined) {
+    element.style.borderColor = "initial";
+    element.setCustomValidity("");
+  }
 }
 
 function clearErrorFlagsOnInput() {
@@ -42,14 +46,18 @@ function clearErrorFlagsOnInput() {
 
 function onFormError(form, msg) {
   let error_label = form.getElementsByClassName("error_label")[0];
-  error_label.innerHTML = msg;
-  error_label.style.display = "flex";
+  if(error_label !== undefined) {
+    error_label.innerHTML = msg;
+    error_label.style.display = "flex";
+  }
 }
 
 function onFormValid(form) {
   let error_label = form.getElementsByClassName("error_label")[0];
-  error_label.innerHTML = "";
-  error_label.style.display = "none";
+  if(error_label !== undefined) {
+    error_label.innerHTML = "";
+    error_label.style.display = "none";
+  }
 }
 
 function clearErrorFlagsOnForm() {

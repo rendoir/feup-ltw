@@ -39,8 +39,9 @@ function getCreateProjectButton() {
 }
 
 function getProjectInput() {
-  let project_title = document.getElementById("create_project_title").value;
-  let project = { title: project_title };
+  let element = document.getElementById("create_project_title");
+  let project_title = element.value;
+  let project = { element: element, title: project_title };
   return project;
 }
 
@@ -65,10 +66,11 @@ function getCreateTodoButton() {
 }
 
 function getTodoInput() {
-  let todo_title = document.getElementById("create_todo_title").value;
+  let title_element = document.getElementById("create_todo_title");
+  let todo_title = title_element.value;
   let todo_category = document.getElementById("create_todo_category").value;
   let todo_color = document.getElementById("create_todo_color").value;
-  let todo = { title: todo_title, category: todo_category, color: todo_color };
+  let todo = { title_element: title_element, title: todo_title, category: todo_category, color: todo_color };
   return todo;
 }
 
@@ -253,14 +255,15 @@ function getCreateTaskButton() {
 }
 
 function getTaskInput() {
-  let task_text = document.getElementById("create_task_text").value;
+  let title_element = document.getElementById("create_task_text");
+  let task_text = title_element.value;
   let task_date = document.getElementById("create_task_date").value;
   let task_time = document.getElementById("create_task_time").value;
   let task_datetime = task_date + ' ' + task_time;
   let date = new Date(task_datetime);
   if(date == 'Invalid Date' || task_date == '' || task_time == '')
     return null;
-  let task = { task: task_text, due_date: date.getTime(), is_completed: 0, user: "" };
+  let task = { title_element: title_element, task_text: task_text, due_date: date.getTime(), is_completed: 0, user: "" };
   return task;
 }
 
@@ -611,15 +614,17 @@ function clickTrashTask(task_li) {
 function createProjectHandler() {
   let create_project = getCreateProjectButton();
   create_project.addEventListener("click", function(event) {
-    event.preventDefault();
     event.stopImmediatePropagation();
 
-    let project_title = getProjectInput().title;
+    let input = getProjectInput();
+    let project_title = input.title;
     if(!validText(project_title)) {
+      onError(input.element, "Invalid project name");
       resetProjectInput();
       return;
     }
 
+    event.preventDefault();
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
@@ -643,11 +648,11 @@ function createProjectHandler() {
 function createListHandler() {
   let create_todo = getCreateTodoButton();
   create_todo.addEventListener("click", function(event) {
-    event.preventDefault();
     event.stopImmediatePropagation();
 
     let todo_input = getTodoInput();
     if(!validText(todo_input.title)) {
+      onError(todo_input.title_element, "Invalid title");
       resetTodoInput();
       return;
     }
@@ -657,6 +662,7 @@ function createListHandler() {
       return;
     let project_title = getProjectTitle(selected_project);
 
+    event.preventDefault();
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
@@ -769,18 +775,24 @@ function clickTodoHandler(todo_li) {
 function createTaskHandler() {
   let create_task = getCreateTaskButton();
   create_task.addEventListener("click", function(event) {
-    event.preventDefault();
     event.stopImmediatePropagation();
 
     let project_title = getProjectTitle(getSelectedProject());
     let todo_title = getTodoTitle(getSelectedTodo());
     let task_input = getTaskInput();
 
-    if(getTaskInput() === null || !validText(task_input.task_text, MAX_TASK_LENGTH)) {
+    if(task_input === null) {
       resetTaskInput();
       return;
     }
 
+    if(!validText(task_input.task_text, MAX_TASK_LENGTH)) {
+      onError(task_input.title_element, "Invalid task");
+      resetTaskInput();
+      return;
+    }
+
+    event.preventDefault();
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
@@ -993,6 +1005,7 @@ function inviteUser() {
 }
 
 function init() {
+  clearErrorFlagsOnInput();
   clearErrorFlagsOnForm();
 
   plusProjectHandler();
