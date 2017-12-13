@@ -39,3 +39,33 @@ function clearErrorFlagsOnInput() {
     });
   }
 }
+
+function onFormError(form, msg) {
+  let error_label = form.getElementsByClassName("error_label")[0];
+  error_label.innerHTML = msg;
+  error_label.style.display = "flex";
+}
+
+function onFormValid(form) {
+  let error_label = form.getElementsByClassName("error_label")[0];
+  error_label.innerHTML = "";
+  error_label.style.display = "none";
+}
+
+function clearErrorFlagsOnForm() {
+  let forms = document.getElementsByClassName("user_form");
+  for (let i = 0; i < forms.length; i++) {
+    let error_label = document.createElement("label");
+    error_label.classList.add("error_label");
+    error_label.innerHTML = "";
+    error_label.style.display = "none";
+    forms[i].appendChild(error_label);
+  }
+
+  let inputs = document.getElementsByTagName("input");
+  for(let i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener("input", function(event) {
+      onFormValid(inputs[i].parentElement);
+    });
+  }
+}

@@ -183,17 +183,17 @@ function changePasswordHandler() {
     let new_password = getNewPassTextbox();
 
     if(!validChangePasswordInput(old_password, new_password)) {
-      event.preventDefault();
       return;
     }
 
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
+      let form = getChangePasswordForm();
       if(response) {
-        hide(getChangePasswordForm());
+        hide(form);
         displayFlex(getChangePasswordButton());
-      } else onError(old_password, "Incorrect password");
+      } else onFormError(form, "Incorrect Password");
       getOldPassTextbox().value = "";
       getNewPassTextbox().value = "";
     });
@@ -210,6 +210,7 @@ function init() {
   inviteHandler();
   changePasswordHandler();
   clearErrorFlagsOnInput();
+  clearErrorFlagsOnForm();
 }
 
 init();
