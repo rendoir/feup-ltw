@@ -197,13 +197,14 @@ footer {
 }
 
 #create_project_form, #create_todo_form,
-#invite_user_form, #create_task_form, #change_password_form{
+#invite_user_form, #create_task_form,
+ #change_password_form, #assign_user_form{
   position: absolute;
   z-index: 5;
   right: 0px;
   left: 0px;
-  top: 170px;
-  bottom: 0px;
+  top: 10em;
+  bottom: -10em;
   flex-direction: column;
   align-items: center;
   background-color: white;
@@ -211,7 +212,8 @@ footer {
 }
 
 #create_project_form label, #new_project_label,
-#new_task_label, #invite_label, .form_header{
+#new_task_label, #invite_label, .form_header,
+#assign_user_lavel{
   width: 18%;
   padding: 1em 1em 1em 1em;
   background-color: black;
@@ -371,7 +373,8 @@ input[type="submit"]{
 }
 
 
-#create_task, #invite_submit, #submit_password{
+#create_task, #invite_submit,
+#submit_password, #assign{
   width: 21%;
   padding: 0.4em 1em 0.4em 1em;
   background-color: white;
@@ -384,7 +387,8 @@ input[type="submit"]{
   font-weight: lighter;
 }
 
-#create_task_time, #create_task_date, #create_task_text,
+#create_task_time, #create_task_date,
+ #create_task_text, #assign_username,
 #invite_username, #old_password, #new_password{
   width:20%;
   margin-bottom: 1em;
