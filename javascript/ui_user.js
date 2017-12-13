@@ -39,8 +39,9 @@ function getCreateProjectButton() {
 }
 
 function getProjectInput() {
-  let project_title = document.getElementById("create_project_title").value;
-  let project = { title: project_title };
+  let element = document.getElementById("create_project_title");
+  let project_title = element.value;
+  let project = { element: element, title: project_title };
   return project;
 }
 
@@ -65,10 +66,11 @@ function getCreateTodoButton() {
 }
 
 function getTodoInput() {
-  let todo_title = document.getElementById("create_todo_title").value;
+  let title_element = document.getElementById("create_todo_title");
+  let todo_title = title_element.value;
   let todo_category = document.getElementById("create_todo_category").value;
   let todo_color = document.getElementById("create_todo_color").value;
-  let todo = { title: todo_title, category: todo_category, color: todo_color };
+  let todo = { title_element: title_element, title: todo_title, category: todo_category, color: todo_color };
   return todo;
 }
 
@@ -253,14 +255,15 @@ function getCreateTaskButton() {
 }
 
 function getTaskInput() {
-  let task_text = document.getElementById("create_task_text").value;
+  let title_element = document.getElementById("create_task_text");
+  let task_text = title_element.value;
   let task_date = document.getElementById("create_task_date").value;
   let task_time = document.getElementById("create_task_time").value;
   let task_datetime = task_date + ' ' + task_time;
   let date = new Date(task_datetime);
   if(date == 'Invalid Date' || task_date == '' || task_time == '')
     return null;
-  let task = { task: task_text, due_date: date.getTime(), is_completed: 0, user: "" };
+  let task = { title_element: title_element, task_text: task_text, due_date: date.getTime(), is_completed: 0, user: "" };
   return task;
 }
 
@@ -611,15 +614,17 @@ function clickTrashTask(task_li) {
 function createProjectHandler() {
   let create_project = getCreateProjectButton();
   create_project.addEventListener("click", function(event) {
-    event.preventDefault();
     event.stopImmediatePropagation();
 
-    let project_title = getProjectInput().title;
+    let input = getProjectInput();
+    let project_title = input.title;
     if(!validText(project_title)) {
+      onError(input.element, "Invalid project name");
       resetProjectInput();
       return;
     }
 
+    event.preventDefault();
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
@@ -643,11 +648,11 @@ function createProjectHandler() {
 function createListHandler() {
   let create_todo = getCreateTodoButton();
   create_todo.addEventListener("click", function(event) {
-    event.preventDefault();
     event.stopImmediatePropagation();
 
     let todo_input = getTodoInput();
     if(!validText(todo_input.title)) {
+      onError(todo_input.title_element, "Invalid title");
       resetTodoInput();
       return;
     }
@@ -657,6 +662,7 @@ function createListHandler() {
       return;
     let project_title = getProjectTitle(selected_project);
 
+    event.preventDefault();
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
@@ -667,7 +673,7 @@ function createListHandler() {
         todo_ul.appendChild(todo_li);
         clickTodoHandler(todo_li);
         attachTrashTodo(todo_li);
-      } else onFormError(getTodoForm(), "A todo list with the same name already exists in this project");
+      } else onFormError(getTodoForm(), response);
       resetTodoInput();
     });
 
@@ -728,6 +734,7 @@ function clickProjectHandler(project_li) {
 
 function clickAssignUser(task_li) {
   task_li.children[3].addEventListener("click", function(event) {
+    onFormValid(getAssignUserForm());
     displayAssignUserForm();
     getAssignUserForm().name = getTask(task_li);
   });
@@ -736,6 +743,7 @@ function clickAssignUser(task_li) {
 function plusTaskHandler() {
   let plus = getTaskPlus();
   plus.addEventListener("click", function(event) {
+    onFormValid(getTaskForm());
     displayCreateTaskForm();
     event.stopImmediatePropagation();
   });
@@ -767,22 +775,28 @@ function clickTodoHandler(todo_li) {
 function createTaskHandler() {
   let create_task = getCreateTaskButton();
   create_task.addEventListener("click", function(event) {
-    event.preventDefault();
     event.stopImmediatePropagation();
 
     let project_title = getProjectTitle(getSelectedProject());
     let todo_title = getTodoTitle(getSelectedTodo());
     let task_input = getTaskInput();
 
-    if(getTaskInput() === null || !validText(task_input.task_text, MAX_TASK_LENGTH)) {
+    if(task_input === null) {
       resetTaskInput();
       return;
     }
 
+    if(!validText(task_input.task_text, MAX_TASK_LENGTH)) {
+      onError(task_input.title_element, "Invalid task");
+      resetTaskInput();
+      return;
+    }
+
+    event.preventDefault();
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
-      if(response !== false) {
+      if(response === true) {
         hideCreateTaskForm();
         let task_ul = getTaskList();
         let task_li = createTask(task_input);
@@ -790,7 +804,7 @@ function createTaskHandler() {
         clickTaskCheckbox(task_li);
         attachTrashTask(task_li);
         clickAssignUser(task_li);
-      }
+      } else onFormError(getTaskForm(), response);
       resetTaskInput();
     });
 
@@ -886,10 +900,10 @@ function assignUser(event) {
   let request = new XMLHttpRequest();
   request.addEventListener("load", function(event) {
     let response = JSON.parse(this.responseText);
-    if(response !== false){
+    if(response === true){
       hideAssignUserForm();
       setAssignedUser(task, user);
-    }
+    } else onFormError(getAssignUserForm(), response);
     clearSimilarAssignList();
     getAssignUserTextbox().value = "";
   });
@@ -943,6 +957,7 @@ function inviteUserHandler() {
   cancelInviteFormHandler();
   getInviteButton().addEventListener("click", inviteUser);
   getInviteUserButton().addEventListener("click", function(event) {
+    onFormValid(getInviteForm());
     displayInviteUserForm();
   });
   getInviteUserTextbox().addEventListener("keyup", function(event) {
@@ -977,9 +992,9 @@ function inviteUser() {
   let request = new XMLHttpRequest();
   request.addEventListener("load", function(event) {
     let response = JSON.parse(this.responseText);
-    if(response !== false){
+    if(response === true) {
       hideInviteForm();
-    }
+    } else onFormError(getInviteForm(), response);
     clearSimilarList();
     getInviteUserTextbox().value = "";
   });
@@ -990,6 +1005,7 @@ function inviteUser() {
 }
 
 function init() {
+  clearErrorFlagsOnInput();
   clearErrorFlagsOnForm();
 
   plusProjectHandler();

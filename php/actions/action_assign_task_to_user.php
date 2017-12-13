@@ -13,10 +13,13 @@
        $project = $_POST["project"];
        $todo = $_POST["todo"];
        $task = $_POST["task"];
-       if(DataBase::userContributesToProject($current_user, $project) &&
-          DataBase::userContributesToProject($user, $project))
-            echo json_encode(DataBase::assignListItemToUser($project, $todo, $task, $user));
-       else echo json_encode(false);
-  } else echo json_encode(false);
+       if(DataBase::userContributesToProject($current_user, $project))
+         if(DataBase::userContributesToProject($user, $project))
+           if(DataBase::assignListItemToUser($project, $todo, $task, $user))
+             echo json_encode(true);
+           else echo json_encode("Couldn't assign task to user");
+         else echo json_encode("The user doesn't contribute to this project");
+       else echo json_encode("You don't contribute to this project");
+  } else echo json_encode("Unknown error");
 
 ?>

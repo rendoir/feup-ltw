@@ -9,11 +9,15 @@
      $current_user !== null) {
        $user = $_POST["user"];
        $project = $_POST["project"];
-       if(DataBase::isProjectManager($current_user, $project) &&
-          !DataBase::userContributesToProject($user, $project) &&
-          DataBase::userHasNoPendingInvite($user, $project))
-            echo json_encode(DataBase::inviteUserToProject($user, $project));
-       else echo json_encode(false);
-  } else echo json_encode(false);
+       if(DataBase::isProjectManager($current_user, $project))
+         if(!DataBase::userContributesToProject($user, $project))
+           if(DataBase::userHasNoPendingInvite($user, $project))
+            if(DataBase::inviteUserToProject($user, $project))
+              echo json_encode(true);
+            else echo json_encode("User doesn't exist");
+           else echo json_encode("User has invites pending to this project");
+         else echo json_encode("User already contributes to project");
+       else echo json_encode("You are not the project manager");
+  } else echo json_encode("Unknown error");
 
 ?>

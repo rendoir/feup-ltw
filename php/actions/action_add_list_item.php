@@ -14,8 +14,10 @@
        $todo = $_POST["todo"];
        $project = $_POST["project"];
        if(DataBase::userContributesToProject($user, $project))
-         echo json_encode(DataBase::addListItem($task, $due_date, $todo, $project));
-       else echo json_encode(false);
-  } else echo json_encode(false);
+         if(DataBase::addListItem($task, $due_date, $todo, $project))
+            echo json_encode(true);
+         else echo json_encode("This task already exists");
+       else echo json_encode("You don't contribute to this project");
+   } else echo json_encode("Unknown error");
 
 ?>
