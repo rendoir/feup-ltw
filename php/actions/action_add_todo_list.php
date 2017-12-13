@@ -14,8 +14,10 @@
        $todo_category = $_POST["todo_category"];
        $todo_color = $_POST["todo_color"];
        if(DataBase::userContributesToProject($user, $project))
-         echo json_encode(DataBase::addToDoList($todo_title, $project, $todo_category, $todo_color));
-       else echo json_encode(false);
-  }  else echo json_encode(false);
+         if(DataBase::addToDoList($todo_title, $project, $todo_category, $todo_color))
+           echo json_encode(true);
+         else echo json_encode("A todo list with the same name already exists in this project"); 
+       else echo json_encode("You don't contribute to this project");
+  }  else echo json_encode("Unknown error");
 
 ?>

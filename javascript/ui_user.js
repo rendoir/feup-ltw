@@ -667,7 +667,7 @@ function createListHandler() {
         todo_ul.appendChild(todo_li);
         clickTodoHandler(todo_li);
         attachTrashTodo(todo_li);
-      } else onFormError(getTodoForm(), "A todo list with the same name already exists in this project");
+      } else onFormError(getTodoForm(), response);
       resetTodoInput();
     });
 
@@ -736,6 +736,7 @@ function clickAssignUser(task_li) {
 function plusTaskHandler() {
   let plus = getTaskPlus();
   plus.addEventListener("click", function(event) {
+    onFormValid(getTaskForm());
     displayCreateTaskForm();
     event.stopImmediatePropagation();
   });
@@ -782,7 +783,7 @@ function createTaskHandler() {
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
-      if(response !== false) {
+      if(response === true) {
         hideCreateTaskForm();
         let task_ul = getTaskList();
         let task_li = createTask(task_input);
@@ -790,7 +791,7 @@ function createTaskHandler() {
         clickTaskCheckbox(task_li);
         attachTrashTask(task_li);
         clickAssignUser(task_li);
-      }
+      } else onFormError(getTaskForm(), response);
       resetTaskInput();
     });
 
