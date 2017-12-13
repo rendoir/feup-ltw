@@ -175,7 +175,9 @@ function changePasswordHandler() {
   getChangePasswordButton().addEventListener("click", function(event) {
     event.stopImmediatePropagation();
     hide(this);
-    displayFlex(getChangePasswordForm());
+    let form = getChangePasswordForm();
+    onFormValid(form);
+    displayFlex(form);
   });
   getChangePasswordSubmit().addEventListener("click", function(event) {
     event.stopImmediatePropagation();

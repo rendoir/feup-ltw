@@ -623,14 +623,14 @@ function createProjectHandler() {
     let request = new XMLHttpRequest();
     request.addEventListener('load', function(event) {
       let response = JSON.parse(this.responseText);
-      if(response !== false) {
+      if(response === true) {
         hideCreateProjectForm();
         let project_ul = getProjectList();
         let project_li = createProject(project_title);
         project_ul.appendChild(project_li);
         clickProjectHandler(project_li);
         attachTrashProject(project_li);
-      }
+      } else onFormError(getProjectForm(), "A project with the same name already exists");
       resetProjectInput();
     });
 
@@ -680,6 +680,7 @@ function createListHandler() {
 function plusProjectHandler() {
   let plus = getProjectPlus();
   plus.addEventListener("click", function(event) {
+    onFormValid(getProjectForm());
     displayCreateProjectForm();
     event.stopImmediatePropagation();
   });
@@ -988,6 +989,8 @@ function inviteUser() {
 }
 
 function init() {
+  clearErrorFlagsOnForm();
+
   plusProjectHandler();
   createProjectHandler();
   clickProjectsHandler();
