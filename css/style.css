@@ -343,7 +343,7 @@ input[type="submit"]{
   font-weight: lighter;
 }
 
-.todo:hover{
+.todo_title:hover{
   font-weight: bold;
   cursor:default;
 }

@@ -12,6 +12,10 @@ function validText(text, max_length = MAX_TITLE_LENGTH) {
 
 
 /*Element getters/setters*/
+function getProjectManager(project_li) {
+  return project_li.getAttribute("data-project-manager");
+}
+
 function displayCreateProjectForm() {
   getProjectForm().style.display = "flex";
 }
@@ -148,8 +152,9 @@ function displayProjectTitle(project) {
 
 function displayTodoLabel() {
   let label = getTodoLabel();
+  let selected_project = getSelectedProject();
   label.style.display = "block";
-  label.innerHTML = getProjectTitle(getSelectedProject()) + label.title;
+  label.innerHTML = "Project Manager: " + getProjectManager(selected_project) + "<br>" + "<br>" + getProjectTitle(selected_project) + label.title;
 }
 
 function getSelectedTodo() {
