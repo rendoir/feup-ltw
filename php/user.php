@@ -22,6 +22,7 @@ function displayProjects($user) {
   ?>
   <script src="../javascript/ui_user.js" defer></script>
 
+
   <header class="user_header">
     <a href="profile.php" id="current_user" data-username="<?=$user?>"></a>
     <a href="actions/action_logout.php" id="logout">Logout</a>
@@ -106,7 +107,7 @@ function displayProjects($user) {
      </form>
      <div id="assign_user_div">
        <form id="assign_user_form" class="user_form">
-         <label id="assign_user_lavel"> Assign User </label>
+         <label id="assign_user_label"> Assign User </label>
          <input type="text" id="assign_username" placeholder="User" required autofocus>
          <input type="submit" id="assign" value="Assign">
          <ul id="autocomplete_assign"></ul>

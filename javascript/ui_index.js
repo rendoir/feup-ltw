@@ -138,6 +138,7 @@ function loginHandler() {
       let response = JSON.parse(this.responseText);
       if(response) {
         window.location.replace('../php/user.php');
+    
         return;
       }
       resetLoginInput();

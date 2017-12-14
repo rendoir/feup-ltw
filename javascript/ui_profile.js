@@ -213,6 +213,8 @@ function init() {
   changePasswordHandler();
   clearErrorFlagsOnInput();
   clearErrorFlagsOnForm();
+
+    document.body.style.backgroundImage = 'none';
 }
 
 init();
