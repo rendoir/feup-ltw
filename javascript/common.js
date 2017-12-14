@@ -12,12 +12,20 @@ function encodeForAjax(data) {
   }).join('&');
 }
 
+function resizeBody() {
+  document.body.style.height = window.innerHeight + "px";
+}
+
 function hide(element) {
   element.style.display = "none";
 }
 
 function displayFlex(element) {
   element.style.display = "flex";
+}
+
+function displayBlock(element) {
+  element.style.display = "block";
 }
 
 function onError(element, msg) {

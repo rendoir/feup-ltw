@@ -214,6 +214,7 @@ function init() {
   clearErrorFlagsOnInput();
   clearErrorFlagsOnForm();
 
+  resizeBody();
 }
 
 init();

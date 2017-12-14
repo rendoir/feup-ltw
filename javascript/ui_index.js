@@ -114,7 +114,7 @@ function selectLoginHandler() {
   let login_button = getLoginButton();
   login_button.addEventListener('click', function(event) {
     hide(getRegister());
-    displayFlex(getLogin());
+    displayBlock(getLogin());
   });
 }
 
@@ -122,7 +122,7 @@ function selectRegisterHandler() {
   let register_button = getRegisterButton();
   register_button.addEventListener('click', function(event) {
     hide(getLogin());
-    displayFlex(getRegister());
+    displayBlock(getRegister());
   });
 }
 
@@ -138,7 +138,7 @@ function loginHandler() {
       let response = JSON.parse(this.responseText);
       if(response) {
         window.location.replace('../php/user.php');
-    
+
         return;
       }
       resetLoginInput();
@@ -181,6 +181,8 @@ function init() {
   loginHandler();
   registerHandler();
   clearErrorFlagsOnInput();
+
+  resizeBody();
 }
 
 init();
