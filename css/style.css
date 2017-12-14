@@ -356,7 +356,7 @@ input[type="submit"]{
 }
 
 #task_section{
-  z-index: 1;
+  font-size:20px;
   padding: 1em;
   grid-area:todo_section;
 }
