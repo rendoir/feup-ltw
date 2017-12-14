@@ -1037,7 +1037,7 @@ function init() {
   cancelTaskFormHandler();
   assignUserHandler();
 
-  document.body.style.backgroundImage = 'none';
+
 }
 
 init();

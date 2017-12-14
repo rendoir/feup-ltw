@@ -214,7 +214,6 @@ function init() {
   clearErrorFlagsOnInput();
   clearErrorFlagsOnForm();
 
-    document.body.style.backgroundImage = 'none';
 }
 
 init();

@@ -24,7 +24,7 @@ body {
 body > header {
   border-style: solid;
   border-width: 0 0 7px 0;
-  border-color: rgba(0, 0, 0, 0.9);
+  border-color: rgba(0, 0, 0, 0.8);
   grid-area:header;
   display: flex;
   align-items: flex-start;
@@ -34,12 +34,12 @@ body > header {
 
 header img {
   width: 60px;
-  opacity: 0.90;
+  opacity: 0.80;
 }
 
 header h1{
   margin:  0;
-  opacity: 0.90;
+  opacity: 0.80;
 }
 
 header a {
@@ -136,7 +136,7 @@ footer {
   border-radius: 25px;
   padding: 1em 2em;
   margin: 1em 2em;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: space-between;
 }
@@ -163,6 +163,10 @@ footer {
   margin:1em 2em;
   height: 70vh;
   font-size:20px;
+  padding: 2em 1em;
+  background-color: Gainsboro;
+  opacity: 0.90;
+  border-radius: 20px;
 }
 
 .project{
@@ -286,9 +290,13 @@ input[type="submit"]{
 /* TODO SECTION */
 
 #todo_section{
-  padding: 1em;
   grid-area:todo_section;
   font-size:20px;
+  margin:1em 2em 1em 0;
+  padding: 2em 1em;
+  background-color: Gainsboro;
+  opacity: 0.90;
+  border-radius: 20px;
 }
 
 #todo_list{
@@ -357,8 +365,12 @@ input[type="submit"]{
 
 #task_section{
   font-size:20px;
-  padding: 1em;
   grid-area:todo_section;
+  margin:1em 2em 1em 0;
+  padding: 2em 1em;
+  background-color: Gainsboro;
+  opacity: 0.90;
+  border-radius: 20px;
 }
 
 #task_list{
@@ -367,13 +379,13 @@ input[type="submit"]{
 }
 
 .task{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px grey solid;
-  padding: 0.5em 1em;
-  margin:1em;
+    display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   border: 1px grey solid;
+   padding: 0.5em 1em;
+   margin:1em;
 }
 
 
@@ -413,11 +425,31 @@ input[type="submit"]{
 
 /* profile.php */
 
+#profile_form{
+  grid-area:user_header;
+  border:none;
+  padding: 0 1em;
+  border-radius: 25px;
+  margin: 1em;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+#profile_form p {
+  color: white;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 25px;
+}
+
 #profile_section{
+  font-size: 20px;
+  grid-area: todo_section;
   display:flex;
   flex-direction: column;
-  margin-top: 2em;
-  margin-left: 2em;
+  margin:1em 2em 1em 0;
+  padding: 1em;
+  background-color: Gainsboro;
+  opacity: 0.90;
+  border-radius: 20px;
 }
 
 #user_label, #name_label, #email_label, #birth_label{
@@ -425,10 +457,6 @@ input[type="submit"]{
   font-variant-caps:all-small-caps;
 }
 
-#profile_section div {
-  padding: 0.7em;
-
-}
 
 #username{
   font-size: 2.5em;
@@ -436,105 +464,50 @@ input[type="submit"]{
   font-weight: bold;
 }
 
-
-
-#profile_section_picture label{
-  margin-left: 5.5em;
+#profile_section_picture{
+  grid-area:project_section;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
 }
 
 #profile_section_picture img{
-  margin-top: 2em;
+  align-self: center;
+}
+
+#profile_section_picture label{
+  font-size: 1.5em;
+  align-self: center;
 }
 
 input[type='file'] {
   visibility: hidden;
 }
 
-#profile_form{
-  padding-left :1em;
+
+#profile_section label {
+  display:flex;
+  font-variant-caps:all-small-caps;
+  font-weight: bold;
+  font-size:1.2em;
+}
+
+#profile_user{
   font-size: 2.5em;
   font-variant-caps:all-small-caps;
   font-weight: bold;
 }
 
-#form_section2{
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  border-bottom: 5px solid black;
-}
-
-#profile_form2{
-  -padding-right: 1em;
-  font-size: 3em;
-  font-variant-caps:all-small-caps;
-  font-weight: bold;
-}
-
-#profile_section button{
+#profile_section input[type="button"] {
   border: 2px solid black;
   background-color: white;
-  margin-left:27em;
   padding:0.5em 1.5em;
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-weight: bold;
   font-size: 1.1em;
-  margin-bottom: 2em;
+  margin: 1em;
 }
 
-#profile_section button:hover{
+#profile_section input[type="button"]:hover{
   font-weight: lighter;
-}
-
-#profile_section button:focus{
-  outline: none;
-}
-/* Edit Profile Section  */
-
-#edit_profile_section{
-  display:flex;
-  align-items: center;
-  padding: 3em 1em;
-}
-
-#edit_profile_section div{
-  padding:1em;
-}
-
-#edit_profile_section span {
-  display:flex;
-  font-variant-caps:all-small-caps;
-  font-weight: bold;
-  padding-right: 1em;
-  font-size:1.2em;
-}
-
-#edit_profile_section input {
-  border: none;
-  border-bottom: 2px solid black;
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  font-size: 1.2em;
-}
-
-#edit_profile_section input[type="submit"] {
-  border: 2px solid black;
-  background-color: white;
-  margin-left: 20em;
-  padding:0.5em;
-}
-
-#edit_profile_section input[type="submit"]:hover{
-  font-weight: lighter;
-}
-
-#edit_picture{
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-right: 1em;
-}
-
-#select_label{
-  padding: 1em;
 }

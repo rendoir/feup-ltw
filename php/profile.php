@@ -42,7 +42,7 @@ include_once('../html/header.html');
 
 
 <body>
-  <h1 id="profile_form">Profile Page</h1>
+  <section id="profile_form">  <p>Profile Page</p></section>
 
   <section id="profile_section_picture">
     <?php
