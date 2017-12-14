@@ -62,6 +62,10 @@ function validInput(input) {
 
 
 /*Element getters/setters*/
+function getSection() {
+  return document.getElementById("user");
+}
+
 function getLoginButton() {
   return document.getElementById("change_to_login");
 }
@@ -114,6 +118,7 @@ function selectLoginHandler() {
   let login_button = getLoginButton();
   login_button.addEventListener('click', function(event) {
     hide(getRegister());
+    getSection().style.height = 15 + "em";
     displayBlock(getLogin());
   });
 }
@@ -122,6 +127,7 @@ function selectRegisterHandler() {
   let register_button = getRegisterButton();
   register_button.addEventListener('click', function(event) {
     hide(getLogin());
+    getSection().style.height = 30 + "em";
     displayBlock(getRegister());
   });
 }
