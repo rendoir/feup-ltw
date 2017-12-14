@@ -1,13 +1,18 @@
 # FEUP-LTW
 
-### Setup:
+### Credits - Group 62
+Daniel Pereira Machado
+Daniel Filipe Santos Marques
+Sofia Catarina Bahamonde Alves
+
+### Setup
 1. Install PHP 7.1.11+
 2. (Optional) Add the installation directory to your PATH environment variable.
 3. Copy **php.ini** from **config** to your PHP path.
 4. Rename **presentation.db** to **todo.db**
 5. Rename **presentation** folder to **profiles**
 
-### Run:
+### Run
 1. Host a PHP server with the command **php -S localhost:8000** in your project path.
 2. In your browser, access it through **localhost:8000/index.php**
 
@@ -27,3 +32,6 @@ ESOF:timon:[timon]
 #### Invites Pending (Username:Project)
 oco:ESOF
 sid:ESOF
+
+### External libraries (Name - Usage)
+FontAwesome - Icons
