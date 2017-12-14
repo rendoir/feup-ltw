@@ -1,9 +1,9 @@
 # FEUP-LTW
 
 ### Credits - Group 62
-Daniel Pereira Machado
-Daniel Filipe Santos Marques
-Sofia Catarina Bahamonde Alves
+Daniel Pereira Machado  
+Daniel Filipe Santos Marques  
+Sofia Catarina Bahamonde Alves  
 
 ### Setup
 1. Install PHP 7.1.11+
@@ -18,20 +18,20 @@ Sofia Catarina Bahamonde Alves
 
 ### Database - Initial values
 #### Logins (Username:Password)
-timon:HakunaMatata198
-frango:JamesFrango7
-bayard:Candy4you
-oco:Vazio000
-sid:rETARD123
-alternativa:1Pass_fixe
+timon:HakunaMatata198  
+frango:JamesFrango7  
+bayard:Candy4you  
+oco:Vazio000  
+sid:rETARD123  
+alternativa:1Pass_fixe  
 
 #### Projects (Title:ProjectManager:[Contributers])
-LTW:timon:[timon, frango, alternativa]
-ESOF:timon:[timon]
+LTW:timon:[timon, frango, alternativa]  
+ESOF:timon:[timon]  
 
 #### Invites Pending (Username:Project)
-oco:ESOF
-sid:ESOF
+oco:ESOF  
+sid:ESOF  
 
 ### External libraries (Name - Usage)
-FontAwesome - Icons
+FontAwesome - Icons  
