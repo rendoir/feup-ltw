@@ -358,7 +358,7 @@ input[type="submit"]{
   font-weight: lighter;
 }
 
-.todo:hover{
+.todo_title:hover{
   font-weight: bold;
   cursor:default;
 }
@@ -386,6 +386,10 @@ input[type="submit"]{
    border: 1px grey solid;
    padding: 0.5em 1em;
    margin:1em;
+}
+
+.task_user a:link, .task_user a:visited {
+  color: black;
 }
 
 
