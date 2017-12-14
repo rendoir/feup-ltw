@@ -149,7 +149,7 @@ footer {
   font-size: 25px;
 }
 
-.user_header a::first-letter{
+.user_header a:last-child::first-letter{
   text-transform: capitalize;
 }
 
