@@ -226,10 +226,10 @@ footer {
   right: 0px;
   left: 0px;
   top: 10em;
-  bottom: -10em;
+  bottom: 5em;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: Gainsboro;
   text-align: center;
 }
 
@@ -296,22 +296,24 @@ input[type="submit"]{
   padding: 2em 1em;
   background-color: Gainsboro;
   border-radius: 20px;
+  opacity: 0.9;
 }
 
 #todo_list{
   display: grid;
   padding: 0em;
   grid-template-columns: 2fr 2fr 2fr;
-  grid-template-rows: 3fr 3fr;
+  grid-template-rows: 3fr;
 }
 
 .todo{
   display:flex;
   flex-direction: column;
   text-align: center;
-  border: 1px grey solid;
+  border: 3px grey solid;
   padding: 1em;
   margin: 1em;
+  border-radius: 10px;
 
 }
 
@@ -328,7 +330,7 @@ input[type="submit"]{
 
 #create_todo_color{
   background-color: transparent;
-  border-color:white;
+  border-color:Gainsboro;
   width:5em;
   margin-bottom: 1em;
 }
@@ -338,6 +340,7 @@ input[type="submit"]{
   flex-direction: row;
   text-align: left;
   align-items: center;
+  margin-top: 1em;
 }
 
 #invitation {
@@ -369,6 +372,7 @@ input[type="submit"]{
   padding: 2em 1em;
   background-color: Gainsboro;
   border-radius: 20px;
+  opacity: 0.9;
 }
 
 #task_list{
@@ -381,9 +385,10 @@ input[type="submit"]{
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
-   border: 1px grey solid;
+   border: 3px grey solid;
    padding: 0.5em 1em;
    margin:1em;
+   border-radius: 10px;
 }
 
 .task_user a:link, .task_user a:visited {
@@ -420,7 +425,7 @@ input[type="submit"]{
 }
 
 #todo_section i{
-  margin: 0 0.5em;
+  -margin: 0 0.5em;
   font-size: 20px;
 }
 
