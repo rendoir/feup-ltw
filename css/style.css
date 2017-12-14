@@ -165,7 +165,6 @@ footer {
   font-size:20px;
   padding: 2em 1em;
   background-color: Gainsboro;
-  opacity: 0.90;
   border-radius: 20px;
 }
 
@@ -221,6 +220,7 @@ footer {
 #create_project_form, #create_todo_form,
 #invite_user_form, #create_task_form,
  #change_password_form, #assign_user_form{
+   opacity: 1;
   position: absolute;
   z-index: 5;
   right: 0px;
@@ -271,7 +271,7 @@ footer {
 
 .user_form input {
   font-family: 'Barlow Semi Condensed', sans-serif;
-  z-index: 2;
+  z-index: 6;
   background-color: white;
   opacity: 1;
 }
@@ -295,7 +295,6 @@ input[type="submit"]{
   margin:1em 2em 1em 0;
   padding: 2em 1em;
   background-color: Gainsboro;
-  opacity: 0.90;
   border-radius: 20px;
 }
 
@@ -369,7 +368,6 @@ input[type="submit"]{
   margin:1em 2em 1em 0;
   padding: 2em 1em;
   background-color: Gainsboro;
-  opacity: 0.90;
   border-radius: 20px;
 }
 
@@ -452,7 +450,6 @@ input[type="submit"]{
   margin:1em 2em 1em 0;
   padding: 1em;
   background-color: Gainsboro;
-  opacity: 0.90;
   border-radius: 20px;
 }
 
