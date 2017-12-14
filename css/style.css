@@ -50,6 +50,7 @@ header a {
 }
 
 #user {
+  height: 15em;
   border-radius: 25px;
   grid-area:project_section;
   padding: 1em 2em 1em 2em;
@@ -148,7 +149,7 @@ footer {
   font-size: 25px;
 }
 
-.user_header a::first-letter{
+.user_header a:last-child::first-letter{
   text-transform: capitalize;
 }
 
